@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const DonorSchema = new mongoose.Schema({
   name: {
@@ -16,7 +16,7 @@ const DonorSchema = new mongoose.Schema({
   },
 
   // donatedTo: [{
-  //    type: mongoose.Schema.Types.ObjectId,
+  //   type: mongoose.Schema.Types.ObjectId,
   //   ref: 'Campaign'
   // }],
 
@@ -26,4 +26,4 @@ const DonorSchema = new mongoose.Schema({
   },
 });
 
-export const Donor = mongoose.model("Donor", DonorSchema);
+exports.Donor = mongoose.model("Donor", DonorSchema);

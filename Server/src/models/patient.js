@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const PatientSchema = new mongoose.Schema(
   {
@@ -16,9 +16,8 @@ const PatientSchema = new mongoose.Schema(
       required: true,
     },
   }
-
   // hospital id
   // campaign id
 );
 
-export const Patient = mongoose.model("Patient", PatientSchema);
+exports.Patient = mongoose.model("Patient", PatientSchema);

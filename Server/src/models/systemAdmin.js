@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const SystemAdminSchema = new mongoose.Schema({
   email: {
@@ -13,4 +13,4 @@ const SystemAdminSchema = new mongoose.Schema({
   },
 });
 
-export const SystemAdmin = mongoose.model("SystemAdmin", SystemAdminSchema);
+exports.SystemAdmin = mongoose.model("SystemAdmin", SystemAdminSchema);

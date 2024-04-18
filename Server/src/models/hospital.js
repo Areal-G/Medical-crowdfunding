@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const HospitalSchema = new mongoose.Schema({
   email: {
@@ -12,7 +12,7 @@ const HospitalSchema = new mongoose.Schema({
     required: true,
   },
 
-  //  name
+  // name
 });
 
-export const Hospital = mongoose.model("Hospital", HospitalSchema);
+exports.Hospital = mongoose.model("Hospital", HospitalSchema);
