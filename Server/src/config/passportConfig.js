@@ -1,98 +1,131 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-//const Donor = require('../models/donor');
-//const Patient = require('../models/patient');
+
 const tryd = require('../models/try');
+const hospital = require('../models/hospital');
+const patient = require('../models/patient');
+const donor = require('../models/donor');
+const systemAdmin = require('../models/systemAdmin');
+
+//patient
 
 passport.use(
-  new LocalStrategy(async function (username, password, done) {
-    try {
-      const user = await tryd.findOne({ username: username });
-      if (!user) {
-        return done(null, false, { message: 'Invalid username' });
+  'patient-local',
+  new LocalStrategy(
+    {
+      usernameField: 'email',
+    },
+    async (email, password, done) => {
+      try {
+        const user = await patient.findOne({ email: email });
+        if (!user) {
+          return done(null, false, { message: 'Invalid email' });
+        }
+        if (user.password !== password) {
+          return done(null, false, { message: 'Invalid password' });
+        }
+        return done(null, user);
+      } catch (err) {
+        return done(err);
       }
-      if (user.password !== password) {
-        return done(null, false, { message: 'Invalid password' });
-      }
-      return done(null, user);
-    } catch (err) {
-      return done(err);
     }
-  })
+  )
+);
+
+// hospital
+
+passport.use(
+  'hospital-local',
+  new LocalStrategy(
+    {
+      usernameField: 'email',
+    },
+    async (email, password, done) => {
+      try {
+        const user = await hospital.findOne({ email: email });
+        if (!user) {
+          return done(null, false, { message: 'Invalid email' });
+        }
+        if (user.password !== password) {
+          return done(null, false, { message: 'Invalid password' });
+        }
+        return done(null, user);
+      } catch (err) {
+        return done(err);
+      }
+    }
+  )
+);
+
+//donor
+passport.use(
+  'donor-local',
+  new LocalStrategy(
+    {
+      usernameField: 'email',
+    },
+    async (email, password, done) => {
+      try {
+        const user = await donor.findOne({ email: email });
+        if (!user) {
+          return done(null, false, { message: 'Invalid email' });
+        }
+        if (user.password !== password) {
+          return done(null, false, { message: 'Invalid password' });
+        }
+        return done(null, user);
+      } catch (err) {
+        return done(err);
+      }
+    }
+  )
+);
+
+passport.use(
+  'systemAdmin-local',
+  new LocalStrategy(
+    {
+      usernameField: 'email',
+    },
+    async (email, password, done) => {
+      try {
+        const user = await systemAdmin.findOne({ email: email });
+        if (!user) {
+          return done(null, false, { message: 'Invalid email' });
+        }
+        if (user.password !== password) {
+          return done(null, false, { message: 'Invalid password' });
+        }
+        return done(null, user);
+      } catch (err) {
+        return done(err);
+      }
+    }
+  )
 );
 
 // Serialize the user object into the session
-passport.serializeUser(function (user, done) {
+passport.serializeUser(async function (user, done) {
+  // const usermodel = await tryd.findOne({ username: user });
+  console.log(`inside ${user.email} and ${user._id}`);
   done(null, user.id);
 });
 
 // Deserialize the user object from the session
 passport.deserializeUser(function (id, done) {
+  ////////// insert role then find by role
   tryd.findById(id, function (err, user) {
+    console.log('Deserialized user ID:', id);
     if (err) {
       console.error('Error deserializing user:', err);
       return done(err);
     }
     done(null, user);
   });
+  console.log(id);
 });
+
 module.exports = passport;
-
-// passport.use(
-//   'donor-local',
-//   new LocalStrategy(
-//     {
-//       usernameField: 'email',
-//     },
-//     async (email, password, done) => {
-//       try {
-//         const donor = await Donor.findOne({ email });
-
-//         if (!donor) {
-//           return done(null, false, { message: 'Incorrect email or password.' });
-//         }
-
-//         const isPasswordValid = await donor.verifyPassword(password);
-
-//         if (!isPasswordValid) {
-//           return done(null, false, { message: 'Incorrect email or password.' });
-//         }
-
-//         return done(null, donor);
-//       } catch (error) {
-//         return done(error);
-//       }
-//     }
-//   )
-// );
-
-// passport.use(
-//   'patient-local',
-//   new LocalStrategy(
-//     {
-//       usernameField: 'email',
-//     },
-//     async (email, password, done) => {
-//       try {
-//         const patient = await Patient.findOne({ email });
-
-//         if (!patient) {
-//           return done(null, false, { message: 'Incorrect email or password.' });
-//         }
-
-//         const isPasswordValid = await patient.verifyPassword(password);
-
-//         if (!isPasswordValid) {
-//           return done(null, false, { message: 'Incorrect email or password.' });
-//         }
-
-//         return done(null, patient);
-//       } catch (error) {
-//         return done(error);
-//       }
-//     }
-//   )
-// );
 
 // passport.serializeUser((user, done) => {
 //   done(null, { id: user.id, role: user.role }); // Saving user ID and role in the session

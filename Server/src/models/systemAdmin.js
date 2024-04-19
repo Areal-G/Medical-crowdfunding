@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const SystemAdminSchema = new mongoose.Schema({
   email: {
@@ -13,4 +13,6 @@ const SystemAdminSchema = new mongoose.Schema({
   },
 });
 
-exports.SystemAdmin = mongoose.model("SystemAdmin", SystemAdminSchema);
+const SystemAdmin = mongoose.model('SystemAdmin', SystemAdminSchema);
+
+module.exports = SystemAdmin;

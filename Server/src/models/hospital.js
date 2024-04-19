@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const HospitalSchema = new mongoose.Schema({
   email: {
@@ -15,4 +15,6 @@ const HospitalSchema = new mongoose.Schema({
   // name
 });
 
-exports.Hospital = mongoose.model("Hospital", HospitalSchema);
+const Hospital = mongoose.model('Hospital', HospitalSchema);
+
+module.exports = Hospital;

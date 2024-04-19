@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const PatientSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
+    // name: {
+    //   type: String,
+    //   required: true,
+    // },
     email: {
       type: String,
       required: true,
@@ -20,4 +20,6 @@ const PatientSchema = new mongoose.Schema(
   // campaign id
 );
 
-exports.Patient = mongoose.model("Patient", PatientSchema);
+const Patient = mongoose.model('Patient', PatientSchema);
+
+module.exports = Patient;

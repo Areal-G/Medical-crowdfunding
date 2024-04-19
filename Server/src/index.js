@@ -6,8 +6,14 @@ const { PORT, DB_URI, SESSION_SECRET } = require('./config.js');
 const session = require('express-session');
 const passport = require('passport');
 const MongoStore = require('connect-mongo');
+const Hospital = require('./models/hospital.js');
+const patient = require('./models/patient.js');
 
 const app = express();
+
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Set up session
 app.use(
@@ -22,18 +28,11 @@ app.use(
 );
 app.use((req, res, next) => {
   console.log(`Received ${req.method} request at ${req.originalUrl}`);
+  console.log('Full request:', req.session.passport.user);
   next();
 });
-app.use(cors());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
 app.use('/', routes);
-
-app.get('/hi', (req, res) => {
-  console.log("Hi, it's me");
-  res.send("Hi, it's me");
-});
 
 mongoose
   .connect(DB_URI)
@@ -65,14 +64,12 @@ app.use(passport.session());
 
 //findCustomer();
 
-// const trryd = new tryd({
-//   username: 'John Doe',
-//   password: 'addd',
-//   // Set other fields as needed
+// const tr = new patient({
+//   email: 'patient1@gmail.com',
+//   password: 'patient1',
 // });
 
-// trryd
-//   .save()
+// tr.save()
 //   .then(() => {
 //     console.log('Customer saved successfully');
 //   })
