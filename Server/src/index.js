@@ -6,9 +6,20 @@ const { PORT, DB_URI, SESSION_SECRET } = require('./config.js');
 const session = require('express-session');
 const passport = require('passport');
 const MongoStore = require('connect-mongo');
-const tryd = require('./models/try.js');
 
 const app = express();
+
+// Set up session
+app.use(
+  session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+      mongoUrl: DB_URI,
+    }),
+  })
+);
 app.use((req, res, next) => {
   console.log(`Received ${req.method} request at ${req.originalUrl}`);
   next();
@@ -27,19 +38,7 @@ app.get('/hi', (req, res) => {
 mongoose
   .connect(DB_URI)
   .then(() => console.log('Connected to Database'))
-  .catch((err) => console.log(`Error: ${err}`));
-
-// Set up session
-app.use(
-  session({
-    secret: SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({
-      mongoUrl: DB_URI,
-    }),
-  })
-);
+  .catch((err) => console.log(`Errormongoose: ${err}`));
 
 // Initialize Passport.js
 app.use(passport.initialize());

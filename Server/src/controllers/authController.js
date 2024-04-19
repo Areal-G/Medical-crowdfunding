@@ -1,5 +1,5 @@
 const passport = require('passport');
-const configuredPassport = require('../config/passport');
+const passportConfig = require('../config/passportConfig');
 
 // exports.Login = (req, res, next) => {
 //   configuredPassport.authenticate('local', {
@@ -9,20 +9,22 @@ const configuredPassport = require('../config/passport');
 // };
 
 exports.Login = (req, res, next) => {
-  configuredPassport.authenticate('local', function (err, user, info) {
+  passport.authenticate('local', function (err, user, info) {
     if (err) {
-      console.log('Error:', err);
-      return next(err);
+      console.error('Error during authentication:', err);
+      return next(err); // Handle error appropriately
     }
     if (!user) {
-      console.log('Authentication failed');
-      // You may want to send an appropriate response to the client for failed authentication
+      console.log('Authentication failed:', info.message);
       return res.status(401).send('Authentication failed');
-    } else {
-      console.log('Authentication successful');
-      // You may want to send an appropriate response to the client for successful authentication
-      return res.status(200).send('Authentication successful');
     }
+    req.logIn(user, function (err) {
+      if (err) {
+        return next(err);
+      }
+      console.log('Authentication successful');
+      return res.status(200).send('Authentication successful');
+    });
   })(req, res, next);
 };
 

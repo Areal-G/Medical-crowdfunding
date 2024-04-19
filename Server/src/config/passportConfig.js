@@ -1,11 +1,8 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-//const { Customer } = require('../index');
 //const Donor = require('../models/donor');
 //const Patient = require('../models/patient');
 const tryd = require('../models/try');
-
-//console.log(Customer);
 
 passport.use(
   new LocalStrategy(async function (username, password, done) {
@@ -23,32 +20,24 @@ passport.use(
     }
   })
 );
-// try {
-//     const finduser = Customer.find(( user) => user.username === username);
-//     if (!finduser)
-//         throw new Error('user not found');
-//     if (finduser.password !== password)
-//         throw new Error('invalid password');
-//     done(null, finduser);
 
-// } catch (err) {
-//     done(err,null)
-// }
+// Serialize the user object into the session
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
 
-// Customer.findOne({ username: username }, function (err, user) {
-//   if (err) {
-//     return done(err);
-//   }
-//   if (!user) {
-//     return done(null, false);
-//   }
-//   if (!user.verifyPassword(password)) {
-//     return done(null, false);
-//   }
-//   return done(null, user);
-// });
-
+// Deserialize the user object from the session
+passport.deserializeUser(function (id, done) {
+  tryd.findById(id, function (err, user) {
+    if (err) {
+      console.error('Error deserializing user:', err);
+      return done(err);
+    }
+    done(null, user);
+  });
+});
 module.exports = passport;
+
 // passport.use(
 //   'donor-local',
 //   new LocalStrategy(
