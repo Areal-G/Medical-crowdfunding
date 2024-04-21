@@ -1,6 +1,5 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-
 const tryd = require('../models/try');
 const hospital = require('../models/hospital');
 const patient = require('../models/patient');
