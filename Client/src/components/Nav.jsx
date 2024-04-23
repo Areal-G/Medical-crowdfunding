@@ -2,6 +2,7 @@ import logo from "../assets/img/logo.svg";
 import { useState } from "react";
 import et from "../assets/img/et.svg";
 import en from "../assets/img/en.svg";
+import avatar from "../assets/img/avatar.png";
 
 const Nav = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -22,24 +23,25 @@ const Nav = () => {
     setIsChecked(!isChecked);
   };
   return (
-    <nav className="border-gray-200 bg-white dark:bg-gray-900">
-      <div className="mx-auto flex max-w-screen-2xl flex-wrap items-center justify-between p-4 lg:text-lg">
-        <a
-          href=""
-          className="ml-3 flex items-center space-x-3 rtl:space-x-reverse"
-        >
-          <img src={logo} className="h-12" alt="Logo" />
+    <nav className=" rounded-md shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] dark:bg-gray-900">
+      <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4 lg:text-lg">
+        <a href="" className=" flex items-center space-x-3 rtl:space-x-reverse">
+          <img src={logo} className="h-12 " alt="Logo" />
         </a>
         <div className=" relative flex items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
           <button
             type="button"
             onClick={toggleProfileMenu}
-            className="flex rounded-full bg-gray-800 text-sm focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 md:me-0"
+            className="flex h-8 w-8 overflow-hidden rounded-full bg-gray-800 text-sm focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 md:me-0"
             id="user-menu-button"
             data-dropdown-toggle="user-dropdown"
             data-dropdown-placement="bottom"
           >
-            <img className="h-8 w-8 rounded-full" src="" alt="user photo" />
+            <img
+              className=" h-full w-full object-cover"
+              src={avatar}
+              alt="user photo"
+            />
           </button>
           {/* // Dropdown menu */}
 
@@ -150,7 +152,7 @@ const Nav = () => {
             <li className="">
               {/* //toggle */}
 
-              <label className="inline-flex cursor-pointer items-center lg:ml-12 ">
+              <label className="inline-flex cursor-pointer items-center lg:ml-32 ">
                 <div className="mr-2 h-6 w-6">
                   <img className="h-full w-full rounded-full" src={et} alt="" />
                 </div>
