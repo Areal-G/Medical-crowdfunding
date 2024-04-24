@@ -1,6 +1,5 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const tryd = require('../models/try');
 const hospital = require('../models/hospital');
 const patient = require('../models/patient');
 const donor = require('../models/donor');
@@ -103,26 +102,38 @@ passport.use(
   )
 );
 
-// Serialize the user object into the session
 passport.serializeUser(async function (user, done) {
-  // const usermodel = await tryd.findOne({ username: user });
-  console.log(`inside ${user.email} and ${user._id}`);
+  console.log(` full user in serializer ${user}`);
+  console.log(`inside serializer ${user.email} and ${user._id}`);
   done(null, user.id);
+  // need to insert role in the model
 });
 
-// Deserialize the user object from the session
-passport.deserializeUser(function (id, done) {
-  ////////// insert role then find by role
-  tryd.findById(id, function (err, user) {
-    console.log('Deserialized user ID:', id);
-    if (err) {
-      console.error('Error deserializing user:', err);
-      return done(err);
-    }
+// idk if deserializer works or not but the console log dosnt log
+passport.deserializeUser(async function (id, done) {
+  console.log(`inside deserializer  ${id}`);
+  try {
+    const user = await hospital.findById(id);
     done(null, user);
-  });
-  console.log(id);
+    console.log(` inside desirializer 2 ${id}`);
+  } catch (err) {
+    done(err);
+  }
 });
+// passport.deserializeUser(function (id, done) {
+//   ////////// insert role then find by role
+
+//   hospital.findById(id, function (err, user)
+//   {
+//     console.log('Deserialized user ID:', id);
+//     if (err) {
+//       console.error('Error deserializing user:', err);
+//       return done(err);
+//     }
+//     done(null, user);
+//   });
+//   console.log(id);
+// });
 
 module.exports = passport;
 

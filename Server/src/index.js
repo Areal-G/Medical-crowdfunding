@@ -28,11 +28,11 @@ app.use(
 );
 app.use((req, res, next) => {
   console.log(`Received ${req.method} request at ${req.originalUrl}`);
-  console.log('Full request:', req.session.passport.user);
+  console.log('Full request:', req.session.passport);
   next();
 });
 
-app.use('/', routes);
+app.use('/api', routes);
 
 mongoose
   .connect(DB_URI)
