@@ -8,11 +8,24 @@ const DonorSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    lowercase: true,
     unique: true,
   },
   password: {
     type: String,
     required: true,
+  },
+  phoneNumber: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    default: 'donor',
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 
   // donatedTo: [{
