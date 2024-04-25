@@ -6,6 +6,7 @@ import Nav from "./components/Nav";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import ContactUs from "./components/ContactUs";
+import Campaign from "./pages/donor/Campaign";
 
 function App() {
   return (
@@ -15,11 +16,13 @@ function App() {
       {/* <SignUp />
       <SignIn /> */}
 
-      <Main />
+      {/* <Main />
       <CampaignComp />
       <About />
       <ContactUs />
-      <Footer />
+      <Footer /> */}
+
+      <Campaign />
     </>
   );
 }
