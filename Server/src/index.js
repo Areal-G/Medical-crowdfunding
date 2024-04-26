@@ -6,12 +6,23 @@ const { PORT, DB_URI, SESSION_SECRET } = require('./config.js');
 const session = require('express-session');
 const passport = require('passport');
 const MongoStore = require('connect-mongo');
-const Hospital = require('./models/hospital.js');
-const patient = require('./models/patient.js');
 
 const app = express();
+// cors and under that are for the api cookies working
+app.use(
+  cors()
+  //   {
+  //   origin: 'http://localhost:5175',
+  //   credentials: true,
+  // }
+);
 
-app.use(cors());
+// app.use((req, res, next) => {
+//   const requestOrigin = req.headers.origin;
+//   res.setHeader('Access-Control-Allow-Origin', requestOrigin);
+//   res.setHeader('Access-Control-Allow-Credentials', 'true');
+//   next();
+// });
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -28,9 +39,14 @@ app.use(
 );
 app.use((req, res, next) => {
   console.log(`Received ${req.method} request at ${req.originalUrl}`);
-  console.log('Full request:', req.session.passport);
+  console.log('Full request:');
+  console.log('Full request:', req.session);
+  // console.log('res', res.session);
   next();
 });
+// Initialize Passport.js
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/api', routes);
 
@@ -38,49 +54,6 @@ mongoose
   .connect(DB_URI)
   .then(() => console.log('Connected to Database'))
   .catch((err) => console.log(`Errormongoose: ${err}`));
-
-// Initialize Passport.js
-app.use(passport.initialize());
-app.use(passport.session());
-
-// const schema = new mongoose.Schema({
-//   username: { type: String },
-//   password: { type: String },
-// });
-
-// customerSchema.methods.verifyPassword = async function (password) {
-//   try {
-//     return await bcrypt.compare(password, this.password);
-//   } catch (error) {
-//     throw new Error(error);
-//   }
-// };
-
-// customerSchema.methods.verifyPassword = function (password) {
-//   return this.password === password;
-// };
-
-// const Customer = mongoose.model('Customer', schema);
-
-//findCustomer();
-
-// const tr = new patient({
-//   email: 'patient1@gmail.com',
-//   password: 'patient1',
-// });
-
-// tr.save()
-//   .then(() => {
-//     console.log('Customer saved successfully');
-//   })
-//   .catch((err) => {
-//     console.error('Error saving customer:', err);
-//   });
-
-// async function findCustomer() {
-//   const customer = await Customer.findOne({ username: 'areal' }).exec();
-//   console.log('Customer:', customer);
-// }
 
 app.listen(PORT, () => {
   console.log(`Running on Port ${PORT}`);

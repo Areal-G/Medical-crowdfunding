@@ -79,6 +79,8 @@ passport.use(
   )
 );
 
+// system admin
+
 passport.use(
   'systemAdmin-local',
   new LocalStrategy(
@@ -103,56 +105,39 @@ passport.use(
 );
 
 passport.serializeUser(async function (user, done) {
-  console.log(` full user in serializer ${user}`);
-  console.log(`inside serializer ${user.email} and ${user._id}`);
-  done(null, user.id);
-  // need to insert role in the model
+  console.log(`full user in serializer ${user}`);
+
+  // Serialize both the ID and email properties
+  const serializedUser = {
+    id: user._id,
+    role: user.role,
+  };
+
+  done(null, serializedUser);
 });
 
-// idk if deserializer works or not but the console log dosnt log
-passport.deserializeUser(async function (id, done) {
-  console.log(`inside deserializer  ${id}`);
+passport.deserializeUser(async function (serializedUser, done) {
   try {
-    const user = await hospital.findById(id);
+    let user;
+    if (serializedUser.role === 'patient') {
+      user = await patient.findById(serializedUser.id);
+    } else if (serializedUser.role === 'hospital') {
+      user = await hospital.findById(serializedUser.id);
+    } else if (serializedUser.role === 'donor') {
+      user = await donor.findById(serializedUser.id);
+    } else if (serializedUser.role === 'systemAdmin') {
+      user = await systemAdmin.findById(serializedUser.id);
+    }
+
+    // If the user is not found, handle the case appropriately
+    if (!user) {
+      return done(null, false, { message: 'User not found' });
+    }
+
     done(null, user);
-    console.log(` inside desirializer 2 ${id}`);
-  } catch (err) {
-    done(err);
+  } catch (error) {
+    done(error);
   }
 });
-// passport.deserializeUser(function (id, done) {
-//   ////////// insert role then find by role
-
-//   hospital.findById(id, function (err, user)
-//   {
-//     console.log('Deserialized user ID:', id);
-//     if (err) {
-//       console.error('Error deserializing user:', err);
-//       return done(err);
-//     }
-//     done(null, user);
-//   });
-//   console.log(id);
-// });
 
 module.exports = passport;
-
-// passport.serializeUser((user, done) => {
-//   done(null, { id: user.id, role: user.role }); // Saving user ID and role in the session
-// });
-
-// passport.deserializeUser(async ({ id, role }, done) => {
-//   try {
-//     let user;
-
-//     if (role === 'donor') {
-//       user = await Donor.findById(id);
-//     } else if (role === 'patient') {
-//       user = await Patient.findById(id);
-//     }
-
-//     done(null, user);
-//   } catch (error) {
-//     done(error);
-//   }
-// });

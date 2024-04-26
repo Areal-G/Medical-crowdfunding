@@ -9,9 +9,9 @@ router.post(
   // passport to auth controller
 );
 
-router.get('/hi', (req, res) => {
-  console.log("Hi, it's me");
-  res.send("Hi, it's me");
+router.get('/hi', async (req, res) => {
+  console.log('req.user', req.user);
+  res.send(req.user?.role);
 });
 
 router.post(
