@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import e from "../assets/img/e.jpeg";
+import e from "../../assets/img/donor/e.jpeg";
 const CampaignCard = () => {
   return (
     <Link to={"/campaign"}>

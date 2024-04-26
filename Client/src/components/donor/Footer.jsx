@@ -1,4 +1,4 @@
-import logo from "../assets/img/logo.svg";
+import logo from "../../assets/img/donor/logo.svg";
 const Footer = () => {
   return (
     <footer className=" m-4 rounded-lg bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)]  dark:bg-gray-900">

@@ -1,28 +1,35 @@
-import { Route } from "react-router-dom";
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
 
-import Footer from "./components/Footer";
+import RootLayout from "./pages/donor/DonorRootLayout";
+import HomePage from "./pages/donor/HomePage";
+import Campaign from "./components/donor/CampaignComp";
+import Signin from "./pages/donor/SignIn";
+import Signup from "./pages/donor/SignUp";
+import PatientRootLayout from "./pages/patient/PatientRootLayout";
 
-import Nav from "./components/Nav";
-import SignUp from "./pages/common/SignUp";
-import SignIn from "./pages/common/SignIn";
-
-import { Routes } from "react-router-dom";
-import HomePage from "./pages/common/HomePage";
-import Campaign from "./pages/donor/Campaign";
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route>
+      {/* home/donor route */}
+      <Route path="/" element={<RootLayout />}>
+        <Route index element={<HomePage />}></Route>
+        <Route path="campaign" element={<Campaign />} />
+        <Route path="signin" element={<Signin />} />
+        <Route path="signup" element={<Signup />} />
+      </Route>
+      {/* patient route */}
+      <Route path="/patient" element={<PatientRootLayout />}></Route>
+    </Route>,
+  ),
+);
 
 function App() {
-  return (
-    <>
-      <Nav />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/campaign" element={<Campaign />} />
-      </Routes>
-      <Footer />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

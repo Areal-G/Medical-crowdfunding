@@ -1,8 +1,8 @@
-import logo from "../assets/img/logo.svg";
+import logo from "../../assets/img/donor/logo.svg";
 import { useState } from "react";
-import et from "../assets/img/et.svg";
-import en from "../assets/img/en.svg";
-import avatar from "../assets/img/avatar.png";
+import et from "../../assets/img/donor/et.svg";
+import en from "../../assets/img/donor/en.svg";
+import avatar from "../../assets/img/donor/avatar.png";
 import { Link } from "react-router-dom";
 
 const Nav = () => {

@@ -1,13 +1,13 @@
-import mainSection from "../assets/img/mainSection.png";
-import chapa from "../assets/img/chapa.svg";
-import stripe from "../assets/img/stripe.svg";
+import mainSection from "../../assets/img/donor/mainSection.png";
+import chapa from "../../assets/img/donor/chapa.svg";
+import stripe from "../../assets/img/donor/stripe.svg";
 
 const Main = () => {
   return (
     <section className=" mb-28 mt-20 bg-white dark:bg-gray-900">
       <div className=" mx-auto  grid max-w-screen-xl px-4 py-8 lg:mt-3 lg:grid-cols-12 lg:gap-8 lg:py-16 xl:gap-0">
         <div className="mr-auto place-self-center lg:col-span-7">
-          <h1 className=" text-primary-700 mb-4 max-w-2xl text-4xl font-extrabold leading-none tracking-tight dark:text-white md:text-5xl xl:text-6xl">
+          <h1 className=" mb-4 max-w-2xl text-4xl font-extrabold leading-none tracking-tight text-primary-700 dark:text-white md:text-5xl xl:text-6xl">
             Entadeg
           </h1>
           <p className="mb-6 max-w-2xl font-light text-gray-500 dark:text-gray-400 md:text-lg lg:mb-8 lg:text-xl">
@@ -18,7 +18,7 @@ const Main = () => {
           </p>
           <a
             href="#"
-            className="bg-primary-700 hover:bg-primary-800 focus:ring-primary-300 dark:focus:ring-primary-900 mr-3 inline-flex items-center justify-center rounded-lg px-5 py-3 text-center text-base font-medium text-white focus:ring-4"
+            className="mr-3 inline-flex items-center justify-center rounded-lg bg-primary-700 px-5 py-3 text-center text-base font-medium text-white hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
           >
             Donate
             <svg

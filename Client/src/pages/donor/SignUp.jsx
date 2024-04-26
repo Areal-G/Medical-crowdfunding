@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import logo from "../../assets/img/logo.svg";
+import logo from "../../assets/img/donor/logo.svg";
 
 const SignUp = () => {
   return (
