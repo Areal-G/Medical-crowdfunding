@@ -1,4 +1,5 @@
-import logo from "../assets/img/logo.svg";
+import { Link } from "react-router-dom";
+import logo from "../../assets/img/logo.svg";
 
 const SignUp = () => {
   return (
@@ -12,12 +13,12 @@ const SignUp = () => {
               </div>
 
               <div className="mt-6 flex items-center justify-center">
-                <a
-                  href="#"
+                <Link
+                  to={"/signin"}
                   className="w-1/3 border-b pb-4 text-center font-medium capitalize text-gray-500 dark:border-gray-400 dark:text-gray-300"
                 >
                   sign in
-                </a>
+                </Link>
 
                 <a
                   href="#"

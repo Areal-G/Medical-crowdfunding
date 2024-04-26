@@ -3,6 +3,7 @@ import { useState } from "react";
 import et from "../assets/img/et.svg";
 import en from "../assets/img/en.svg";
 import avatar from "../assets/img/avatar.png";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -117,12 +118,12 @@ const Nav = () => {
         >
           <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium dark:border-gray-700 dark:bg-gray-800 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 md:dark:bg-gray-900 rtl:space-x-reverse">
             <li>
-              <a
-                href="#"
+              <Link
+                to={"/"}
                 className="block rounded bg-blue-700 px-3 py-2 text-white md:bg-transparent md:p-0 md:text-blue-700 md:dark:text-blue-500"
               >
                 Home
-              </a>
+              </Link>
             </li>
             <li>
               <a

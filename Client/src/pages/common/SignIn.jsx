@@ -1,4 +1,6 @@
-import logo from "../assets/img/logo.svg";
+import { Link } from "react-router-dom";
+import logo from "../../assets/img/logo.svg";
+
 const SignIn = () => {
   return (
     <section className="bg-white dark:bg-gray-900">
@@ -11,18 +13,18 @@ const SignIn = () => {
 
             <div className="mt-6 flex items-center justify-center">
               <a
-                href="#"
+                href="/signin"
                 className="w-1/3 border-b-2 border-blue-500 pb-4 text-center font-medium capitalize text-gray-800 dark:border-blue-400 dark:text-white"
               >
                 sign in
               </a>
 
-              <a
-                href="#"
+              <Link
+                to={"/signup"}
                 className="w-1/3 border-b pb-4 text-center font-medium capitalize text-gray-500 dark:border-gray-400 dark:text-gray-300"
               >
                 sign up
-              </a>
+              </Link>
             </div>
             <form className="mt-8">
               <div
