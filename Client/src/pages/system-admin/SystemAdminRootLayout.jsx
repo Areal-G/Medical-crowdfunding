@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-const PatientRootLayout = () => {
+const SystemAdminRootLayout = () => {
   return (
     <div>
       <p>nav</p>
@@ -9,4 +9,4 @@ const PatientRootLayout = () => {
     </div>
   );
 };
-export default PatientRootLayout;
+export default SystemAdminRootLayout;

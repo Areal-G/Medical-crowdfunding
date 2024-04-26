@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Footer from "../../components/donor/Footer";
 import Nav from "../../components/donor/Nav";
 
-const RootLayout = () => {
+const DonorRootLayout = () => {
   return (
     <div>
       <Nav />
@@ -11,4 +11,4 @@ const RootLayout = () => {
     </div>
   );
 };
-export default RootLayout;
+export default DonorRootLayout;
