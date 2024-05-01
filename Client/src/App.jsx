@@ -20,6 +20,7 @@ import SystemAdminRootLayout from "./pages/system-admin/SystemAdminRootLayout";
 
 // hospital admin import
 import HospitalAdminRootLayout from "./pages/hospital-admin/HospitalAdminRootLayout";
+import SystemAdminHomePage from "./pages/system-admin/SystemAdminHomePage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,7 +45,7 @@ const router = createBrowserRouter(
 
       {/* system admin route */}
       <Route path="/admin" element={<SystemAdminRootLayout />}>
-        <Route index element={<div> system admin homepage</div>} />
+        <Route index element={<SystemAdminHomePage />} />
       </Route>
     </Route>,
   ),

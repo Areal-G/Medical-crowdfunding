@@ -4,7 +4,7 @@ import logo from "../../assets/img/donor/logo.svg";
 const SignUp = () => {
   return (
     <>
-      <section className="bg-white dark:bg-gray-900">
+      <section className=" bg-white dark:bg-gray-900">
         <div className="flex justify-center">
           <div className="mx-auto my-auto mt-7 flex w-full max-w-3xl items-center rounded-xl p-8 shadow-2xl lg:w-2/5 lg:px-12">
             <div className="w-full">

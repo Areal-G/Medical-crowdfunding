@@ -34,9 +34,6 @@ const Nav = () => {
             type="button"
             onClick={toggleProfileMenu}
             className="flex h-8 w-8 overflow-hidden rounded-full bg-gray-800 text-sm focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 md:me-0"
-            id="user-menu-button"
-            data-dropdown-toggle="user-dropdown"
-            data-dropdown-placement="bottom"
           >
             <img
               className=" h-full w-full object-cover"
@@ -58,7 +55,7 @@ const Nav = () => {
                 arealgizaw@gmail.com
               </span>
             </div>
-            <ul className="py-2" aria-labelledby="user-menu-button">
+            <ul className="py-2">
               <li>
                 <a
                   href="#"
