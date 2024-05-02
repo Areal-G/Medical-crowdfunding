@@ -17,10 +17,13 @@ import PatientRootLayout from "./pages/patient/PatientRootLayout";
 
 // system admin import
 import SystemAdminRootLayout from "./pages/system-admin/SystemAdminRootLayout";
+import SystemAdminHomePage from "./pages/system-admin/SystemAdminHomePage";
+import SystemAdminRegisterHospitalsPage from "./pages/system-admin/SystemAdminRegisterHospitalsPage";
 
 // hospital admin import
 import HospitalAdminRootLayout from "./pages/hospital-admin/HospitalAdminRootLayout";
-import SystemAdminHomePage from "./pages/system-admin/SystemAdminHomePage";
+import HospitalAdminHomePage from "./pages/hospital-admin/HospitalAdminHomepage";
+import SystemAdminHospitalsTable from "./pages/system-admin/SystemAdminHospitalsTable";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,12 +43,14 @@ const router = createBrowserRouter(
 
       {/* hospita admin route */}
       <Route path="/hospital" element={<HospitalAdminRootLayout />}>
-        <Route index element={<div>hospital homepage</div>} />
+        <Route index element={<HospitalAdminHomePage />} />
       </Route>
 
       {/* system admin route */}
       <Route path="/admin" element={<SystemAdminRootLayout />}>
         <Route index element={<SystemAdminHomePage />} />
+        <Route path="register" element={<SystemAdminRegisterHospitalsPage />} />
+        <Route path="hospitals" element={<SystemAdminHospitalsTable />} />
       </Route>
     </Route>,
   ),
