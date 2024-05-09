@@ -1,7 +1,7 @@
-import Carousel from "../../components/Carousel";
-import DonatedCard from "../../components/DonatedCard";
-import HospitalProfile from "../../components/HospitalProfile";
-import DonationProgress from "../../components/DonationProgress";
+import Carousel from "../../components/donor/Carousel";
+import DonatedCard from "../../components/donor/DonatedCard";
+import HospitalProfile from "../../components/donor/HospitalProfile";
+import DonationProgress from "../../components/donor/DonationProgress";
 
 const slides = [
   "https://images.gofundme.com/ftYeZBNXEHS4IhOpemnFEBjOyHQ=/720x405/https://d2g8igdw686xgo.cloudfront.net/79674207_1713821734459328_r.jpeg",

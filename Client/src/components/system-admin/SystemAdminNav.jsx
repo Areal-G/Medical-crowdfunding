@@ -1,9 +1,9 @@
 import logo from "../../assets/img/donor/logo.svg";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { FaListUl } from "react-icons/fa";
 import { IoPersonAddOutline } from "react-icons/io5";
 import { IoPersonOutline } from "react-icons/io5";
+import { NavLink } from "react-router-dom";
 
 const SystemAdminNav = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -133,9 +133,16 @@ const SystemAdminNav = () => {
         <div className="h-full overflow-y-auto bg-white px-3 py-5 dark:bg-gray-800 lg:pl-12">
           <ul className="ml-3 gap-4 text-base font-semibold text-black dark:text-white lg:mt-16 ">
             <li>
-              <Link
-                to={""}
-                className="flex items-center rounded-lg p-2 pb-4 hover:bg-gray-100  dark:hover:bg-gray-700"
+              <NavLink
+                to=""
+                className={({ isActive }) =>
+                  `flex items-center rounded-lg p-2 pb-4 ${
+                    isActive
+                      ? " text-primary-500"
+                      : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                  }`
+                }
+                end
               >
                 <svg
                   className="fill-current"
@@ -163,43 +170,67 @@ const SystemAdminNav = () => {
                   />
                 </svg>
                 <span className="ml-3">Dasboard</span>
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink
                 to={"register"}
-                className=" flex items-center rounded-lg p-2 py-4  hover:bg-gray-100  dark:hover:bg-gray-700"
+                className={({ isActive }) =>
+                  `flex items-center rounded-lg p-2 pb-4 ${
+                    isActive
+                      ? " text-primary-500"
+                      : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                  }`
+                }
               >
                 <IoPersonAddOutline />
                 <span className="ml-3">Register Hospital</span>
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
+              <NavLink
                 to={"hospitals"}
-                className="flex items-center rounded-lg p-2 py-4  hover:bg-gray-100  dark:hover:bg-gray-700"
+                className={({ isActive }) =>
+                  `flex items-center rounded-lg p-2 pb-4 ${
+                    isActive
+                      ? " text-primary-500"
+                      : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                  }`
+                }
               >
                 <FaListUl />
                 <span className="ml-3">Hospitals</span>
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
-                to={""}
-                className="flex items-center rounded-lg p-2 py-4  hover:bg-gray-100  dark:hover:bg-gray-700"
+              <NavLink
+                to={"ffff"}
+                className={({ isActive }) =>
+                  `flex items-center rounded-lg p-2 pb-4 ${
+                    isActive
+                      ? " text-primary-500"
+                      : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                  }`
+                }
               >
                 <IoPersonOutline />
                 <span className="ml-3">Patients</span>
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link
-                to={""}
-                className="flex items-center rounded-lg p-2 py-4  hover:bg-gray-100  dark:hover:bg-gray-700"
+              <NavLink
+                to={"dddd"}
+                className={({ isActive }) =>
+                  `flex items-center rounded-lg p-2 pb-4 ${
+                    isActive
+                      ? " text-primary-500"
+                      : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                  }`
+                }
               >
                 <IoPersonOutline />
                 <span className="ml-3">Donors</span>
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </div>

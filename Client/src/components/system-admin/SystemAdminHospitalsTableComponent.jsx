@@ -99,7 +99,7 @@ const Table = () => {
             </div>
 
             <div className="hidden items-center justify-center p-2 sm:flex xl:p-5">
-              <p className="text-black dark:text-white">${brand.sales}</p>
+              <p className="text-black dark:text-white">{brand.sales}</p>
             </div>
 
             <div className=" mx-auto max-w-56  items-center justify-center p-2  xl:p-5">

@@ -11,6 +11,7 @@ import HomePage from "./pages/donor/HomePage";
 import CampaignList from "./components/donor/CampaignList";
 import Signin from "./pages/donor/SignIn";
 import Signup from "./pages/donor/SignUp";
+import CampaignDetailPage from "./pages/donor/CampaignDetailPage";
 
 //patient import
 import PatientRootLayout from "./pages/patient/PatientRootLayout";
@@ -34,6 +35,7 @@ const router = createBrowserRouter(
         <Route path="campaign" element={<CampaignList />} />
         <Route path="signin" element={<Signin />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="campaigndetail" element={<CampaignDetailPage />} />
       </Route>
 
       {/* patient route */}
