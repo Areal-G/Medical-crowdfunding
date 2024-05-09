@@ -25,6 +25,7 @@ import SystemAdminRegisterHospitalsPage from "./pages/system-admin/SystemAdminRe
 import HospitalAdminRootLayout from "./pages/hospital-admin/HospitalAdminRootLayout";
 import HospitalAdminHomePage from "./pages/hospital-admin/HospitalAdminHomepage";
 import SystemAdminHospitalsTable from "./pages/system-admin/SystemAdminHospitalsTable";
+import PatientHomepage from "./pages/patient/PatientHomepage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,7 +41,7 @@ const router = createBrowserRouter(
 
       {/* patient route */}
       <Route path="/patient" element={<PatientRootLayout />}>
-        <Route index element={<div>patient homepage</div>} />
+        <Route index element={<PatientHomepage />} />
       </Route>
 
       {/* hospita admin route */}

@@ -1,6 +1,6 @@
 const DonatedCard = () => {
   return (
-    <div className="mb-2 rounded-lg text-sm leading-6 shadow-lg hover:shadow-primary-400">
+    <div className="mb-2 rounded-lg border text-sm leading-6 shadow-lg hover:shadow-primary-400">
       <figure className="dark:highlight-white/5 relative flex flex-col-reverse rounded-lg bg-white p-4 dark:bg-slate-800">
         <blockquote className="mt-6 text-slate-700 dark:text-slate-300">
           <p>I may not show it but i cant live without .</p>

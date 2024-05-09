@@ -11,3 +11,7 @@ body {
 body::-webkit-scrollbar {
   display: none;
 }
+
+.noscroll::-webkit-scrollbar {
+  display: none;
+}
