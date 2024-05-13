@@ -204,7 +204,7 @@ const SystemAdminNav = () => {
             </li>
             <li>
               <NavLink
-                to={"ffff"}
+                to={"patients"}
                 className={({ isActive }) =>
                   `flex items-center rounded-lg p-2 pb-4 ${
                     isActive
@@ -219,7 +219,7 @@ const SystemAdminNav = () => {
             </li>
             <li>
               <NavLink
-                to={"dddd"}
+                to={"donors"}
                 className={({ isActive }) =>
                   `flex items-center rounded-lg p-2 pb-4 ${
                     isActive

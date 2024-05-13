@@ -6,7 +6,7 @@ const PatientHomepage = () => {
   return (
     <main>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-6">
-        <CardDataStats title="Total views" total="$3.456K" rate="0.43%" levelUp>
+        <CardDataStats title="Total" total="$3000" rate="0.43%" levelUp>
           <svg
             className="fill-primary-500 dark:fill-white"
             width="22"
@@ -25,7 +25,7 @@ const PatientHomepage = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total views" total="$3.456K" rate="0.43%" levelUp>
+        <CardDataStats title="Donators" total="345" rate="0.43%" levelDown>
           <svg
             className="fill-primary-500 dark:fill-white"
             width="22"
@@ -44,7 +44,7 @@ const PatientHomepage = () => {
             />
           </svg>
         </CardDataStats>
-        <CardDataStats title="Total views" total="$3.456K" rate="0.43%" levelUp>
+        <CardDataStats title="Today" total="$120" rate="0.70%" levelUp>
           <svg
             className="fill-primary-500 dark:fill-white"
             width="22"

@@ -1,9 +1,10 @@
 import logo from "../../assets/img/donor/logo.svg";
 import { useState } from "react";
-import { FaListUl } from "react-icons/fa";
-import { IoPersonAddOutline } from "react-icons/io5";
-import { IoPersonOutline } from "react-icons/io5";
+
 import { NavLink } from "react-router-dom";
+import { CiMedicalCross } from "react-icons/ci";
+import { MdOutlineCreateNewFolder } from "react-icons/md";
+import { MdPostAdd } from "react-icons/md";
 
 const PatientNav = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -173,7 +174,7 @@ const PatientNav = () => {
             </li>
             <li>
               <NavLink
-                to={"register"}
+                to={"mycampaign"}
                 className={({ isActive }) =>
                   `flex items-center rounded-lg p-2 pb-4 ${
                     isActive
@@ -182,13 +183,13 @@ const PatientNav = () => {
                   }`
                 }
               >
-                <IoPersonAddOutline />
-                <span className="ml-3">Register Hospital</span>
+                <CiMedicalCross className=" h-[20px] w-[20px]" />
+                <span className="ml-3">My Campaign</span>
               </NavLink>
             </li>
             <li>
               <NavLink
-                to={"hospitals"}
+                to={"createcampaign"}
                 className={({ isActive }) =>
                   `flex items-center rounded-lg p-2 pb-4 ${
                     isActive
@@ -197,13 +198,13 @@ const PatientNav = () => {
                   }`
                 }
               >
-                <FaListUl />
-                <span className="ml-3">Hospitals</span>
+                <MdOutlineCreateNewFolder className=" h-[20px] w-[20px]" />
+                <span className="ml-3">Create Campaign</span>
               </NavLink>
             </li>
             <li>
               <NavLink
-                to={"ffff"}
+                to={"postupdate"}
                 className={({ isActive }) =>
                   `flex items-center rounded-lg p-2 pb-4 ${
                     isActive
@@ -212,23 +213,8 @@ const PatientNav = () => {
                   }`
                 }
               >
-                <IoPersonOutline />
-                <span className="ml-3">Patients</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to={"dddd"}
-                className={({ isActive }) =>
-                  `flex items-center rounded-lg p-2 pb-4 ${
-                    isActive
-                      ? " text-primary-500"
-                      : "hover:bg-gray-100 dark:hover:bg-gray-700"
-                  }`
-                }
-              >
-                <IoPersonOutline />
-                <span className="ml-3">Donors</span>
+                <MdPostAdd className=" h-[20px] w-[20px]" />
+                <span className="ml-3">Post Update</span>
               </NavLink>
             </li>
           </ul>

@@ -26,6 +26,11 @@ import HospitalAdminRootLayout from "./pages/hospital-admin/HospitalAdminRootLay
 import HospitalAdminHomePage from "./pages/hospital-admin/HospitalAdminHomepage";
 import SystemAdminHospitalsTable from "./pages/system-admin/SystemAdminHospitalsTable";
 import PatientHomepage from "./pages/patient/PatientHomepage";
+import MyCampaign from "./pages/patient/MyCampaign";
+import PatientCampaignForm from "./components/patient/PatientCampaignForm";
+import PatientUpdateForm from "./components/patient/PatientUpdateForm";
+import SystemAdminDonorsTableComponent from "./components/system-admin/SystemAdminDonorsTableComponent";
+import SystemAdminPatientsTableComponent from "./components/system-admin/SystemAdminPatientsTableComponent";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,6 +47,9 @@ const router = createBrowserRouter(
       {/* patient route */}
       <Route path="/patient" element={<PatientRootLayout />}>
         <Route index element={<PatientHomepage />} />
+        <Route path="mycampaign" element={<MyCampaign />} />
+        <Route path="createcampaign" element={<PatientCampaignForm />} />
+        <Route path="postupdate" element={<PatientUpdateForm />} />
       </Route>
 
       {/* hospita admin route */}
@@ -54,6 +62,11 @@ const router = createBrowserRouter(
         <Route index element={<SystemAdminHomePage />} />
         <Route path="register" element={<SystemAdminRegisterHospitalsPage />} />
         <Route path="hospitals" element={<SystemAdminHospitalsTable />} />
+        <Route path="donors" element={<SystemAdminDonorsTableComponent />} />
+        <Route
+          path="patients"
+          element={<SystemAdminPatientsTableComponent />}
+        />
       </Route>
     </Route>,
   ),

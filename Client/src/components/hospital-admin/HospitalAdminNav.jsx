@@ -2,8 +2,9 @@ import logo from "../../assets/img/donor/logo.svg";
 import { useState } from "react";
 import { FaListUl } from "react-icons/fa";
 import { IoPersonAddOutline } from "react-icons/io5";
-import { IoPersonOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
+import { LuFileCheck2 } from "react-icons/lu";
+import { MdOutlineReport } from "react-icons/md";
 
 const HospitalAdminNav = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -183,8 +184,8 @@ const HospitalAdminNav = () => {
                   }`
                 }
               >
-                <IoPersonAddOutline />
-                <span className="ml-3">Register Hospital</span>
+                <IoPersonAddOutline className=" h-[20px] w-[20px]" />
+                <span className="ml-3">Register Patient</span>
               </NavLink>
             </li>
             <li>
@@ -198,8 +199,8 @@ const HospitalAdminNav = () => {
                   }`
                 }
               >
-                <FaListUl />
-                <span className="ml-3">Hospitals</span>
+                <FaListUl className=" h-[20px] w-[20px]" />
+                <span className="ml-3">Patients</span>
               </NavLink>
             </li>
             <li>
@@ -213,8 +214,8 @@ const HospitalAdminNav = () => {
                   }`
                 }
               >
-                <IoPersonOutline />
-                <span className="ml-3">Patients</span>
+                <LuFileCheck2 className=" h-[20px] w-[20px]" />
+                <span className="ml-3">Approve Campaign</span>
               </NavLink>
             </li>
             <li>
@@ -228,8 +229,9 @@ const HospitalAdminNav = () => {
                   }`
                 }
               >
-                <IoPersonOutline />
-                <span className="ml-3">Donors</span>
+                <MdOutlineReport className=" h-[24px] w-[24px]" />
+
+                <span className="ml-3">Reported</span>
               </NavLink>
             </li>
           </ul>

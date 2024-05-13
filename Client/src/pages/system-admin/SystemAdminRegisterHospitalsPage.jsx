@@ -30,14 +30,24 @@ const SystemAdminRegisterHospitalsPage = () => {
                     className="mt-2 block w-full rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-700 placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:border-blue-400"
                   />
                 </div>
-
                 <div>
                   <label className="mb-2 block text-sm text-gray-600 dark:text-gray-200">
-                    Phone number
+                    State
                   </label>
                   <input
                     type="text"
-                    placeholder="XXX-XX-XXXX-XXX"
+                    placeholder="Sidama"
+                    className="mt-2 block w-full rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-700 placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:border-blue-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm text-gray-600 dark:text-gray-200">
+                    Address
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Besides Tabor mountain"
                     className="mt-2 block w-full rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-700 placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:border-blue-400"
                   />
                 </div>
@@ -49,6 +59,17 @@ const SystemAdminRegisterHospitalsPage = () => {
                   <input
                     type="text"
                     placeholder="Hawassa"
+                    className="mt-2 block w-full rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-700 placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:border-blue-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm text-gray-600 dark:text-gray-200">
+                    Phone number
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="XXX-XX-XXXX-XXX"
                     className="mt-2 block w-full rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-700 placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:border-blue-400"
                   />
                 </div>
