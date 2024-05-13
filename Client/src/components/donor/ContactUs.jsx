@@ -1,18 +1,21 @@
+import { useTranslation } from "react-i18next";
+
 const ContactUs = () => {
+  const { t } = useTranslation();
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="container mx-auto max-w-screen-xl px-6 py-12">
         <div className=" text-center">
           <p className="font-medium text-blue-500 dark:text-blue-400">
-            Contact us
+            {t("contactus")}
           </p>
 
           <h1 className="mt-2 text-2xl font-semibold text-gray-800 dark:text-white md:text-3xl">
-            Get in touch
+            {t("getintouch")}
           </h1>
 
           <p className="mt-3 text-gray-500 dark:text-gray-400">
-            Our friendly team is always here to chat.
+            {t("contactustext")}
           </p>
         </div>
 
@@ -36,10 +39,10 @@ const ContactUs = () => {
             </span>
 
             <h2 className="mt-4 text-lg font-medium text-gray-800 dark:text-white">
-              Email
+              {t("email")}
             </h2>
             <p className="mt-2 text-gray-500 dark:text-gray-400">
-              Our friendly team is here to help.
+              {t("emailtext")}
             </p>
             <p className="mt-2 text-blue-500 dark:text-blue-400">
               entadeg@gmail.com
@@ -70,13 +73,13 @@ const ContactUs = () => {
             </span>
 
             <h2 className="mt-4 text-lg font-medium text-gray-800 dark:text-white">
-              Office
+              {t("office")}
             </h2>
             <p className="mt-2 text-gray-500 dark:text-gray-400">
-              Come say hello at our office HQ.
+              {t("officetext")}
             </p>
             <p className="mt-2 text-blue-500 dark:text-blue-400">
-              Hawassa piassa
+              {t("officeaddress")}
             </p>
           </div>
 
@@ -99,13 +102,13 @@ const ContactUs = () => {
             </span>
 
             <h2 className="mt-4 text-lg font-medium text-gray-800 dark:text-white">
-              Phone
+              {t("phone")}
             </h2>
             <p className="mt-2 text-gray-500 dark:text-gray-400">
-              Mon-Fri from 8am to 5pm.
+              {t("phonetext")}
             </p>
             <p className="mt-2 text-blue-500 dark:text-blue-400">
-              +251 95 000-0000
+              {t("phonenumber")}
             </p>
           </div>
         </div>

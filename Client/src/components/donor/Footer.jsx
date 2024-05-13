@@ -1,5 +1,7 @@
 import logo from "../../assets/img/donor/logo.svg";
+import { useTranslation } from "react-i18next";
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <footer className=" m-4 rounded-lg bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)]  dark:bg-gray-900">
       <div className="mx-auto w-full max-w-screen-xl p-4 md:py-8">
@@ -13,17 +15,17 @@ const Footer = () => {
           <ul className="mb-6 flex flex-wrap items-center text-sm font-medium text-gray-500 dark:text-gray-400 sm:mb-0">
             <li>
               <a href="#" className="me-4 hover:underline md:me-6">
-                About
+                {t("about")}
               </a>
             </li>
             <li>
               <a href="#" className="me-4 hover:underline md:me-6">
-                Campaigns
+                {t("campaigns")}
               </a>
             </li>
             <li>
               <a href="#" className="hover:underline">
-                Contact Us
+                {t("contactus")}
               </a>
             </li>
           </ul>

@@ -4,10 +4,12 @@ import et from "../../assets/img/donor/et.svg";
 import en from "../../assets/img/donor/en.svg";
 import avatar from "../../assets/img/donor/avatar.png";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Nav = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const { i18n, t } = useTranslation();
 
   const toggleProfileMenu = () => {
     setIsProfileOpen(!isProfileOpen);
@@ -22,7 +24,10 @@ const Nav = () => {
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
+    const newLanguage = !isChecked ? "en" : "am"; // Determine the new language
+    i18n.changeLanguage(newLanguage);
   };
+
   return (
     <nav className=" rounded-md shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] dark:bg-gray-900">
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4 lg:text-lg">
@@ -78,7 +83,7 @@ const Nav = () => {
                   href="#"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                 >
-                  Sign out
+                  {t("signout")}
                 </a>
               </li>
             </ul>
@@ -119,7 +124,7 @@ const Nav = () => {
                 to={"/"}
                 className="block rounded bg-blue-700 px-3 py-2 text-white md:bg-transparent md:p-0 md:text-blue-700 md:dark:text-blue-500"
               >
-                Home
+                {t("home")}
               </Link>
             </li>
             <li>
@@ -127,7 +132,7 @@ const Nav = () => {
                 href="#"
                 className="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
               >
-                About
+                {t("about")}
               </a>
             </li>
             <li>
@@ -135,7 +140,7 @@ const Nav = () => {
                 href="#"
                 className="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
               >
-                Services
+                {t("services")}
               </a>
             </li>
 
@@ -144,7 +149,7 @@ const Nav = () => {
                 href="#"
                 className="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
               >
-                Contact
+                {t("contact")}
               </a>
             </li>
             <li className="">

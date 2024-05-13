@@ -1,10 +1,12 @@
+import { useTranslation } from "react-i18next";
 const About = () => {
+  const { t } = useTranslation();
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="mx-auto max-w-screen-xl px-4 py-8 sm:py-16 lg:px-6">
         <div className="mx-auto mb-8 max-w-screen-md text-center lg:mb-16">
           <h2 className="mb-4 text-4xl font-extrabold tracking-tight text-primary-600 dark:text-white">
-            About Us
+            {t("aboutus")}
           </h2>
         </div>
         <div className="space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0 lg:grid-cols-3">
@@ -24,12 +26,10 @@ const About = () => {
               </svg>
             </div>
             <h3 className="mb-2 text-center text-xl font-bold dark:text-white">
-              Mission
+              {t("mission")}
             </h3>
             <p className="text-gray-500 dark:text-gray-400">
-              Availing high quality, free, life changing surgeries and medical
-              treatments by partnering with local hospitals and respective
-              partners
+              {t("missionstatement")}
             </p>
           </div>
           <div className=" rounded-lg p-5 shadow-2xl">
@@ -44,15 +44,14 @@ const About = () => {
               </svg>
             </div>
             <h3 className="mb-2 text-center text-xl font-bold dark:text-white">
-              Big Mission
+              {t("bigmission")}
             </h3>
             <p className="text-gray-500 dark:text-gray-400">
-              Giving a purpose of life for the giver and reciever! Giving a
-              purpose of life for you and me!
+              {t("bigmissionstatement")}
             </p>
           </div>
           <div className=" rounded-lg p-5 shadow-2xl">
-            <div className="bg-primary-100dark:bg-primary-900 mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full lg:h-12 lg:w-12">
+            <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary-100 dark:bg-primary-900 lg:h-12 lg:w-12">
               <svg
                 className="h-5 w-5 text-primary-600 dark:text-primary-300 lg:h-6 lg:w-6"
                 fill="currentColor"
@@ -68,11 +67,10 @@ const About = () => {
               </svg>
             </div>
             <h3 className="mb-2 text-center text-xl font-bold dark:text-white">
-              Vision
+              {t("vision")}
             </h3>
             <p className="text-gray-500 dark:text-gray-400">
-              Enabling unlimited access to life changing healthcare
-              opportunities free of charge by 2030 for People in Need
+              {t("visionstatement")}
             </p>
           </div>
         </div>
