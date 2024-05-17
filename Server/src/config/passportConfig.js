@@ -105,8 +105,6 @@ passport.use(
 );
 
 passport.serializeUser(async function (user, done) {
-  console.log(`full user in serializer ${user}`);
-
   // Serialize both the ID and email properties
   const serializedUser = {
     id: user._id,

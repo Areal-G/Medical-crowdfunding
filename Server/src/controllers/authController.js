@@ -31,21 +31,7 @@ exports.Login = (req, res, next) => {
         return next(err);
       }
       console.log('Authentication successful');
-      return res.status(200).send('Authentication successful');
+      return res.json({ role });
     });
   })(req, res, next);
 };
-
-// exports.Logout = (req, res) => {
-// };
-
-// // Helper function to determine the success redirect URL based on the role
-// function getSuccessRedirect(role) {
-//   if (role === 'donor') {
-//     return '/donor-dashboard';
-//   } else if (role === 'patient') {
-//     return '/patient-dashboard';
-//   }
-//   // Add more conditions for other roles if needed
-//   return '/dashboard'; // Default redirect URL
-// }

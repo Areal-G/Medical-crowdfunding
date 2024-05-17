@@ -1,8 +1,8 @@
 import CardDataStats from "../../components/Common/CardDataStats";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { IoPeople } from "react-icons/io5";
-import HospitalAdminPatientsLineChart from "./HospitalAdminPatientsLineChart";
-import HospitalAdminDonorsLineChart from "./HospitalAdminDonorsLineChart";
+import HospitalAdminPatientsLineChart from "../../components/hospital-admin/HospitalAdminPatientsLineChart";
+import HospitalAdminDonorsLineChart from "../../components/hospital-admin/HospitalAdminDonorsLineChart";
 const HospitalAdminHomepage = () => {
   return (
     // main class style has the ml-64

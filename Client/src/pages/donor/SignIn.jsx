@@ -2,10 +2,28 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/img/donor/logo.svg";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const SignIn = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userRole, setUserRole] = useState("");
+
+  function getSuccessRedirect(role) {
+    switch (role) {
+      case "donor":
+        return "/";
+      case "patient":
+        return "/patient";
+      case "hospital":
+        return "/hospital";
+      case "systemAdmin":
+        return "/admin";
+      default:
+        return "/";
+    }
+  }
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -34,7 +52,12 @@ const SignIn = () => {
         data,
         { withCredentials: true },
       );
-      console.log(response);
+
+      // Get the path based on the user role.
+      const redirectPath = getSuccessRedirect(response.data.role);
+
+      // Redirect to the right route.
+      navigate(redirectPath);
       // Reset form fields
       setEmail("");
       setPassword("");

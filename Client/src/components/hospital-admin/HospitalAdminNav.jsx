@@ -170,7 +170,7 @@ const HospitalAdminNav = () => {
                     fill=""
                   />
                 </svg>
-                <span className="ml-3">Dasboard</span>
+                <span className="ml-3">Dashboard</span>
               </NavLink>
             </li>
             <li>
@@ -190,7 +190,7 @@ const HospitalAdminNav = () => {
             </li>
             <li>
               <NavLink
-                to={"hospitals"}
+                to={"patients"}
                 className={({ isActive }) =>
                   `flex items-center rounded-lg p-2 pb-4 ${
                     isActive

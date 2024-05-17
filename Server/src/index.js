@@ -10,11 +10,10 @@ const MongoStore = require('connect-mongo');
 const app = express();
 // cors and under that are for the api cookies working
 app.use(
-  cors()
-  //   {
-  //   origin: 'http://localhost:5175',
-  //   credentials: true,
-  // }
+  cors({
+    origin: 'http://localhost:5173', //replace with your client side origin
+    credentials: true,
+  })
 );
 
 // app.use((req, res, next) => {
@@ -39,9 +38,8 @@ app.use(
 );
 app.use((req, res, next) => {
   console.log(`Received ${req.method} request at ${req.originalUrl}`);
-  console.log('Full request:');
-  console.log('Full request:', req.session);
-  // console.log('res', res.session);
+  console.log('Full session:', req.session);
+
   next();
 });
 // Initialize Passport.js
