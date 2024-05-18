@@ -1,15 +1,7 @@
 const mongoose = require('mongoose');
 
 const HospitalSchema = new mongoose.Schema({
-  name: {
-    et: { type: String, required: true },
-    en: { type: String, required: true },
-  },
-  address: {
-    type: String,
-    required: true,
-  },
-  phoneNumber: {
+  hospitalName: {
     type: String,
     required: true,
   },
@@ -19,7 +11,22 @@ const HospitalSchema = new mongoose.Schema({
     lowercase: true,
     unique: true,
   },
-
+  state: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  phoneNumber: {
+    type: String,
+    required: true,
+  },
   password: {
     type: String,
     required: true,

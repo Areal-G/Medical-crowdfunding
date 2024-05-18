@@ -16,13 +16,13 @@ exports.donorRegister = async (req, res, next) => {
   }
 };
 
-// hospital
+// hospital register
 exports.hospitalRegister = async (req, res, next) => {
   try {
-    const user = req.body;
-    const hospital = new Hospital(user);
+    const { password, ...hospitalData } = req.body;
+    const hospital = new Hospital({ ...hospitalData, password });
     await hospital.save();
-    res.status(201);
+    res.status(201).json('Saved succesfully');
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'An error occurred during registration.' });
@@ -32,10 +32,10 @@ exports.hospitalRegister = async (req, res, next) => {
 //patient
 exports.patientRegister = async (req, res, next) => {
   try {
-    const user = req.body;
-    const patient = new Patient(user);
+    const { password, ...patientData } = req.body;
+    const patient = new Patient({ ...patientData, password });
     await patient.save();
-    res.status(201);
+    res.status(201).json('Saved succesfully');
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'An error occurred during registration.' });
@@ -43,14 +43,14 @@ exports.patientRegister = async (req, res, next) => {
 };
 
 // system admin
-exports.sysAdminRegister = async (req, res, next) => {
-  try {
-    const user = req.body;
-    const systemAdmin = new SystemAdmin(user);
-    await systemAdmin.save();
-    res.status(201).json(systemAdmin);
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'An error occurred during registration.' });
-  }
-};
+// exports.sysAdminRegister = async (req, res, next) => {
+//   try {
+//     const user = req.body;
+//     const systemAdmin = new SystemAdmin(user);
+//     await systemAdmin.save();
+//     res.status(201).json(systemAdmin);
+//   } catch (error) {
+//     console.error('Error:', error);
+//     res.status(500).json({ error: 'An error occurred during registration.' });
+//   }
+// };

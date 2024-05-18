@@ -5,7 +5,7 @@ const registerController = require('../controllers/registerController');
 
 router.post(
   '/register',
-  registerController.hospitalRegister
+  registerController.patientRegister
 
   // first validator,
   // passport to auth controller

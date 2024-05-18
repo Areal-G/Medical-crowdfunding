@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const registerController = require('../controllers/registerController');
+const campaignController = require('../controllers/campaignController');
 //=/api/patient
 
 router.post(
-  '/register',
-  registerController.patientRegister
+  '/create_campaign',
+  campaignController.createCampaign
 
   // first validator,
   // passport to auth controller

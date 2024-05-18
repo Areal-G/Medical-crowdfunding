@@ -30,6 +30,14 @@ exports.Login = (req, res, next) => {
       if (err) {
         return next(err);
       }
+      // 2 days for 'patient' and 'donor' roles
+      if (role === 'patient' || role === 'donor') {
+        req.session.cookie.maxAge = 2 * 24 * 60 * 60 * 1000;
+      }
+      // 20 minutes for 'systemAdmin' and 'hospital' roles
+      else if (role === 'systemAdmin' || role === 'hospital') {
+        req.session.cookie.maxAge = 20 * 60 * 1000;
+      }
       console.log('Authentication successful');
       return res.json({ role });
     });

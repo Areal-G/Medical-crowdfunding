@@ -2,15 +2,20 @@ const mongoose = require('mongoose');
 
 const PatientSchema = new mongoose.Schema(
   {
-    name: {
-      am: { type: String, required: [true, 'enter name in amharic'] },
-      en: { type: String, required: [true, 'enter name in english'] },
-    },
+    patientName: { type: String, required: [true, 'enter name in english'] },
     email: {
       type: String,
       required: [true, 'enter email'],
       unique: true,
       lowercase: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    phoneNumber: {
+      type: String,
+      required: true,
     },
     password: {
       type: String,
@@ -20,6 +25,7 @@ const PatientSchema = new mongoose.Schema(
       type: String,
       default: 'patient',
     },
+    campaign: { type: mongoose.Schema.Types.ObjectId, ref: 'Campaign' },
     // dateOfBirth: {
     //   type: Date,
     //   required: [true, 'Date of birth is required'],

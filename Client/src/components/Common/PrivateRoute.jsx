@@ -32,17 +32,17 @@ const PrivateRoute = ({ element, role }) => {
     fetchData();
   }, []);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (!isAuthenticated) {
-    return <Navigate to="/signin" replace />;
-  }
+  // if (!isAuthenticated) {
+  //   return <Navigate to="/signin" replace />;
+  // }
 
-  if (userRole !== role) {
-    return <Navigate to="/unauthorized" replace />;
-  }
+  // if (userRole !== role) {
+  //   return <Navigate to="/unauthorized" replace />;
+  // }
 
   return element;
 };

@@ -6,7 +6,7 @@ const registerController = require('../controllers/registerController');
 
 router.post(
   '/register',
-  registerController.sysAdminRegister
+  registerController.hospitalRegister
 
   // first validator,
   // passport to auth controller
