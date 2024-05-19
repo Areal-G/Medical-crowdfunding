@@ -1,7 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Carousel from "../../components/donor/Carousel";
 import DonatedCard from "../../components/donor/DonatedCard";
 import HospitalProfile from "../../components/donor/HospitalProfile";
 import DonationProgress from "../../components/donor/DonationProgress";
+
+import { useEffect, useState } from "react";
+import { Toaster, toast } from "sonner";
+import { useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import API from "../../components/Common/api";
 
 const slides = [
   "https://www.reuters.com/resizer/v2/https%3A%2F%2Fcloudfront-us-east-2.images.arcpublishing.com%2Freuters%2FVUQLBHODHJPLZEBJ37UKOF4L3I.jpg?auth=21ebe01956eac5be545b20cc0b7a90eeb422d5d3aed1e6cad13e231b2530c5e0&width=960&quality=80",
@@ -11,9 +18,56 @@ const slides = [
 ];
 
 const Campaign = () => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const [hasProcessed, setHasProcessed] = useState(false);
+
+  useEffect(() => {
+    if (hasProcessed) return;
+
+    const sessionId = searchParams.get("session_id");
+    const success = searchParams.get("success");
+    const canceled = searchParams.get("canceled");
+
+    if (success && sessionId) {
+      // Fetch session details only if success is true and session_id is present
+      API.get(`/payment/stripeSessionDetails/${sessionId}`)
+        .then((response) => {
+          console.log(response.data.payment_intent);
+          // Send session details to backend to save in the database
+          return API.post("/payment/saveTransaction", {
+            amount: response.data.amount_total / 100,
+            currency: response.data.currency,
+            transactionId: response.data.payment_intent,
+            status: response.data.payment_status,
+          });
+        })
+        .then(() => {
+          // Show success toast with transaction details
+          toast.success(`Donation successful!`);
+          navigate("/campaigndetail");
+        })
+        .catch((error) => {
+          console.error(
+            "Error fetching session details or saving donation:",
+            error,
+          );
+          toast.error("Failed to save donation.");
+        })
+        .finally(() => {
+          setHasProcessed(true); // Mark as processed
+        });
+    } else if (canceled) {
+      // Show cancellation toast
+      toast.info("Donation canceled.");
+      setHasProcessed(true); // Mark as processed
+    }
+  }, [searchParams, hasProcessed, navigate]);
+
   return (
     // container
     <div className="mx-auto mt-10  max-w-screen-xl">
+      <Toaster richColors />
       <h2 className=" mx-auto mb-8 w-[90%] text-center text-3xl font-semibold  dark:text-white ">
         Help Provide Lifesaving Medical Care for Sick African Children
       </h2>

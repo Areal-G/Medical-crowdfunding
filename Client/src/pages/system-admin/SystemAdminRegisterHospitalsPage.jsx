@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import API from "../../components/Common/api";
 import { Toaster, toast } from "sonner";
 
 const SystemAdminRegisterHospitalsPage = () => {
@@ -42,13 +42,7 @@ const SystemAdminRegisterHospitalsPage = () => {
       return;
     }
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/sysadmin/register",
-        formData,
-        {
-          withCredentials: true,
-        },
-      );
+      const response = await API.post("/sysadmin/register", formData);
       console.log(response.data);
       toast.success(response.data);
 

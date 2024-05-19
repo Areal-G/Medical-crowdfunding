@@ -35,6 +35,7 @@ exports.patientRegister = async (req, res, next) => {
     const { password, ...patientData } = req.body;
     const patient = new Patient({ ...patientData, password });
     await patient.save();
+    await Hospital.updateOne({ _id: req.user._id }, { $push: { patients: patient._id } });
     res.status(201).json('Saved succesfully');
   } catch (error) {
     console.error('Error:', error);

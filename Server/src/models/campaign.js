@@ -13,6 +13,10 @@ const CampaignSchema = new mongoose.Schema({
     type: [String], // Array of strings to store image URLs
     required: true,
   },
+  hospital: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Hospital',
+  },
 });
 
 const Campaign = mongoose.model('campaign', CampaignSchema);

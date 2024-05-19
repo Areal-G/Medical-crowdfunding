@@ -4,6 +4,7 @@ const donorRouter = require('./donorRouter.js');
 const patienRouter = require('./patientRouter.js');
 const sysAdminRouter = require('./sysAdminRouter.js');
 const hospitalRouter = require('./hospitalRouter.js');
+const paymentRouter = require('./paymentRouter.js');
 const { ensureAuthenticated } = require('../middlewares/authMiddleware.js');
 
 const router = Router();
@@ -16,6 +17,7 @@ router.use('/hospital', hospitalRouter);
 router.get('/current_user', ensureAuthenticated, (req, res) => {
   res.json({ role: req.user.role });
 });
+router.use('/payment', paymentRouter);
 
 module.exports = router;
 

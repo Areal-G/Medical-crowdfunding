@@ -35,6 +35,13 @@ const HospitalSchema = new mongoose.Schema({
     type: String,
     default: 'hospital',
   },
+  patients: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Patient',
+    },
+  ],
+
   // bankAccount: [
   //   {
   //     accountHolderName: {

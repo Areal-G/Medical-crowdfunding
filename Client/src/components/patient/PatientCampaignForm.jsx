@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import axios from "axios";
+import API from "../Common/api";
 import { Toaster, toast } from "sonner";
 import useFileUploader from "../Common/useFileUploader";
 
@@ -44,12 +44,10 @@ const PatientCampaignForm = () => {
         images: imageUrls,
       };
       console.log(imageUrls);
-      const response = await axios.post(
-        "http://localhost:3000/api/patient/create_campaign",
+
+      const response = await API.post(
+        "/patient/create_campaign",
         updatedFormData,
-        {
-          withCredentials: true,
-        },
       );
       console.log(response.data);
       toast.success(response.data);

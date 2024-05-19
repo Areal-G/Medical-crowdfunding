@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/img/donor/logo.svg";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API from "../../components/Common/api";
 const SignIn = () => {
   const navigate = useNavigate();
 
@@ -47,11 +48,7 @@ const SignIn = () => {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/login",
-        data,
-        { withCredentials: true },
-      );
+      const response = await API.post("/auth/login", data);
 
       // Get the path based on the user role.
       const redirectPath = getSuccessRedirect(response.data.role);
