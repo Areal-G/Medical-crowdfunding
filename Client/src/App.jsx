@@ -35,6 +35,7 @@ import HospitalAdminRootLayout from "./pages/hospital-admin/HospitalAdminRootLay
 import HospitalAdminHomePage from "./pages/hospital-admin/HospitalAdminHomepage";
 import HospitalAdminRegisterPatinentForm from "./pages/hospital-admin/HospitalAdminRegisterPatinentForm";
 import HospitalAdminPatientsTable from "./components/hospital-admin/HospitalAdminPatientsTable";
+import ChapaRedirectPage from "./pages/donor/ChapaRedirectPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,6 +47,7 @@ const router = createBrowserRouter(
         <Route path="signin" element={<Signin />} />
         <Route path="signup" element={<Signup />} />
         <Route path="campaigndetail" element={<CampaignDetailPage />} />
+        <Route path="chaparedirect" element={<ChapaRedirectPage />} />
       </Route>
 
       {/* patient route */}

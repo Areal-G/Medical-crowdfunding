@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const TransactionSchema = new mongoose.Schema({
+  paymentProvider: {
+    type: String,
+    required: true,
+  },
   amount: {
     type: Number,
     required: true,
@@ -13,10 +17,6 @@ const TransactionSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-  },
-  status: {
-    type: String,
-    required: true,
   },
   campaignId: {
     type: mongoose.Schema.Types.ObjectId,

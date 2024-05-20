@@ -12,16 +12,26 @@ const DonationProgress = () => {
   };
 
   const handleDonate = async () => {
-    try {
-      const response = await API.post("/payment/stripepay", {
-        donationAmount: donationAmount,
-      });
-      window.location.href = response.data.url;
-    } catch (error) {
-      console.error("Error creating checkout session", error);
+    if (paymentSystem === "international") {
+      try {
+        const response = await API.post("/payment/stripepay", {
+          donationAmount: donationAmount,
+        });
+        window.location.href = response.data.url;
+      } catch (error) {
+        console.error("Error creating checkout session", error);
+      }
+    } else if (paymentSystem === "local") {
+      try {
+        const response = await API.post("/payment/chapapay", {
+          amount: donationAmount,
+        });
+        window.location.href = response.data;
+      } catch (error) {
+        console.error("Error creating checkout session", error);
+      }
     }
   };
-
   return (
     <div className="rounded-lg py-5 shadow-lg hover:shadow-blue-400">
       <div className="mx-auto w-[90%]">

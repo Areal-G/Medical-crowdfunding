@@ -26,16 +26,30 @@ const Campaign = () => {
     if (hasProcessed) return;
 
     const sessionId = searchParams.get("session_id");
+    const tx_ref = searchParams.get("tx_ref");
     const success = searchParams.get("success");
     const canceled = searchParams.get("canceled");
 
-    if (success && sessionId) {
-      // Fetch session details only if success is true and session_id is present
+    if (success && tx_ref) {
+      API.post("/payment/savechapatransaction", { tx_ref })
+        .then(() => {
+          toast.success(`Donation successful!`);
+          navigate("/campaigndetail");
+        })
+        .catch((error) => {
+          console.error(
+            "Error fetching session details or saving donation:",
+            error,
+          );
+          toast.error("Failed to save donation.");
+        })
+        .finally(() => {
+          setHasProcessed(true); // Mark as processed
+        });
+    } else if (success && sessionId) {
       API.get(`/payment/stripeSessionDetails/${sessionId}`)
         .then((response) => {
-          console.log(response.data.payment_intent);
-          // Send session details to backend to save in the database
-          return API.post("/payment/saveTransaction", {
+          return API.post("/payment/savestripetransaction", {
             amount: response.data.amount_total / 100,
             currency: response.data.currency,
             transactionId: response.data.payment_intent,
@@ -43,7 +57,6 @@ const Campaign = () => {
           });
         })
         .then(() => {
-          // Show success toast with transaction details
           toast.success(`Donation successful!`);
           navigate("/campaigndetail");
         })
@@ -58,7 +71,6 @@ const Campaign = () => {
           setHasProcessed(true); // Mark as processed
         });
     } else if (canceled) {
-      // Show cancellation toast
       toast.info("Donation canceled.");
       setHasProcessed(true); // Mark as processed
     }
