@@ -1,15 +1,21 @@
-import logo from "../../assets/img/donor/logo.svg";
-import { useState } from "react";
+import logowhite from "../../assets/img/donor/logo-white.svg";
+import logoblack from "../../assets/img/donor/logo-black.svg";
+import { useState, useEffect } from "react";
 import et from "../../assets/img/donor/et.svg";
 import en from "../../assets/img/donor/en.svg";
 import avatar from "../../assets/img/donor/avatar.png";
 import { Link } from "react-router-dom";
+import Select from "react-select";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 
 const Nav = () => {
+  const [scroll, setScroll] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const { i18n, t } = useTranslation();
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   const toggleProfileMenu = () => {
     setIsProfileOpen(!isProfileOpen);
@@ -20,25 +26,68 @@ const Nav = () => {
     setIsProfileOpen(false);
   };
 
-  const [isChecked, setIsChecked] = useState(true);
+  const languageOptions = [
+    { value: "am", label: "አማርኛ", image: et },
+    { value: "en", label: "English", image: en },
+  ];
 
-  const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
-    const newLanguage = !isChecked ? "en" : "am"; // Determine the new language
-    i18n.changeLanguage(newLanguage);
-  };
+  const formatOptionLabel = ({ label, image }) => (
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <img
+        src={image}
+        alt={label}
+        style={{ width: 25, height: 25, marginRight: 10 }}
+      />
+      {label}
+    </div>
+  );
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScroll(true);
+      } else {
+        setScroll(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const isActive = (path) => location.hash === path;
 
   return (
-    <nav className=" rounded-md shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] dark:bg-gray-900">
-      <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4 lg:text-lg">
-        <a href="" className=" flex items-center space-x-3 rtl:space-x-reverse">
-          <img src={logo} className="h-12 " alt="Logo" />
-        </a>
-        <div className=" relative flex items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
+    <nav
+      className={`${isHomePage ? "fixed" : ""} left-0 top-0 z-50 w-full transition-all duration-300 ${
+        isHomePage
+          ? scroll
+            ? "bg-white text-black shadow-md"
+            : "bg-black bg-opacity-5 text-white backdrop-blur-sm"
+          : "bg-white text-black shadow-md"
+      }`}
+    >
+      <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between pb-2 pt-3 lg:text-lg">
+        <Link to={"/"} className=" flex items-center space-x-3">
+          {scroll || !isHomePage ? (
+            <img src={logoblack} className="h-12 " alt="Logo" />
+          ) : (
+            <img src={logowhite} className="h-12 " alt="Logo" />
+          )}
+        </Link>
+        <div className=" relative flex items-center space-x-3 md:order-2 md:space-x-0">
+          <Link
+            to="/signin"
+            className="rounded-full bg-primary-600 px-4 py-2 text-base font-light text-white hover:bg-blue-700"
+          >
+            Sign In
+          </Link>
           <button
             type="button"
             onClick={toggleProfileMenu}
-            className="flex h-8 w-8 overflow-hidden rounded-full bg-gray-800 text-sm focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 md:me-0"
+            className=" hidden  h-10 w-10 overflow-hidden rounded-full text-sm focus:ring-4 focus:ring-primary-500 dark:focus:ring-gray-600 md:me-0"
           >
             <img
               className=" h-full w-full object-cover"
@@ -113,64 +162,94 @@ const Nav = () => {
           </button>
         </div>
 
-        {/* nav  buttons */}
         <div
           className={`${isNavOpen ? "" : "hidden"} w-full items-center justify-between md:order-1 md:flex md:w-auto`}
           id="navbar-user"
         >
-          <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium dark:border-gray-700 dark:bg-gray-800 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 md:dark:bg-gray-900 rtl:space-x-reverse">
+          <ul className="mt-4 flex flex-col items-center rounded-lg border border-gray-100 p-4 font-medium dark:border-gray-700 dark:bg-gray-800 md:mt-0 md:flex-row md:gap-8 md:border-0 md:p-0 md:dark:bg-gray-900">
             <li>
               <Link
-                to={"/"}
-                className="block rounded bg-blue-700 px-3 py-2 text-white md:bg-transparent md:p-0 md:text-blue-700 md:dark:text-blue-500"
+                to="/#main"
+                className={`block rounded px-3 py-2 ${
+                  isActive("#main")
+                    ? "text-primary-500"
+                    : `${isHomePage && !scroll ? "text-white" : "text-black"} hover:text-primary-800 md:bg-transparent md:p-0`
+                }`}
               >
                 {t("home")}
               </Link>
             </li>
             <li>
               <Link
-                to={"#campaigns"}
-                className="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
+                to="/#campaigns"
+                className={`block rounded px-3 py-2 ${
+                  isActive("#campaigns")
+                    ? "text-primary-500"
+                    : `${isHomePage && !scroll ? "text-white" : "text-black"} hover:text-primary-800 md:bg-transparent md:p-0`
+                }`}
               >
                 {t("campaigns")}
               </Link>
             </li>
             <li>
               <Link
-                to={"/#about"}
-                className="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
+                to="/#about"
+                className={`block rounded px-3 py-2 ${
+                  isActive("#about")
+                    ? "text-primary-500"
+                    : `${isHomePage && !scroll ? "text-white" : "text-black"} hover:text-primary-800 md:bg-transparent md:p-0`
+                }`}
               >
                 {t("about")}
               </Link>
             </li>
-
             <li>
               <Link
-                to={"/#contact"}
-                className="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
+                to="/#contact"
+                className={`block rounded px-3 py-2 ${
+                  isActive("#contact")
+                    ? "text-primary-500"
+                    : `${isHomePage && !scroll ? "text-white" : "text-black"} hover:text-primary-800 md:bg-transparent md:p-0`
+                }`}
               >
                 {t("contact")}
               </Link>
             </li>
-            <li className="">
-              {/* //toggle */}
 
-              <label className="inline-flex cursor-pointer items-center lg:ml-32 ">
-                <div className="mr-2 h-6 w-6">
-                  <img className="h-full w-full rounded-full" src={et} alt="" />
-                </div>
-                <input
-                  type="checkbox"
-                  value=""
-                  className="peer sr-only"
-                  checked={isChecked}
-                  onChange={handleCheckboxChange}
-                />
-                <div className="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:ring-4 peer-focus:ring-blue-300 dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800 rtl:peer-checked:after:-translate-x-full"></div>
-                <div className="ml-2 h-6 w-6">
-                  <img className="h-full w-full rounded-full" src={en} alt="" />
-                </div>
-              </label>
+            {/* Language dropdown */}
+            <li className=" text-black md:ml-20">
+              <Select
+                value={languageOptions.find(
+                  (option) => option.value === i18n.language,
+                )}
+                onChange={(option) => i18n.changeLanguage(option.value)}
+                options={languageOptions}
+                formatOptionLabel={formatOptionLabel}
+                isSearchable={false}
+                styles={{
+                  control: (base) => ({
+                    ...base,
+                    background: "transparent",
+                    width: "45px",
+                    padding: "1px",
+                    border: "none",
+                  }),
+                  dropdownIndicator: (base) => ({
+                    ...base,
+                    display: "none",
+                  }),
+                  indicatorSeparator: (base) => ({
+                    // Add this style
+                    ...base,
+                    display: "none",
+                  }),
+                  menu: (base) => ({
+                    ...base,
+                    width: "200px",
+                    padding: "5px",
+                  }),
+                }}
+              />
             </li>
           </ul>
         </div>

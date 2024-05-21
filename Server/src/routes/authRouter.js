@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
-
+//  api/auth
 router.post(
   '/login',
   authController.Login
@@ -9,14 +9,6 @@ router.post(
   // passport to auth controller
 );
 
-router.get('/hi', async (req, res) => {
-  console.log('req.user', req.user);
-  res.send(req.user?.role);
-});
-
-router.post(
-  '/logout'
-  // do stg
-);
+router.get('/logout', authController.Logout);
 
 module.exports = router;

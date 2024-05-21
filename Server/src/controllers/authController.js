@@ -43,3 +43,14 @@ exports.Login = (req, res, next) => {
     });
   })(req, res, next);
 };
+
+exports.Logout = (req, res) => {
+  req.logout();
+  req.session.destroy((err) => {
+    res.clearCookie('connect.sid');
+    if (err) {
+      console.log(err);
+    }
+    res.status(200).send('Successfully logged out');
+  });
+};

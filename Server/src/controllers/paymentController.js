@@ -1,18 +1,12 @@
-const stripe = require('stripe')(
-  'sk_test_51PI85V08YHfLR3hE13GGZlt6J0uACf0qfPvFoQvAg2ZtAM2qzWvjcPeFR3kYfsHyxGO7g1vKO2Rrnc4gidmMJFEf00xbVW1js2'
-);
+const { LOCAL_DOMAIN, NETWORK_DOMAIN, STRIPE_SECRET_KEY } = require('../config');
+
+const stripe = require('stripe')(STRIPE_SECRET_KEY);
 
 const chapa = require('../../src/config/chapa');
-
 const Transaction = require('../models/Transaction');
-
-const endpointSecret = 'whsec_...';
-
-const DOMAIN = 'http://192.168.0.199:5173';
 
 exports.stripePay = async (req, res, next) => {
   const { donationAmount } = req.body;
-
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -29,8 +23,8 @@ exports.stripePay = async (req, res, next) => {
         },
       ],
       mode: 'payment',
-      success_url: `${DOMAIN}/campaigndetail?success=true&session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${DOMAIN}/campaigndetail?canceled=true`,
+      success_url: `${LOCAL_DOMAIN}/campaigndetail?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${LOCAL_DOMAIN}/campaigndetail?canceled=true`,
     });
 
     res.status(200).json({ url: session.url });
@@ -83,8 +77,8 @@ exports.chapaPay = async (req, res, next) => {
       currency: 'ETB',
       amount: amount,
       tx_ref: tx_ref,
-      // callback_url: `https://appurl.io/2-5LjAXVBd`,
-      return_url: `http://192.168.1.103:5173/chaparedirect?success=true&ref=${tx_ref}`,
+      // callback_url: ``,
+      return_url: `${NETWORK_DOMAIN}/chaparedirect?success=true&ref=${tx_ref}`,
       customization: {
         title: 'Donation',
       },
@@ -110,7 +104,7 @@ exports.saveChapaTransaction = async (req, res, next) => {
 
   const paymentProvider = 'chapa';
   const amount = response.data.amount;
-  const currency = 'ETB';
+  const currency = 'etb';
   const transactionId = response.data.tx_ref;
 
   try {

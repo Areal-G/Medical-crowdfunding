@@ -1,4 +1,4 @@
-import logo from "../../assets/img/donor/logo.svg";
+import logo from "../../assets/img/donor/logo-black.svg";
 import { useTranslation } from "react-i18next";
 const Footer = () => {
   const { t } = useTranslation();
