@@ -30,14 +30,14 @@ const HomePage = () => {
       <div ref={mainRef}>
         <Secondmain />
       </div>
-
+      <div className="mt-10"></div>
       <div ref={campaignRef}>
         <Campaign />
       </div>
-      <div className=" mt-20" ref={aboutRef}>
+      <div ref={aboutRef}>
         <About />
       </div>
-      <div className=" mt-20" ref={contactUsRef}>
+      <div ref={contactUsRef}>
         <ContactUs />
       </div>
     </div>

@@ -19,7 +19,10 @@ const Secondmain = () => {
           Be a part of the breakthrough and make someone's dream come true.
         </p>
         <div className="space-x-4">
-          <Link className=" mt-4 inline-flex items-center justify-center rounded-lg bg-primary-700 px-5 py-3 text-center  text-lg font-medium text-white hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
+          <Link
+            to="/#campaigns"
+            className=" mt-4 inline-flex items-center justify-center rounded-lg bg-primary-700 px-5 py-3 text-center  text-lg font-medium text-white hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
+          >
             {t("donate")}
             <svg
               className="-mr-1 ml-2 h-5 w-5"

@@ -6,7 +6,7 @@ const ContactUs = () => {
     <section className="bg-white dark:bg-gray-900">
       <div className="container mx-auto max-w-screen-xl px-6 py-12">
         <div className=" text-center">
-          <p className="font-medium text-blue-500 dark:text-blue-400">
+          <p className="mb-4 text-4xl font-medium text-blue-500 dark:text-blue-400">
             {t("contactus")}
           </p>
 

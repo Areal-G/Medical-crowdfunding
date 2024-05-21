@@ -6,10 +6,10 @@ const SystemAdmin = require('../models/systemAdmin');
 // donor
 exports.donorRegister = async (req, res, next) => {
   try {
-    const user = req.body;
-    const donor = new Donor(user);
+    const { password, ...donorData } = req.body;
+    const donor = new Donor({ password, ...donorData });
     await donor.save();
-    res.status(201);
+    res.status(201).json('Saved succesfully');
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'An error occurred during registration.' });

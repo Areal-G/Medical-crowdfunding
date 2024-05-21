@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const DonorSchema = new mongoose.Schema({
-  name: {
+  fullname: {
     type: String,
     required: true,
   },
@@ -10,6 +10,10 @@ const DonorSchema = new mongoose.Schema({
     required: true,
     lowercase: true,
     unique: true,
+  },
+  image: {
+    type: [String], // Array of strings to store image URLs
+    required: true,
   },
   password: {
     type: String,

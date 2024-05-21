@@ -44,7 +44,7 @@ const Nav = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 150) {
         setScroll(true);
       } else {
         setScroll(false);
