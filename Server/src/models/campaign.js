@@ -2,15 +2,35 @@ const mongoose = require('mongoose');
 
 const CampaignSchema = new mongoose.Schema({
   campaignTitle: {
-    type: String,
-    required: true,
+    en: {
+      type: String,
+      required: true,
+    },
+    am: {
+      type: String,
+      required: true,
+    },
   },
   campaignDescription: {
-    type: String,
+    en: {
+      type: String,
+      required: true,
+    },
+    am: {
+      type: String,
+      required: true,
+    },
+  },
+  target: {
+    type: Number,
+    required: true,
+  },
+  campaignDate: {
+    type: Date,
     required: true,
   },
   images: {
-    type: [String], // Array of strings to store image URLs
+    type: [String],
     required: true,
   },
   hospital: {

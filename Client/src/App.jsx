@@ -43,10 +43,10 @@ const router = createBrowserRouter(
       {/* home/donor route */}
       <Route path="/" element={<DonorRootLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="campaign" element={<CampaignList />} />
+        {/* <Route path="campaign" element={<CampaignList />} /> */}
         <Route path="signin" element={<Signin />} />
         <Route path="signup" element={<Signup />} />
-        <Route path="campaigndetail" element={<CampaignDetailPage />} />
+        <Route path="campaigndetail/:id" element={<CampaignDetailPage />} />
         <Route path="chaparedirect" element={<ChapaRedirectPage />} />
       </Route>
 
