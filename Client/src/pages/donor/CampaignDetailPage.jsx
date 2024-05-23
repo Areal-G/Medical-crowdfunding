@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react-hooks/exhaustive-deps */
 import Carousel from "../../components/donor/Carousel";
 import DonatedCard from "../../components/donor/DonatedCard";
@@ -6,7 +7,7 @@ import DonationProgress from "../../components/donor/DonationProgress";
 
 import { useEffect, useState } from "react";
 import { Toaster, toast } from "sonner";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import API from "../../components/Common/api";
 
@@ -19,9 +20,10 @@ const slides = [
 
 const Campaign = () => {
   const [searchParams] = useSearchParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [hasProcessed, setHasProcessed] = useState(false);
-
+  const campaignId = id;
   useEffect(() => {
     if (hasProcessed) return;
 
@@ -29,12 +31,20 @@ const Campaign = () => {
     const tx_ref = searchParams.get("tx_ref");
     const success = searchParams.get("success");
     const canceled = searchParams.get("canceled");
+    const donationMessage = searchParams.get("donationMessage");
+    const isAnonymous = searchParams.get("isAnonymous") === "true";
+    console.log(tx_ref, success, donationMessage, isAnonymous, campaignId);
 
     if (success && tx_ref) {
-      API.post("/payment/savechapatransaction", { tx_ref })
+      API.post("/payment/savechapatransaction", {
+        tx_ref,
+        donationMessage,
+        isAnonymous,
+        campaignId,
+      })
         .then(() => {
           toast.success(`Donation successful!`);
-          navigate("/campaigndetail");
+          navigate(`/campaigndetail/${campaignId}`);
         })
         .catch((error) => {
           console.error(
@@ -54,11 +64,14 @@ const Campaign = () => {
             currency: response.data.currency,
             transactionId: response.data.payment_intent,
             status: response.data.payment_status,
+            donationMessage,
+            isAnonymous,
+            campaignId,
           });
         })
         .then(() => {
           toast.success(`Donation successful!`);
-          navigate("/campaigndetail");
+          navigate(`/campaigndetail/${campaignId}`);
         })
         .catch((error) => {
           console.error(
@@ -74,7 +87,7 @@ const Campaign = () => {
       toast.info("Donation canceled.");
       setHasProcessed(true); // Mark as processed
     }
-  }, [searchParams, hasProcessed, navigate]);
+  }, [searchParams, hasProcessed, navigate, id]);
 
   return (
     // container
@@ -126,7 +139,7 @@ const Campaign = () => {
         <div className="right lg:w-[30%]">
           <div className=" mx-auto  w-[90%] ">
             {/* progress bar    and look at the mt10 */}
-            <DonationProgress />
+            <DonationProgress campaignId={campaignId} />
 
             <div>
               <HospitalProfile />

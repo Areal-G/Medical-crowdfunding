@@ -1,9 +1,11 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import API from "../Common/api";
 
-const DonationProgress = () => {
+const DonationProgress = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [donationAmount, setDonationAmount] = useState("");
+  const [donationMessage, setDonationMessage] = useState(""); // New state for message
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [paymentSystem, setPaymentSystem] = useState("local");
 
@@ -13,18 +15,26 @@ const DonationProgress = () => {
 
   const handleDonate = async () => {
     if (paymentSystem === "international") {
+      // Included the donationMessage here
       try {
         const response = await API.post("/payment/stripepay", {
           donationAmount: donationAmount,
+          donationMessage: donationMessage,
+          isAnonymous: isAnonymous,
+          campaignId: props.campaignId,
         });
         window.location.href = response.data.url;
       } catch (error) {
         console.error("Error creating checkout session", error);
       }
     } else if (paymentSystem === "local") {
+      // Included the donationMessage here
       try {
         const response = await API.post("/payment/chapapay", {
           amount: donationAmount,
+          message: donationMessage,
+          isAnonymous: isAnonymous,
+          campaignId: props.campaignId,
         });
         window.location.href = response.data;
       } catch (error) {
@@ -157,6 +167,18 @@ const DonationProgress = () => {
                     value={donationAmount}
                     onChange={(e) => setDonationAmount(e.target.value)}
                     placeholder="$ 0.00"
+                  />
+                </div>
+                <div className="mt-4">
+                  <label className="block text-gray-700 dark:text-white">
+                    Donation Message
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 w-full rounded-lg border-gray-300 shadow-sm dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
+                    value={donationMessage}
+                    onChange={(e) => setDonationMessage(e.target.value)}
+                    placeholder="Type your message here..."
                   />
                 </div>
                 <div className="mt-4">

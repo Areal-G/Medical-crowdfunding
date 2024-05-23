@@ -37,6 +37,10 @@ const CampaignSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Hospital',
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Campaign = mongoose.model('campaign', CampaignSchema);

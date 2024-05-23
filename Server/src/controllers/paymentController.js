@@ -3,10 +3,10 @@ const { LOCAL_DOMAIN, NETWORK_DOMAIN, STRIPE_SECRET_KEY } = require('../config')
 const stripe = require('stripe')(STRIPE_SECRET_KEY);
 
 const chapa = require('../../src/config/chapa');
-const Transaction = require('../models/Transaction');
+const Transaction = require('../models/transaction');
 
 exports.stripePay = async (req, res, next) => {
-  const { donationAmount } = req.body;
+  const { donationAmount, donationMessage, isAnonymous, campaignId } = req.body;
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
@@ -23,7 +23,10 @@ exports.stripePay = async (req, res, next) => {
         },
       ],
       mode: 'payment',
-      success_url: `${LOCAL_DOMAIN}/campaigndetail?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      success_url:
+        `${LOCAL_DOMAIN}/campaigndetail/${campaignId}?success=true&session_id={CHECKOUT_SESSION_ID}` +
+        `&donationMessage=${encodeURIComponent(donationMessage)}` +
+        `&isAnonymous=${encodeURIComponent(isAnonymous)}`,
       cancel_url: `${LOCAL_DOMAIN}/campaigndetail?canceled=true`,
     });
 
@@ -32,7 +35,6 @@ exports.stripePay = async (req, res, next) => {
     res.status(500).json({ error: error.message });
   }
 };
-
 exports.stripeSessionDetails = async (req, res, next) => {
   const { sessionId } = req.params;
 
@@ -45,9 +47,9 @@ exports.stripeSessionDetails = async (req, res, next) => {
 };
 
 exports.saveStripeTransaction = async (req, res, next) => {
-  const { amount, currency, transactionId } = req.body;
+  const { amount, currency, transactionId, donationMessage, isAnonymous, campaignId } = req.body;
   console.log(req.body);
-  // campaign id yekeral
+  const donorId = req.user._id;
   const paymentProvider = 'stripe';
   try {
     const newTransaction = new Transaction({
@@ -55,9 +57,14 @@ exports.saveStripeTransaction = async (req, res, next) => {
       currency,
       transactionId,
       paymentProvider,
+      donorId,
+      donationMessage,
+      isAnonymous,
+      campaignId,
     });
 
     const savedTransaction = await newTransaction.save();
+
     res.status(201).json(savedTransaction);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -66,19 +73,25 @@ exports.saveStripeTransaction = async (req, res, next) => {
 
 exports.chapaPay = async (req, res, next) => {
   try {
-    const { amount } = req.body;
+    const { amount, message, isAnonymous, campaignId } = req.body;
     const tx_ref = await chapa.generateTransactionReference();
     console.log(tx_ref);
+    const fullname = req.user.fullname;
+    const [first_name, ...last_name_parts] = fullname.split(' ');
+    const last_name = last_name_parts.join(' ');
 
     const response = await chapa.initialize({
-      first_name: 'abebe',
-      last_name: 'bekele',
-      email: 'abebe@gmail.com',
+      first_name: first_name,
+      last_name: last_name,
+      email: req.user.email,
       currency: 'ETB',
       amount: amount,
       tx_ref: tx_ref,
       // callback_url: ``,
-      return_url: `${NETWORK_DOMAIN}/chaparedirect?success=true&ref=${tx_ref}`,
+      return_url:
+        `${NETWORK_DOMAIN}/chaparedirect/${campaignId}?success=true&tx_ref=${tx_ref}` +
+        `&donationMessage=${encodeURIComponent(message)}` +
+        `&isAnonymous=${encodeURIComponent(isAnonymous)}`,
       customization: {
         title: 'Donation',
       },
@@ -86,7 +99,7 @@ exports.chapaPay = async (req, res, next) => {
 
     res.json(response.data.checkout_url);
     console.log(response);
-    console.log(tx_ref);
+    console.log();
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -94,13 +107,14 @@ exports.chapaPay = async (req, res, next) => {
 };
 
 exports.saveChapaTransaction = async (req, res, next) => {
-  const { tx_ref } = req.body;
+  const { tx_ref, donationMessage, isAnonymous, campaignId } = req.body;
   console.log(req.body);
 
   const response = await chapa.verify({
     tx_ref: tx_ref,
   });
   // campaign id yekeral
+  const donorId = req.user._id;
 
   const paymentProvider = 'chapa';
   const amount = response.data.amount;
@@ -113,6 +127,10 @@ exports.saveChapaTransaction = async (req, res, next) => {
       currency,
       transactionId,
       paymentProvider,
+      donorId,
+      donationMessage,
+      isAnonymous,
+      campaignId,
     });
 
     console.log(newTransaction);

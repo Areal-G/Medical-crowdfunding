@@ -12,7 +12,7 @@ const DonorSchema = new mongoose.Schema({
     unique: true,
   },
   image: {
-    type: [String], // Array of strings to store image URLs
+    type: [String],
     required: true,
   },
   password: {
@@ -30,16 +30,6 @@ const DonorSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-  },
-
-  // donatedTo: [{
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'Campaign'
-  // }],
-
-  totalDonated: {
-    type: Number,
-    default: 0,
   },
 });
 

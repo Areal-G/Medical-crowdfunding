@@ -48,6 +48,7 @@ app.use(
 );
 app.use((req, res, next) => {
   console.log(`Received ${req.method} request at ${req.originalUrl}`);
+  // console.log(req.body);
   console.log('Full session:', req.session);
 
   next();

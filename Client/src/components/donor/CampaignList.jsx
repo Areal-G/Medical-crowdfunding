@@ -1,66 +1,34 @@
 import { t } from "i18next";
 import CampaignCard from "./CampaignCard";
 import { useState, useEffect } from "react";
-
+import API from "../../components/Common/api";
+import { useTranslation } from "react-i18next";
 const Campaign = () => {
-  const [campaigns, setCampaigns] = useState([
-    {
-      id: 1,
-      title: "Campaign 1",
-      description: "This is the description for campaign 1.",
-    },
-    {
-      id: 2,
-      title: "Campaign 2",
-      description: "This is the description for campaign 2.",
-    },
-    {
-      id: 3,
-      title: "Campaign 3",
-      description: "This is the description for campaign 3.",
-    },
-    {
-      id: 4,
-      title: "Campaign 4",
-      description: "This is the description for campaign 4.",
-    },
-    {
-      id: 1,
-      title: "Campaign 1",
-      description: "This is the description for campaign 1.",
-    },
-    {
-      id: 2,
-      title: "Campaign 2",
-      description: "This is the description for campaign 2.",
-    },
-    {
-      id: 3,
-      title: "Campaign 3",
-      description: "This is the description for campaign 3.",
-    },
-    {
-      id: 4,
-      title: "Campaign 4",
-      description: "This is the description for campaign 4.",
-    },
-  ]);
+  const [campaigns, setCampaigns] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6; // Number of items per page
+  const { i18n } = useTranslation();
+  const currentLanguage = i18n.language;
 
-  // useEffect(() => {
-  //   // Fetch campaigns from the backend
-  //   const fetchCampaigns = async () => {
-  //     try {
-  //       const response = await axios.get("YOUR_BACKEND_API_ENDPOINT");
-  //       setCampaigns(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching campaigns:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchCampaigns = async () => {
+      try {
+        const response = await API.get("/donor/getcampaigns");
+        console.log(response.data);
+        const campaigns = response.data.map((campaign) => ({
+          ...campaign,
+          campaignTitle: campaign.campaignTitle[currentLanguage],
+          campaignDescription: campaign.campaignDescription[currentLanguage],
+        }));
+        setCampaigns(campaigns);
+        console.log(campaigns);
+      } catch (error) {
+        console.error("Error fetching campaigns:", error);
+      }
+    };
 
-  //   fetchCampaigns();
-  // }, []);
+    fetchCampaigns();
+  }, [currentLanguage]); //
 
   // Calculate the index of the first and last item of the current page
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -89,7 +57,15 @@ const Campaign = () => {
         <div className="mx-2 grid grid-cols-1 gap-5 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
           {currentItems.map((campaign, index) => (
             <div key={index} className="p-2">
-              <CampaignCard campaign={campaign} />
+              <CampaignCard
+                id={campaign._id}
+                title={campaign.campaignTitle}
+                description={campaign.campaignDescription}
+                date={campaign.campaignDate}
+                city={campaign.hospital.city}
+                goal={campaign.target}
+                image={campaign.images[0]}
+              />
             </div>
           ))}
         </div>

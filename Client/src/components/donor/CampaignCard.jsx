@@ -8,13 +8,23 @@ const CampaignCard = (props) => {
       to={`/campaigndetail/${props.id}`}
     >
       <div className="max-w-sm rounded-lg border shadow-primary-700 hover:shadow-2xl dark:bg-gray-800">
-        <div className="relative mx-auto w-[95%] overflow-hidden rounded-lg">
-          <img className="rounded-lg" src={props.image} alt="" />
+        <div className="relative mx-auto flex h-80 w-[95%] items-center justify-center overflow-hidden rounded-lg">
+          <img
+            className="center absolute rounded-lg object-cover"
+            src={props.image}
+            alt=""
+          />
           <div className="absolute bottom-0 left-0 px-2 pb-1 text-sm text-white backdrop-blur-sm">
-            {`${props.date}`}
+            {props.date
+              ? new Date(props.date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })
+              : "Invalid Date"}
           </div>
           <div className="absolute bottom-0 right-0 px-2 pb-1 text-[15px] text-white backdrop-blur-sm">
-            {`${props.city}`}
+            {`${props.city.toUpperCase()}`}
           </div>
         </div>
 

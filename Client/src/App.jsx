@@ -47,7 +47,7 @@ const router = createBrowserRouter(
         <Route path="signin" element={<Signin />} />
         <Route path="signup" element={<Signup />} />
         <Route path="campaigndetail/:id" element={<CampaignDetailPage />} />
-        <Route path="chaparedirect" element={<ChapaRedirectPage />} />
+        <Route path="chaparedirect/:id" element={<ChapaRedirectPage />} />
       </Route>
 
       {/* patient route */}

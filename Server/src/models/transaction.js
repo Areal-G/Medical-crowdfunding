@@ -22,6 +22,16 @@ const TransactionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Campaign',
   },
+  donorId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Donor',
+  },
+  donationMessage: {
+    type: String,
+  },
+  isAnonymous: {
+    type: Boolean,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

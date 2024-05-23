@@ -10,10 +10,10 @@ exports.createCampaign = async (req, res, next) => {
       return;
     }
 
+    console.log('hi');
     const campaign = new Campaign({
       ...req.body,
       hospital: hospital._id,
-      id,
     });
 
     await campaign.save();
@@ -21,6 +21,16 @@ exports.createCampaign = async (req, res, next) => {
     await Patient.updateOne({ _id: req.user._id }, { $set: { campaign: campaign._id } });
 
     res.status(201).json('Saved Successfully');
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'An error occurred.' });
+  }
+};
+
+exports.getCampaigns = async (req, res, next) => {
+  try {
+    const campaigns = await Campaign.find().populate('hospital'); // Query the database and populate the 'hospital' field if needed
+    res.status(200).json(campaigns);
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'An error occurred.' });
