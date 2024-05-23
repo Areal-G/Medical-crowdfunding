@@ -10,6 +10,8 @@ import { Toaster, toast } from "sonner";
 import { useSearchParams, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import API from "../../components/Common/api";
+import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 const slides = [
   "https://www.reuters.com/resizer/v2/https%3A%2F%2Fcloudfront-us-east-2.images.arcpublishing.com%2Freuters%2FVUQLBHODHJPLZEBJ37UKOF4L3I.jpg?auth=21ebe01956eac5be545b20cc0b7a90eeb422d5d3aed1e6cad13e231b2530c5e0&width=960&quality=80",
@@ -19,11 +21,28 @@ const slides = [
 ];
 
 const Campaign = () => {
+  const { i18n } = useTranslation();
+  const currentLanguage = i18n.language;
+
   const [searchParams] = useSearchParams();
   const { id } = useParams();
   const navigate = useNavigate();
   const [hasProcessed, setHasProcessed] = useState(false);
   const campaignId = id;
+  const [campaignData, setCampaignData] = useState(null);
+
+  useEffect(() => {
+    API.get(`/donor/getcampaigndetail/${campaignId}`)
+      .then((response) => {
+        setCampaignData(response.data);
+        console.log(response.data);
+        console.log(campaignData);
+      })
+      .catch((error) => {
+        console.error("Error fetching campaign details:", error);
+      });
+  }, [campaignId]);
+
   useEffect(() => {
     if (hasProcessed) return;
 
@@ -54,7 +73,7 @@ const Campaign = () => {
           toast.error("Failed to save donation.");
         })
         .finally(() => {
-          setHasProcessed(true); // Mark as processed
+          setHasProcessed(true);
         });
     } else if (success && sessionId) {
       API.get(`/payment/stripeSessionDetails/${sessionId}`)
@@ -94,7 +113,7 @@ const Campaign = () => {
     <div className="mx-auto mt-10  max-w-screen-xl">
       <Toaster richColors />
       <h2 className=" mx-auto mb-8 w-[90%] text-center text-3xl font-semibold  dark:text-white ">
-        Help Provide Lifesaving Medical Care for Sick African Children
+        {/* {campaignData.Campaign.campaignTitle.en} */}
       </h2>
       <div className="  justify-between lg:flex">
         <div className="left mx-auto flex w-[90%] flex-col  lg:w-[70%]">
@@ -142,7 +161,15 @@ const Campaign = () => {
             <DonationProgress campaignId={campaignId} />
 
             <div>
-              <HospitalProfile />
+              <HospitalProfile
+                image={
+                  "https://images.gofundme.com/9l_J8RYXVHbf_nFGhfmysqUHL-U=/720x405/https://d2g8igdw686xgo.cloudfront.net/79670191_1713813007610813_r.jpeg"
+                }
+                name={"Hospital Name"}
+                address={"Address"}
+                city={"City"}
+                state={"State"}
+              />
             </div>
             {/* Donations */}
             <div className="">

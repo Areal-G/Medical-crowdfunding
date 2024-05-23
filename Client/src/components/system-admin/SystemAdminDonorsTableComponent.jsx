@@ -1,4 +1,4 @@
-import avatar from "../../assets/img/donor/avatar.png";
+import avatar from "../../assets/img/donor/avatar.jpg";
 
 const SystemAdminDonorsTableComponent = () => {
   const brandData = [

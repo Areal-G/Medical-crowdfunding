@@ -3,7 +3,7 @@ import logoblack from "../../assets/img/donor/logo-black.svg";
 import { useState, useEffect } from "react";
 import et from "../../assets/img/donor/et.svg";
 import en from "../../assets/img/donor/en.svg";
-import avatar from "../../assets/img/donor/avatar.png";
+import avatar from "../../assets/img/donor/avatar.jpg";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import { useTranslation } from "react-i18next";
