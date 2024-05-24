@@ -2,6 +2,12 @@ const Hospital = require('../models/hospital');
 const Campaign = require('../models/campaign');
 const Patient = require('../models/patient');
 const Transaction = require('../models/transaction');
+const {
+  calculateRaisedMoney,
+  tableWeeklyTransactions,
+  getTodayTransactionsCount,
+} = require('../helpers/campaignhelpers');
+const moment = require('moment');
 
 exports.createCampaign = async (req, res, next) => {
   try {
@@ -11,7 +17,6 @@ exports.createCampaign = async (req, res, next) => {
       return;
     }
 
-    console.log('hi');
     const campaign = new Campaign({
       ...req.body,
       hospital: hospital._id,
@@ -45,29 +50,60 @@ exports.getCampaignDetail = async (req, res, next) => {
     const deadlineDate = Math.ceil(
       (campaign.campaignDate - campaign.createdAt) / (1000 * 60 * 60 * 24)
     );
-    let raisedMoney = 0;
-    let Money = 0;
-    const transactions = await Transaction.find({ campaignId }).populate('donorId');
-    transactions.forEach((transaction) => {
-      let exchangeRate = transaction.currency === 'usd' ? transaction.amount * 57.5071 : 1;
 
-      Money += transaction.amount * exchangeRate;
-      raisedMoney = Math.ceil(Money);
-    });
+    const transactions = await Transaction.find({ campaignId }).populate('donorId');
+    let raisedMoney = calculateRaisedMoney(transactions);
     let donations = 0;
     donations = transactions.length;
     let raisedPercent = 0;
     raisedPercent = Math.ceil(raisedMoney / campaign.target) * 100;
-    res
-      .status(200)
-      .json({
-        campaign,
-        transactions,
-        totalRaisedMoney: raisedMoney,
-        deadlineDate,
-        raisedPercent,
-        donations,
-      });
+
+    res.status(200).json({
+      campaign,
+      transactions,
+      totalRaisedMoney: raisedMoney,
+      deadlineDate,
+      raisedPercent,
+      donations,
+    });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'An error occurred.' });
+  }
+};
+
+exports.getPatientDashboard = async (req, res, next) => {
+  try {
+    const campaign = await Campaign.findOne({ _id: req.user.campaign });
+    const transactions = await Transaction.find({ campaignId: req.user.campaign }).populate(
+      'donorId'
+    );
+
+    let raisedMoney = calculateRaisedMoney(transactions);
+    const { flooredWeekData, daysOfWeek } = tableWeeklyTransactions(transactions);
+    let donations = transactions.length;
+    const donationsToday = await getTodayTransactionsCount(req.user.campaign);
+    let raisedMoneyToday = calculateRaisedMoney(donationsToday);
+
+    res.status(200).json({
+      campaign,
+      transactions,
+      totalRaisedMoney: raisedMoney,
+      chartData: flooredWeekData,
+      daysOfWeek,
+      donations,
+      raisedMoneyToday,
+    });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'An error occurred.' });
+  }
+};
+
+exports.getCampaignDetail = async (req, res, next) => {
+  try {
+    const campaign = await Campaign.findOne({ _id: req.user.campaign });
+    res.status(200).json(campaign);
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'An error occurred.' });

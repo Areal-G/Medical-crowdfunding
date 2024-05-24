@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import ReactApexChart from "react-apexcharts";
 
-const PatientLineChart = () => {
+const PatientLineChart = (props) => {
   const seriesData = [
     {
       name: "Donated",
-      data: [23, 11, 22, 27, 13, 22, 37],
+      data: props.chartData,
     },
   ];
 
@@ -56,7 +57,7 @@ const PatientLineChart = () => {
     },
     xaxis: {
       type: "category",
-      categories: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      categories: props.daysOfWeek,
       axisBorder: {
         show: false,
       },
