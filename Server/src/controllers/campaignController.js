@@ -60,7 +60,14 @@ exports.getCampaignDetail = async (req, res, next) => {
     raisedPercent = Math.ceil(raisedMoney / campaign.target) * 100;
     res
       .status(200)
-      .json({ campaign, transactions, totalRaisedMoney: raisedMoney, deadlineDate, raisedPercent });
+      .json({
+        campaign,
+        transactions,
+        totalRaisedMoney: raisedMoney,
+        deadlineDate,
+        raisedPercent,
+        donations,
+      });
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'An error occurred.' });

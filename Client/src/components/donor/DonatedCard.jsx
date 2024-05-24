@@ -22,8 +22,8 @@ const DonatedCard = (props) => {
             <div className="text-base font-semibold text-slate-900 dark:text-slate-200">
               {name}
             </div>
-            <div className="mt-0.5 text-base font-semibold dark:text-slate-300">
-              $ {props.amount}
+            <div className="mt-0.5 text-base font-semibold uppercase dark:text-slate-300">
+              {props.amount} {props.currency}
             </div>
           </div>
         </figcaption>

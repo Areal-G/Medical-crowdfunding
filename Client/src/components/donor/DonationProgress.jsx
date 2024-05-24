@@ -47,24 +47,26 @@ const DonationProgress = (props) => {
       <div className="mx-auto w-[90%]">
         <div className="flex justify-between">
           <p>
-            <span className="font-bold">245</span> Donations
+            <span className="font-bold">{props.donations}</span> Donations
           </p>
-          <p className="font-bold">45%</p>
+          <p className="font-bold">{props.donationpercent}%</p>
         </div>
         <div className="my-2 h-1 rounded-full bg-gray-200 dark:bg-gray-700">
-          <div className="h-1 w-[45%] rounded-full bg-primary-600"></div>
+          <div
+            className={`h-1 w-[${props.donationpercent}%] rounded-full bg-primary-600`}
+          ></div>
         </div>
         <div className="flex justify-between">
           <p>
-            Raised: <span className="font-bold">$600</span>
+            Raised: <span className="font-bold">{props.raised}</span> Birr
           </p>
           <p>
-            Goal: <span className="font-bold">$1000</span>
+            Goal: <span className="font-bold">{props.goal} </span> Birr
           </p>
         </div>
         <div className="mt-4 text-right">
           <p>
-            <span className="font-bold">23</span> Days left
+            <span className="font-bold">{props.deadlinedate}</span> Days left
           </p>
         </div>
         {/* Donate button */}
