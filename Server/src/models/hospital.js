@@ -41,6 +41,11 @@ const HospitalSchema = new mongoose.Schema({
       ref: 'Patient',
     },
   ],
+  status: {
+    type: String,
+    default: 'active',
+    enum: ['active', 'blocked'],
+  },
 
   // bankAccount: [
   //   {

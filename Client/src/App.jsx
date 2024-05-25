@@ -14,6 +14,7 @@ import CampaignList from "./components/donor/CampaignList";
 import Signin from "./pages/donor/SignIn";
 import Signup from "./pages/donor/SignUp";
 import CampaignDetailPage from "./pages/donor/CampaignDetailPage";
+import ChapaRedirectPage from "./pages/donor/ChapaRedirectPage";
 
 //patient import
 import PatientRootLayout from "./pages/patient/PatientRootLayout";
@@ -26,16 +27,15 @@ import PatientUpdateForm from "./components/patient/PatientUpdateForm";
 import SystemAdminRootLayout from "./pages/system-admin/SystemAdminRootLayout";
 import SystemAdminHomePage from "./pages/system-admin/SystemAdminHomePage";
 import SystemAdminRegisterHospitalsPage from "./pages/system-admin/SystemAdminRegisterHospitalsPage";
-import SystemAdminHospitalsTable from "./pages/system-admin/SystemAdminHospitalsTable";
-import SystemAdminDonorsTableComponent from "./components/system-admin/SystemAdminDonorsTableComponent";
-import SystemAdminPatientsTableComponent from "./components/system-admin/SystemAdminPatientsTableComponent";
+import SystemAdminHospitalsPage from "./pages/system-admin/SystemAdminHospitalsPage";
+import SystemAdminDonorsPage from "./pages/system-admin/SystemAdminDonorsPage";
+import SystemAdminPatientsPage from "./pages/system-admin/SystemAdminPatientsPage";
 
 // hospital admin import
 import HospitalAdminRootLayout from "./pages/hospital-admin/HospitalAdminRootLayout";
 import HospitalAdminHomePage from "./pages/hospital-admin/HospitalAdminHomepage";
 import HospitalAdminRegisterPatinentForm from "./pages/hospital-admin/HospitalAdminRegisterPatinentForm";
 import HospitalAdminPatientsTable from "./components/hospital-admin/HospitalAdminPatientsTable";
-import ChapaRedirectPage from "./pages/donor/ChapaRedirectPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -93,12 +93,9 @@ const router = createBrowserRouter(
       >
         <Route index element={<SystemAdminHomePage />} />
         <Route path="register" element={<SystemAdminRegisterHospitalsPage />} />
-        <Route path="hospitals" element={<SystemAdminHospitalsTable />} />
-        <Route path="donors" element={<SystemAdminDonorsTableComponent />} />
-        <Route
-          path="patients"
-          element={<SystemAdminPatientsTableComponent />}
-        />
+        <Route path="hospitals" element={<SystemAdminHospitalsPage />} />
+        <Route path="donors" element={<SystemAdminDonorsPage />} />
+        <Route path="patients" element={<SystemAdminPatientsPage />} />
       </Route>
     </Route>,
   ),

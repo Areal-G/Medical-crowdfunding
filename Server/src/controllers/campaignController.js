@@ -2,12 +2,13 @@ const Hospital = require('../models/hospital');
 const Campaign = require('../models/campaign');
 const Patient = require('../models/patient');
 const Transaction = require('../models/transaction');
+const Donor = require('../models/donor');
 const {
   calculateRaisedMoney,
   tableWeeklyTransactions,
   getTodayTransactionsCount,
+  getWeeklyData,
 } = require('../helpers/campaignhelpers');
-const moment = require('moment');
 
 exports.createCampaign = async (req, res, next) => {
   try {
@@ -103,7 +104,44 @@ exports.getPatientDashboard = async (req, res, next) => {
 exports.getCampaignDetail = async (req, res, next) => {
   try {
     const campaign = await Campaign.findOne({ _id: req.user.campaign });
+
     res.status(200).json(campaign);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'An error occurred.' });
+  }
+};
+
+exports.getAdminDashboard = async (req, res, next) => {
+  try {
+    const transactions = await Transaction.find();
+    const patients = await Patient.find();
+    const hospitals = await Hospital.find();
+    const donors = await Donor.find();
+    const patientData = getWeeklyData(patients);
+    const hospitalData = getWeeklyData(hospitals);
+    const donorData = getWeeklyData(donors);
+
+    const numberOfDonors = donors.length;
+    const numberOfPatients = patients.length;
+    const numberOfHospitals = hospitals.length;
+
+    let totalMoney = calculateRaisedMoney(transactions);
+    const donationsToday = await getTodayTransactionsCount();
+    let raisedMoneyToday = calculateRaisedMoney(donationsToday);
+    const numberOfDonationsToday = donationsToday.length;
+
+    res.status(200).json({
+      patients: patientData,
+      hospitals: hospitalData,
+      donors: donorData,
+      totalMoney,
+      raisedMoneyToday,
+      numberOfDonors,
+      numberOfPatients,
+      numberOfHospitals,
+      numberOfDonationsToday,
+    });
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'An error occurred.' });

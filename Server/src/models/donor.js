@@ -27,6 +27,11 @@ const DonorSchema = new mongoose.Schema({
     type: String,
     default: 'donor',
   },
+  status: {
+    type: String,
+    default: 'active',
+    enum: ['active', 'blocked'],
+  },
   createdAt: {
     type: Date,
     default: Date.now,

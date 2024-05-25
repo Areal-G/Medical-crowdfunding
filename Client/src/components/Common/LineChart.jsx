@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
 import ReactApexChart from "react-apexcharts";
-
-const PatientLineChart = (props) => {
+const LineChart = (props) => {
   const seriesData = [
     {
-      name: "Donated",
+      name: props.name,
       data: props.chartData,
     },
   ];
@@ -75,12 +74,12 @@ const PatientLineChart = (props) => {
   };
 
   return (
-    <div className=" rounded-md bg-white px-5 pb-5 pt-7">
+    <div className=" rounded-md border bg-white px-4 pb-3 pt-7">
       <div>
+        <h3 className=" text-center text-lg font-semibold">{props.title}</h3>
         <ReactApexChart options={options} series={seriesData} type="area" />
       </div>
     </div>
   );
 };
-
-export default PatientLineChart;
+export default LineChart;

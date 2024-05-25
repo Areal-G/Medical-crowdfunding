@@ -28,6 +28,12 @@ const PatientSchema = new mongoose.Schema({
   },
   campaign: { type: mongoose.Schema.Types.ObjectId, ref: 'Campaign' },
 
+  status: {
+    type: String,
+    default: 'active',
+    enum: ['active', 'blocked'],
+  },
+
   createdAt: {
     type: Date,
     default: Date.now,

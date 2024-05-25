@@ -1,9 +1,9 @@
 import CardDataStats from "../../components/Common/CardDataStats";
 import DonatedCard from "../../components/donor/DonatedCard";
-import PatientLineChart from "../../components/patient/PatientLineChart";
 import { useEffect, useState } from "react";
 import API from "../../components/Common/api";
 import Loading from "../../components/Common/Loading";
+import LineChart from "../../components/Common/LineChart";
 
 const PatientHomepage = () => {
   const [Data, setData] = useState(null);
@@ -107,7 +107,9 @@ const PatientHomepage = () => {
             ))}
           </div>
           <div className=" rounded-md lg:w-[50%]">
-            <PatientLineChart
+            <LineChart
+              name="Donated"
+              title="Donations"
               chartData={Data?.chartData}
               daysOfWeek={Data?.daysOfWeek}
             />
