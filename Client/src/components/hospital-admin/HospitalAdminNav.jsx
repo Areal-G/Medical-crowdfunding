@@ -205,7 +205,7 @@ const HospitalAdminNav = () => {
             </li>
             <li>
               <NavLink
-                to={"ffff"}
+                to={"approve"}
                 className={({ isActive }) =>
                   `flex items-center rounded-lg p-2 pb-4 ${
                     isActive

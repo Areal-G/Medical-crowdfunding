@@ -1,51 +1,70 @@
 import CardDataStats from "../../components/Common/CardDataStats";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { IoPeople } from "react-icons/io5";
-import HospitalAdminPatientsLineChart from "../../components/hospital-admin/HospitalAdminPatientsLineChart";
-import HospitalAdminDonorsLineChart from "../../components/hospital-admin/HospitalAdminDonorsLineChart";
+import { useEffect, useState } from "react";
+import API from "../../components/Common/api";
+import Loading from "../../components/Common/Loading";
+import LineChart from "../../components/Common/LineChart";
 const HospitalAdminHomepage = () => {
-  return (
-    // main class style has the ml-64
-    <main>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-3">
-        <CardDataStats
-          title="Total Collected"
-          total="3000 Birr"
-          rate="0.43%"
-          levelUp
-        >
-          <GiTakeMyMoney className=" fill-primary-500" />
-        </CardDataStats>
-        <CardDataStats
-          title="Total Collected Today"
-          total="120 Birr"
-          rate="0.70%"
-          levelUp
-        >
-          <GiTakeMyMoney className=" fill-primary-500" />
-        </CardDataStats>
-        <CardDataStats
-          title="Donors Donated today"
-          total="345"
-          rate="0.43%"
-          levelDown
-        >
-          <IoPeople className=" fill-primary-500" />
-        </CardDataStats>
+  const [Data, setData] = useState(null);
+  useEffect(() => {
+    const fetchCampaignData = async () => {
+      try {
+        const response = await API.get(`/hospital/gethospitaldashboard`);
+        setData(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-        <CardDataStats title="patients" total="30" rate="0.43%" levelUp>
-          <IoPeople className=" fill-primary-500" />
-        </CardDataStats>
-      </div>
-      <div className=" mt-6 h-[424px] justify-between gap-5 lg:flex">
-        <div className=" flex-1">
-          <HospitalAdminPatientsLineChart />
+    fetchCampaignData();
+  }, []);
+  if (Data === null) {
+    return <Loading />;
+  } else
+    return (
+      <main>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-3">
+          <CardDataStats title="Total Collected" total={Data?.totalMoney}>
+            <GiTakeMyMoney className=" fill-primary-500" />
+          </CardDataStats>
+          <CardDataStats
+            title="Total Collected Today"
+            total={Data?.todayTotalMoney}
+          >
+            <GiTakeMyMoney className=" fill-primary-500" />
+          </CardDataStats>
+          <CardDataStats
+            title="Donors Donated today"
+            total={Data?.donationsToday}
+          >
+            <IoPeople className=" fill-primary-500" />
+          </CardDataStats>
+
+          <CardDataStats title="Patients" total={Data?.numberOfPatients}>
+            <IoPeople className=" fill-primary-500" />
+          </CardDataStats>
         </div>
-        <div className=" flex-1">
-          <HospitalAdminDonorsLineChart />
+        <div className=" mt-6 h-[424px] justify-between gap-5 lg:flex">
+          <div className=" flex-1">
+            <LineChart
+              name="Patients registerd"
+              title="Patients"
+              chartData={Data?.patientData.itemCounts}
+              daysOfWeek={Data?.patientData.daysOfWeek}
+            />
+          </div>
+          <div className=" flex-1">
+            <LineChart
+              name="Donations"
+              title="Donations"
+              chartData={Data?.donorData.itemCounts}
+              daysOfWeek={Data?.donorData.daysOfWeek}
+            />
+          </div>
         </div>
-      </div>
-    </main>
-  );
+      </main>
+    );
 };
 export default HospitalAdminHomepage;

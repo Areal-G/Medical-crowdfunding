@@ -36,7 +36,8 @@ import SystemAdminCampaignsPage from "./pages/system-admin/SystemAdminCampaignsP
 import HospitalAdminRootLayout from "./pages/hospital-admin/HospitalAdminRootLayout";
 import HospitalAdminHomePage from "./pages/hospital-admin/HospitalAdminHomepage";
 import HospitalAdminRegisterPatinentForm from "./pages/hospital-admin/HospitalAdminRegisterPatinentForm";
-import HospitalAdminPatientsTable from "./components/hospital-admin/HospitalAdminPatientsTable";
+import HospitalAdminPatientsPage from "./pages/hospital-admin/HospitalAdminPatientsPage";
+import HospitalAdminApproveCampaignsPage from "./pages/hospital-admin/HospitalAdminApproveCampaignsPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -79,7 +80,8 @@ const router = createBrowserRouter(
           path="register"
           element={<HospitalAdminRegisterPatinentForm />}
         />
-        <Route path="patients" element={<HospitalAdminPatientsTable />} />
+        <Route path="patients" element={<HospitalAdminPatientsPage />} />
+        <Route path="approve" element={<HospitalAdminApproveCampaignsPage />} />
       </Route>
 
       {/* system admin route */}

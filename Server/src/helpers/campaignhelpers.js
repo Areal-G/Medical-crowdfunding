@@ -62,6 +62,8 @@ const getTodayTransactionsCount = async (campaignId = null) => {
     query.campaignId = campaignId;
   }
 
+  console.log(query);
+
   const transactions = await Transaction.find(query);
 
   return transactions;

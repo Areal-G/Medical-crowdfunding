@@ -43,3 +43,24 @@ exports.getCampaignsTable = async (req, res, next) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+exports.getPatientsTableInHospital = async (req, res, next) => {
+  try {
+    const hospital = await Hospital.findOne({ _id: req.user._id }).populate('patients');
+    const patients = hospital.patients;
+    res.status(200).json(patients);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.getCampaignsTableInHospital = async (req, res, next) => {
+  try {
+    const campaigns = await Campaign.find({ hospital: req.user._id });
+    res.status(200).json(campaigns);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};

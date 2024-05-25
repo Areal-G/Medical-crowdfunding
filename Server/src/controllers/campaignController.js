@@ -147,3 +147,41 @@ exports.getAdminDashboard = async (req, res, next) => {
     res.status(500).json({ error: 'An error occurred.' });
   }
 };
+
+exports.getHospitalDashboard = async (req, res, next) => {
+  try {
+    const transactions = await Transaction.find({ hospitalId: req.user._id });
+    const hospital = await Hospital.findOne({ _id: req.user._id }).populate('patients');
+    const patients = hospital.patients;
+    const numberOfPatients = patients.length;
+    const patientData = getWeeklyData(patients);
+    const totalMoney = calculateRaisedMoney(transactions);
+    const startOfToday = new Date();
+    startOfToday.setUTCHours(0, 0, 0, 0);
+    const endOfToday = new Date();
+    endOfToday.setUTCHours(23, 59, 59, 999);
+    const query = {
+      createdAt: {
+        $gte: startOfToday,
+        $lt: endOfToday,
+      },
+      hospitalId: req.user._id,
+    };
+    const transactionsToday = await Transaction.find(query);
+    const todayTotalMoney = calculateRaisedMoney(transactionsToday);
+    const donationsToday = transactionsToday.length;
+
+    const donorData = getWeeklyData(transactions);
+    res.status(200).json({
+      totalMoney,
+      todayTotalMoney,
+      donationsToday,
+      numberOfPatients,
+      patientData,
+      donorData,
+    });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'An error occurred.' });
+  }
+};

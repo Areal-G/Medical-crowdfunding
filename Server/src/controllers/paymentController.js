@@ -50,8 +50,11 @@ exports.saveStripeTransaction = async (req, res, next) => {
   const { amount, currency, transactionId, donationMessage, isAnonymous, campaignId } = req.body;
   console.log(req.body);
   const donorId = req.user._id;
+
   const paymentProvider = 'stripe';
   try {
+    const patient = await Patient.findOne({ campaign: campaignId });
+    const hospital = await Hospital.findOne({ patients: patient._id });
     const newTransaction = new Transaction({
       amount,
       currency,
@@ -61,6 +64,7 @@ exports.saveStripeTransaction = async (req, res, next) => {
       donationMessage,
       isAnonymous,
       campaignId,
+      hospitalId: hospital._id,
     });
 
     const savedTransaction = await newTransaction.save();
@@ -122,6 +126,8 @@ exports.saveChapaTransaction = async (req, res, next) => {
   const transactionId = response.data.tx_ref;
 
   try {
+    const patient = await Patient.findOne({ campaign: campaignId });
+    const hospital = await Hospital.findOne({ patients: patient._id });
     const newTransaction = new Transaction({
       amount,
       currency,
@@ -131,6 +137,7 @@ exports.saveChapaTransaction = async (req, res, next) => {
       donationMessage,
       isAnonymous,
       campaignId,
+      hospitalId: hospital._id,
     });
 
     console.log(newTransaction);
