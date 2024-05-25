@@ -36,3 +36,14 @@ exports.updatePatientStatus = async (req, res, next) => {
     res.status(400).send(error);
   }
 };
+
+exports.updateCampaignStatus = async (req, res, next) => {
+  try {
+    const campaign = await Campaign.findById(req.params.id);
+    campaign.status = req.body.status;
+    await campaign.save();
+    res.send('sucessful');
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};

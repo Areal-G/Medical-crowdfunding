@@ -7,5 +7,5 @@ const CampaignController = require('../controllers/campaignController');
 router.post('/register', registerController.donorRegister);
 
 router.get('/getcampaigns', CampaignController.getCampaigns);
-router.get('/getcampaigndetail/:campaignId', CampaignController.getCampaignDetail);
+router.get('/getcampaigndetail/:campaignId', CampaignController.getCampaignDetailForDonor);
 module.exports = router;

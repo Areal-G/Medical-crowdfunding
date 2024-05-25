@@ -37,6 +37,11 @@ const CampaignSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Hospital',
   },
+  status: {
+    type: String,
+    enum: ['active', 'pending', 'rejected', 'closed'],
+    default: 'pending',
+  },
   createdAt: {
     type: Date,
     default: Date.now,

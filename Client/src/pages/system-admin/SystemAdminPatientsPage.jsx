@@ -6,7 +6,7 @@ import { CgBlock, CgUnblock, CgSpinner } from "react-icons/cg";
 import { FiEye } from "react-icons/fi";
 
 const SystemAdminPatientsPage = () => {
-  const [currentLoadinId, setCurrentLoadingId] = useState(null);
+  const [currentLoadingId, setCurrentLoadingId] = useState(null);
   const [Data, setData] = useState(null);
   const fetchData = async () => {
     try {
@@ -78,7 +78,7 @@ const SystemAdminPatientsPage = () => {
                   </td>
                   <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                     <p
-                      className={`inline-flex rounded-full  bg-opacity-10 px-3 py-1 text-sm font-medium ${
+                      className={`inline-flex rounded-full bg-opacity-10  px-3 py-1 text-sm font-medium uppercase ${
                         item.status === "active"
                           ? " bg-[#219653] text-[#219653]"
                           : item.status === "blocked"
@@ -108,7 +108,7 @@ const SystemAdminPatientsPage = () => {
                         }
                         title={item.status === "active" ? "Block" : "Unblock"} // here you add title attribute
                       >
-                        {currentLoadinId === item._id ? (
+                        {currentLoadingId === item._id ? (
                           <CgSpinner className="h-8 w-8 animate-spin" />
                         ) : item.status === "active" ? (
                           <CgBlock className="h-8 w-8" />

@@ -44,7 +44,7 @@ exports.getCampaigns = async (req, res, next) => {
   }
 };
 
-exports.getCampaignDetail = async (req, res, next) => {
+exports.getCampaignDetailForDonor = async (req, res, next) => {
   const { campaignId } = req.params;
   try {
     const campaign = await Campaign.findOne({ _id: campaignId }).populate('hospital');
@@ -101,7 +101,7 @@ exports.getPatientDashboard = async (req, res, next) => {
   }
 };
 
-exports.getCampaignDetail = async (req, res, next) => {
+exports.getCampaignDetailForPatient = async (req, res, next) => {
   try {
     const campaign = await Campaign.findOne({ _id: req.user.campaign });
 

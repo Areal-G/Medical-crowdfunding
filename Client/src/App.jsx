@@ -30,6 +30,7 @@ import SystemAdminRegisterHospitalsPage from "./pages/system-admin/SystemAdminRe
 import SystemAdminHospitalsPage from "./pages/system-admin/SystemAdminHospitalsPage";
 import SystemAdminDonorsPage from "./pages/system-admin/SystemAdminDonorsPage";
 import SystemAdminPatientsPage from "./pages/system-admin/SystemAdminPatientsPage";
+import SystemAdminCampaignsPage from "./pages/system-admin/SystemAdminCampaignsPage";
 
 // hospital admin import
 import HospitalAdminRootLayout from "./pages/hospital-admin/HospitalAdminRootLayout";
@@ -96,6 +97,7 @@ const router = createBrowserRouter(
         <Route path="hospitals" element={<SystemAdminHospitalsPage />} />
         <Route path="donors" element={<SystemAdminDonorsPage />} />
         <Route path="patients" element={<SystemAdminPatientsPage />} />
+        <Route path="campaigns" element={<SystemAdminCampaignsPage />} />
       </Route>
     </Route>,
   ),

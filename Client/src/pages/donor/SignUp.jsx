@@ -1,10 +1,10 @@
 import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/img/donor/logo.svg";
 import useFileUploader from "../../components/Common/useFileUploader";
 import API from "../../components/Common/api";
 import { Toaster, toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+
 const SignUp = () => {
   const navigate = useNavigate();
   const { handleFilesChange, uploadFiles } = useFileUploader();
@@ -12,6 +12,8 @@ const SignUp = () => {
     fullname: "",
     phoneNumber: "",
     email: "",
+    country: "",
+    city: "",
     image: [],
     password: "",
     confirmPassword: "",
@@ -24,6 +26,8 @@ const SignUp = () => {
       fullname: "",
       phoneNumber: "",
       email: "",
+      country: "",
+      city: "",
       image: [],
       password: "",
       confirmPassword: "",
@@ -55,11 +59,8 @@ const SignUp = () => {
         ...formData,
         image: imageUrl,
       };
-      console.log(imageUrl);
 
       const response = await API.post("/donor/register", updatedFormData);
-      console.log(response);
-
       toast.success(response.data);
 
       resetForm();
@@ -137,8 +138,34 @@ const SignUp = () => {
                     />
                   </div>
                   <div>
+                    <label className="mb-2 block text-sm text-gray-600 dark:text-gray-200">
+                      Country
+                    </label>
+                    <input
+                      type="text"
+                      name="country"
+                      value={formData.country}
+                      onChange={handleChange}
+                      placeholder="Country"
+                      className="mt-2 block w-full rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-700 placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:border-blue-400"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-2 block text-sm text-gray-600 dark:text-gray-200">
+                      City
+                    </label>
+                    <input
+                      type="text"
+                      name="city"
+                      value={formData.city}
+                      onChange={handleChange}
+                      placeholder="City"
+                      className="mt-2 block w-full rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-700 placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:border-blue-400"
+                    />
+                  </div>
+                  <div>
                     <label className="mb-3 block text-sm text-gray-600 dark:text-gray-200">
-                      Attach Profile picture
+                      Attach Profile Picture
                     </label>
                     <input
                       type="file"
@@ -178,14 +205,14 @@ const SignUp = () => {
 
                 <button
                   type="submit"
-                  className="mt-6 w-full transform rounded-lg  bg-primary-600 px-6 py-3 text-sm font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-blue-700 "
+                  className="mt-6 w-full transform rounded-lg bg-primary-600 px-6 py-3 text-sm font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-blue-700"
                   disabled={isLoading}
                 >
                   {isLoading ? (
                     <div className="flex items-center justify-center ">
                       <svg
                         aria-hidden="true"
-                        className="h-8 w-8 animate-spin  fill-blue-600 text-gray-200 dark:text-gray-600"
+                        className="h-8 w-8 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
                         viewBox="0 0 100 101"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"

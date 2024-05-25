@@ -33,3 +33,13 @@ exports.getPatientsTable = async (req, res, next) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+exports.getCampaignsTable = async (req, res, next) => {
+  try {
+    const campaigns = await Campaign.find();
+    res.status(200).json(campaigns);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};

@@ -47,22 +47,22 @@ const HospitalSchema = new mongoose.Schema({
     enum: ['active', 'blocked'],
   },
 
-  // bankAccount: [
-  //   {
-  //     accountHolderName: {
-  //       type: String,
-  //       required: [true, 'Account holder name is required'],
-  //     },
-  //     accountNumber: {
-  //       type: String,
-  //       required: [true, 'Account number is required'],
-  //     },
-  //     bankName: {
-  //       type: String,
-  //       required: [true, 'Bank name is required'],
-  //     },
-  //   },
-  // ],
+  bankAccount: [
+    {
+      accountHolderName: {
+        type: String,
+        required: [true, 'Account holder name is required'],
+      },
+      accountNumber: {
+        type: String,
+        required: [true, 'Account number is required'],
+      },
+      bankName: {
+        type: String,
+        required: [true, 'Bank name is required'],
+      },
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,

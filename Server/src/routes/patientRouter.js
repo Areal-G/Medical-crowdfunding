@@ -5,5 +5,5 @@ const campaignController = require('../controllers/campaignController');
 
 router.post('/create_campaign', campaignController.createCampaign);
 router.get('/getpatientdashboard', campaignController.getPatientDashboard);
-router.get('/getcampaigndetail', campaignController.getCampaignDetail);
+router.get('/getcampaigndetail', campaignController.getCampaignDetailForPatient);
 module.exports = router;

@@ -232,6 +232,21 @@ const SystemAdminNav = () => {
                 <span className="ml-3">Donors</span>
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to={"campaigns"}
+                className={({ isActive }) =>
+                  `flex items-center rounded-lg p-2 pb-4 ${
+                    isActive
+                      ? " text-primary-500"
+                      : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                  }`
+                }
+              >
+                <FaListUl />
+                <span className="ml-3">Campaigns</span>
+              </NavLink>
+            </li>
           </ul>
         </div>
       </aside>

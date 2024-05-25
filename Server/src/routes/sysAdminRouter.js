@@ -15,4 +15,6 @@ router.get('/getdonorstable', fetchController.getDonorsTable);
 router.put('/updatedonorstatus/:id', putController.updateDonorStatus);
 router.get('/getpatientstable', fetchController.getPatientsTable);
 router.put('/updatepatientstatus/:id', putController.updatePatientStatus);
+router.get('/getcampaignstable', fetchController.getCampaignsTable);
+router.put('/updatecampaignstatus/:id', putController.updateCampaignStatus);
 module.exports = router;
