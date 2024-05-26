@@ -11,17 +11,17 @@ import PrivateRoute from "./components/Common/PrivateRoute";
 import DonorRootLayout from "./pages/donor/DonorRootLayout";
 import HomePage from "./pages/donor/HomePage";
 import CampaignList from "./components/donor/CampaignList";
-import Signin from "./pages/donor/SignIn";
-import Signup from "./pages/donor/SignUp";
+import SignInPage from "./pages/donor/SignInPage";
+import SignUpPage from "./pages/donor/SignUpPage";
 import CampaignDetailPage from "./pages/donor/CampaignDetailPage";
 import ChapaRedirectPage from "./pages/donor/ChapaRedirectPage";
 
 //patient import
 import PatientRootLayout from "./pages/patient/PatientRootLayout";
-import PatientHomepage from "./pages/patient/PatientHomepage";
-import MyCampaign from "./pages/patient/MyCampaign";
-import PatientCampaignForm from "./components/patient/PatientCampaignForm";
-import PatientUpdateForm from "./components/patient/PatientUpdateForm";
+import PatientHomePage from "./pages/patient/PatientHomePage";
+import PatientMyCampaignPage from "./pages/patient/patientMyCampaignPage";
+import PatientCreateCampaignPage from "./pages/patient/PatientCreateCampaignPage";
+import PatientPostUpdatePage from "./pages/patient/PatientPostUpdatePage";
 
 // system admin import
 import SystemAdminRootLayout from "./pages/system-admin/SystemAdminRootLayout";
@@ -34,7 +34,7 @@ import SystemAdminCampaignsPage from "./pages/system-admin/SystemAdminCampaignsP
 
 // hospital admin import
 import HospitalAdminRootLayout from "./pages/hospital-admin/HospitalAdminRootLayout";
-import HospitalAdminHomePage from "./pages/hospital-admin/HospitalAdminHomepage";
+import HospitalAdminHomePage from "./pages/hospital-admin/HospitalAdminHomePage";
 import HospitalAdminRegisterPatinentForm from "./pages/hospital-admin/HospitalAdminRegisterPatinentForm";
 import HospitalAdminPatientsPage from "./pages/hospital-admin/HospitalAdminPatientsPage";
 import HospitalAdminApproveCampaignsPage from "./pages/hospital-admin/HospitalAdminApproveCampaignsPage";
@@ -46,8 +46,8 @@ const router = createBrowserRouter(
       <Route path="/" element={<DonorRootLayout />}>
         <Route index element={<HomePage />} />
         {/* <Route path="campaign" element={<CampaignList />} /> */}
-        <Route path="signin" element={<Signin />} />
-        <Route path="signup" element={<Signup />} />
+        <Route path="signin" element={<SignInPage />} />
+        <Route path="signup" element={<SignUpPage />} />
         <Route path="campaigndetail/:id" element={<CampaignDetailPage />} />
         <Route path="chaparedirect/:id" element={<ChapaRedirectPage />} />
       </Route>
@@ -59,10 +59,10 @@ const router = createBrowserRouter(
           <PrivateRoute element={<PatientRootLayout />} role={"patient"} />
         }
       >
-        <Route index element={<PatientHomepage />} />
-        <Route path="mycampaign" element={<MyCampaign />} />
-        <Route path="createcampaign" element={<PatientCampaignForm />} />
-        <Route path="postupdate" element={<PatientUpdateForm />} />
+        <Route index element={<PatientHomePage />} />
+        <Route path="mycampaign" element={<PatientMyCampaignPage />} />
+        <Route path="createcampaign" element={<PatientCreateCampaignPage />} />
+        <Route path="postupdate" element={<PatientPostUpdatePage />} />
       </Route>
 
       {/* hospita admin route */}

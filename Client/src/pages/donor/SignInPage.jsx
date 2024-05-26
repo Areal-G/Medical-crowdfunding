@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/img/donor/logo-black.svg";
 import { useNavigate } from "react-router-dom";
 import API from "../../components/Common/api";
-const SignIn = () => {
+const SignInPage = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -208,4 +208,4 @@ const SignIn = () => {
     </section>
   );
 };
-export default SignIn;
+export default SignInPage;

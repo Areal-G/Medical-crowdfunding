@@ -5,7 +5,7 @@ import useFileUploader from "../../components/Common/useFileUploader";
 import API from "../../components/Common/api";
 import { Toaster, toast } from "sonner";
 
-const SignUp = () => {
+const SignUpPage = () => {
   const navigate = useNavigate();
   const { handleFilesChange, uploadFiles } = useFileUploader();
   const [formData, setFormData] = useState({
@@ -250,4 +250,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpPage;

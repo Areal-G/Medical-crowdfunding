@@ -5,7 +5,7 @@ import API from "../../components/Common/api";
 import Loading from "../../components/Common/Loading";
 import LineChart from "../../components/Common/LineChart";
 
-const PatientHomepage = () => {
+const PatientHomePage = () => {
   const [Data, setData] = useState(null);
   useEffect(() => {
     const fetchCampaignData = async () => {
@@ -118,4 +118,4 @@ const PatientHomepage = () => {
       </main>
     );
 };
-export default PatientHomepage;
+export default PatientHomePage;

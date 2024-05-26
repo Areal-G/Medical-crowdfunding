@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import API from "../../components/Common/api";
 import Loading from "../../components/Common/Loading";
 
-const MyCampaign = () => {
+const PatientMyCampaignPage = () => {
   const [campaignData, setCampaignData] = useState(null);
 
   useEffect(() => {
@@ -54,4 +54,4 @@ const MyCampaign = () => {
       </div>
     );
 };
-export default MyCampaign;
+export default PatientMyCampaignPage;

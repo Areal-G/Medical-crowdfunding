@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import API from "../Common/api";
+import API from "../../components/Common/api";
 import { Toaster, toast } from "sonner";
-import useFileUploader from "../Common/useFileUploader";
+import useFileUploader from "../../components/Common/useFileUploader";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 
-const PatientCampaignForm = () => {
+const PatientCreateCampaignPage = () => {
   const { handleFilesChange, uploadFiles } = useFileUploader();
   const [formData, setFormData] = useState({
     campaignTitleEng: "",
@@ -228,4 +228,4 @@ const PatientCampaignForm = () => {
   );
 };
 
-export default PatientCampaignForm;
+export default PatientCreateCampaignPage;

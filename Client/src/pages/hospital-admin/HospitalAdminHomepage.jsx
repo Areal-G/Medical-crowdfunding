@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import API from "../../components/Common/api";
 import Loading from "../../components/Common/Loading";
 import LineChart from "../../components/Common/LineChart";
-const HospitalAdminHomepage = () => {
+const HospitalAdminHomePage = () => {
   const [Data, setData] = useState(null);
   useEffect(() => {
     const fetchCampaignData = async () => {
@@ -67,4 +67,4 @@ const HospitalAdminHomepage = () => {
       </main>
     );
 };
-export default HospitalAdminHomepage;
+export default HospitalAdminHomePage;

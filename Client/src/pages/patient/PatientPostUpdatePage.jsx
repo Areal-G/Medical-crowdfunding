@@ -1,4 +1,4 @@
-const PatientUpdateForm = () => {
+const PatientPostUpdatePage = () => {
   return (
     <div className="">
       <div className=" mx-auto rounded-sm border border-stroke bg-white shadow-md dark:border-strokedark dark:bg-boxdark lg:w-1/2">
@@ -39,4 +39,4 @@ const PatientUpdateForm = () => {
     </div>
   );
 };
-export default PatientUpdateForm;
+export default PatientPostUpdatePage;
