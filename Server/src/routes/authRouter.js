@@ -2,13 +2,9 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
 //  api/auth
-router.post(
-  '/login',
-  authController.Login
-  // first validator,
-  // passport to auth controller
-);
+router.post('/login', authController.Login);
 
 router.get('/logout', authController.Logout);
+router.get('/isloggedin', authController.isLoggedIn);
 
 module.exports = router;

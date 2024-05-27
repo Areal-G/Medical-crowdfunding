@@ -3,11 +3,15 @@ import logoblack from "../../assets/img/donor/logo-black.svg";
 import { useState, useEffect } from "react";
 import et from "../../assets/img/donor/et.svg";
 import en from "../../assets/img/donor/en.svg";
-import avatar from "../../assets/img/donor/avatar.jpg";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
+import API from "../../components/Common/api";
+import DonationStars from "./DonationStars";
+
+import { useNavigate } from "react-router-dom";
+import { Toaster, toast } from "sonner";
 
 const Nav = () => {
   const [scroll, setScroll] = useState(false);
@@ -16,6 +20,53 @@ const Nav = () => {
   const { i18n, t } = useTranslation();
   const location = useLocation();
   const isHomePage = location.pathname === "/";
+  const [Data, setData] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const navigate = useNavigate();
+
+  const LogoutUser = () => {
+    API.get("/auth/logout")
+      .then(() => {
+        toast.success("Logged out successfully");
+        setIsProfileOpen(false);
+
+        navigate("/signin");
+        navigate("/signin");
+      })
+      .catch((error) => {
+        console.error("Logout error", error);
+      });
+  };
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const response = await API.get(`/auth/isloggedin`);
+        setIsLoggedIn(response.data.isLoggedIn);
+      } catch (error) {
+        console.error("Error checking login status:", error);
+      }
+    };
+
+    checkLoginStatus();
+  }, [location]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await API.get(`/donor/getdonornavdata`);
+        setData(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    if (isLoggedIn) {
+      fetchData();
+    }
+  }, [isLoggedIn, location]);
 
   const toggleProfileMenu = () => {
     setIsProfileOpen(!isProfileOpen);
@@ -69,6 +120,7 @@ const Nav = () => {
           : "bg-white text-black shadow-md"
       }`}
     >
+      <Toaster richColors />
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between pb-2 pt-3 lg:text-lg">
         <Link to={"/"} className=" flex items-center space-x-3">
           {scroll || !isHomePage ? (
@@ -78,62 +130,66 @@ const Nav = () => {
           )}
         </Link>
         <div className=" relative flex items-center space-x-3 md:order-2 md:space-x-0">
-          <Link
-            to="/signin"
-            className="rounded-full bg-primary-600 px-4 py-2 text-base font-light text-white hover:bg-blue-700"
-          >
-            Sign In
-          </Link>
-          <button
-            type="button"
-            onClick={toggleProfileMenu}
-            className=" hidden  h-10 w-10 overflow-hidden rounded-full text-sm focus:ring-4 focus:ring-primary-500 dark:focus:ring-gray-600 md:me-0"
-          >
-            <img
-              className=" h-full w-full object-cover"
-              src={avatar}
-              alt="user photo"
-            />
-          </button>
+          {isLoggedIn ? (
+            <button
+              type="button"
+              onClick={toggleProfileMenu}
+              className="h-10 w-10 overflow-hidden rounded-full text-sm focus:ring-4 focus:ring-primary-500 dark:focus:ring-gray-600 md:me-0"
+            >
+              <img
+                className="h-full w-full object-cover"
+                src={Data?.donor?.image} // Use optional chaining in case Data is undefined
+                alt="user photo"
+              />
+            </button>
+          ) : (
+            <Link
+              to="/signin"
+              className="rounded-full bg-primary-600 px-4 py-2 text-base font-light text-white hover:bg-blue-700"
+            >
+              Sign In
+            </Link>
+          )}
           {/* // Dropdown menu */}
 
           <div
             className={` ${isProfileOpen ? "absolute" : "hidden"} right-0 top-8 z-50 my-4 list-none  divide-y divide-gray-100 rounded-lg bg-white text-base shadow dark:divide-gray-600 dark:bg-gray-700 lg:top-6`}
             id="user-dropdown"
           >
+            <DonationStars raisedMoney={Data?.raisedMoney} />
             <div className="px-4 py-3 ">
               <span className="block text-sm text-gray-900 dark:text-white">
-                Areal Gizaw
+                {Data?.donor.fullname}
               </span>
               <span className="block truncate  text-sm text-gray-500 dark:text-gray-400">
-                arealgizaw@gmail.com
+                {Data?.donor.email}
               </span>
             </div>
             <ul className="py-2">
-              <li>
+              {/* <li>
                 <a
                   href="#"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                 >
                   Campaigns
                 </a>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <a
                   href="#"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                 >
                   profile
                 </a>
-              </li>
+              </li> */}
 
               <li>
-                <a
-                  href="#"
+                <button
+                  onClick={LogoutUser}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                 >
                   {t("signout")}
-                </a>
+                </button>
               </li>
             </ul>
           </div>

@@ -45,12 +45,27 @@ exports.Login = (req, res, next) => {
 };
 
 exports.Logout = (req, res) => {
-  req.logout();
-  req.session.destroy((err) => {
-    res.clearCookie('connect.sid');
+  req.logout((err) => {
     if (err) {
-      console.log(err);
+      return res.status(500).send('Failed to log out');
     }
-    res.status(200).send('Successfully logged out');
+
+    req.session.destroy((err) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send('Failed to destroy session');
+      }
+
+      res.clearCookie('connect.sid');
+      res.status(200).send('Successfully logged out');
+    });
   });
+};
+
+exports.isLoggedIn = (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({ isLoggedIn: true });
+  } else {
+    res.json({ isLoggedIn: false });
+  }
 };

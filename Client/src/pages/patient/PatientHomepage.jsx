@@ -95,10 +95,12 @@ const PatientHomePage = () => {
               <DonatedCard
                 key={i}
                 name={
-                  !transaction.isAnonymous ? transaction.donorId.fullname : null
+                  !transaction.isAnonymous
+                    ? transaction?.donorId?.fullname
+                    : null
                 }
                 image={
-                  !transaction.isAnonymous ? transaction.donorId.image : null
+                  !transaction.isAnonymous ? transaction?.donorId?.image : null
                 }
                 message={transaction?.donationMessage}
                 amount={transaction?.amount}

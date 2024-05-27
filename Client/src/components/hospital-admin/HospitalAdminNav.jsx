@@ -1,14 +1,66 @@
 import logo from "../../assets/img/donor/logo.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaListUl } from "react-icons/fa";
 import { IoPersonAddOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
 import { LuFileCheck2 } from "react-icons/lu";
 import { MdOutlineReport } from "react-icons/md";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Toaster, toast } from "sonner";
+import API from "../../components/Common/api";
 
 const HospitalAdminNav = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [Data, setData] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const LogoutUser = () => {
+    API.get("/auth/logout")
+      .then(() => {
+        setIsProfileOpen(false);
+        toast.success("Logged out successfully");
+
+        setTimeout(() => {
+          navigate("/signin");
+        }, 1000);
+      })
+      .catch((error) => {
+        console.error("Logout error", error);
+      });
+  };
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const response = await API.get(`/auth/isloggedin`);
+        setIsLoggedIn(response.data.isLoggedIn);
+      } catch (error) {
+        console.error("Error checking login status:", error);
+      }
+    };
+
+    checkLoginStatus();
+  }, [location]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await API.get(`/hospital/gethospitalnavdata`);
+        setData(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    if (isLoggedIn) {
+      fetchData();
+    }
+  }, [isLoggedIn, location]);
 
   const toggleProfileMenu = () => {
     setIsProfileOpen(!isProfileOpen);
@@ -23,6 +75,7 @@ const HospitalAdminNav = () => {
   return (
     <div>
       <nav className="fixed left-0 right-4 top-0 z-50 border-b border-gray-200 bg-white px-4 py-2.5 dark:border-gray-700 dark:bg-gray-800 lg:left-72">
+        <Toaster richColors />
         <div className="flex flex-wrap items-center justify-between">
           <div className="flex items-center justify-start">
             {/* humberger */}
@@ -72,7 +125,7 @@ const HospitalAdminNav = () => {
             >
               <img
                 className="h-10 w-10 rounded-full object-cover"
-                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gough.png"
+                src={Data?.image}
                 alt="user photo"
               />
             </button>
@@ -84,37 +137,37 @@ const HospitalAdminNav = () => {
             >
               <div className="px-4 py-3 ">
                 <span className="block text-sm text-gray-900 dark:text-white">
-                  Areal Gizaw
+                  {Data?.hospitalName}
                 </span>
                 <span className="block truncate  text-sm text-gray-500 dark:text-gray-400">
-                  arealgizaw@gmail.com
+                  {Data?.email}
                 </span>
               </div>
               <ul className="py-2">
-                <li>
+                {/* <li>
                   <a
                     href="#"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
                     Campaigns
                   </a>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                   <a
                     href="#"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
                     profile
                   </a>
-                </li>
+                </li> */}
 
                 <li>
-                  <a
-                    href="#"
+                  <button
+                    onClick={LogoutUser}
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
-                    Sign out
-                  </a>
+                    Sign Out
+                  </button>
                 </li>
               </ul>
             </div>

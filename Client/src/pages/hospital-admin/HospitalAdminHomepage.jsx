@@ -8,7 +8,7 @@ import LineChart from "../../components/Common/LineChart";
 const HospitalAdminHomePage = () => {
   const [Data, setData] = useState(null);
   useEffect(() => {
-    const fetchCampaignData = async () => {
+    const fetchData = async () => {
       try {
         const response = await API.get(`/hospital/gethospitaldashboard`);
         setData(response.data);
@@ -18,7 +18,7 @@ const HospitalAdminHomePage = () => {
       }
     };
 
-    fetchCampaignData();
+    fetchData();
   }, []);
   if (Data === null) {
     return <Loading />;

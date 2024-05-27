@@ -19,7 +19,7 @@ import ChapaRedirectPage from "./pages/donor/ChapaRedirectPage";
 //patient import
 import PatientRootLayout from "./pages/patient/PatientRootLayout";
 import PatientHomePage from "./pages/patient/PatientHomePage";
-import PatientMyCampaignPage from "./pages/patient/patientMyCampaignPage";
+import PatientMyCampaignPage from "./pages/patient/PatientMyCampaignPage";
 import PatientCreateCampaignPage from "./pages/patient/PatientCreateCampaignPage";
 import PatientPostUpdatePage from "./pages/patient/PatientPostUpdatePage";
 

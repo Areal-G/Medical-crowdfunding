@@ -17,4 +17,5 @@ router.get('/getpatientstable', fetchController.getPatientsTable);
 router.put('/updatepatientstatus/:id', putController.updatePatientStatus);
 router.get('/getcampaignstable', fetchController.getCampaignsTable);
 router.put('/updatecampaignstatus/:id', putController.updateCampaignStatus);
+router.get('/getadminnavdata', fetchController.getAdminNavData);
 module.exports = router;

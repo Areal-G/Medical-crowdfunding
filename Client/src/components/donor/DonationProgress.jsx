@@ -1,16 +1,38 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import API from "../Common/api";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const DonationProgress = (props) => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [donationAmount, setDonationAmount] = useState("");
   const [donationMessage, setDonationMessage] = useState(""); // New state for message
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [paymentSystem, setPaymentSystem] = useState("local");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const response = await API.get(`/auth/isloggedin`);
+        setIsLoggedIn(response.data.isLoggedIn);
+      } catch (error) {
+        console.error("Error checking login status:", error);
+      }
+    };
+
+    checkLoginStatus();
+  }, [location]);
 
   const handleModalToggle = () => {
-    setIsModalOpen(!isModalOpen);
+    if (isLoggedIn) {
+      setIsModalOpen(!isModalOpen);
+    } else {
+      navigate("/signin");
+    }
   };
 
   const handleDonate = async () => {

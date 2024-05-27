@@ -30,7 +30,7 @@ exports.updatePatientStatus = async (req, res, next) => {
     const patient = await Patient.findById(req.params.id);
     patient.status = req.body.status;
     await patient.save();
-    console.log('log', req.params.id);
+
     res.send('sucessful');
   } catch (error) {
     res.status(400).send(error);
