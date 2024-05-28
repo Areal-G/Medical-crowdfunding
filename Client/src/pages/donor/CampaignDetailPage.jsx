@@ -48,7 +48,6 @@ const Campaign = () => {
     const canceled = searchParams.get("canceled");
     const donationMessage = searchParams.get("donationMessage");
     const isAnonymous = searchParams.get("isAnonymous") === "true";
-    console.log(tx_ref, success, donationMessage, isAnonymous, campaignId);
 
     if (success && tx_ref) {
       API.post("/payment/savechapatransaction", {
@@ -96,11 +95,11 @@ const Campaign = () => {
           toast.error("Failed to save donation.");
         })
         .finally(() => {
-          setHasProcessed(true); // Mark as processed
+          setHasProcessed(true);
         });
     } else if (canceled) {
       toast.info("Donation canceled.");
-      setHasProcessed(true); // Mark as processed
+      setHasProcessed(true);
     }
   }, [searchParams, hasProcessed, navigate, id]);
   if (campaignData === null) {

@@ -18,4 +18,9 @@ router.put('/updatepatientstatus/:id', putController.updatePatientStatus);
 router.get('/getcampaignstable', fetchController.getCampaignsTable);
 router.put('/updatecampaignstatus/:id', putController.updateCampaignStatus);
 router.get('/getadminnavdata', fetchController.getAdminNavData);
+router.get('/getdonordataforadmin/:id', fetchController.getDonorDataForAdmin);
+router.get('/getpatientdataforadmin/:id', fetchController.getPatientDataForAdmin);
+router.get('/gethospitaldataforadmin/:id', fetchController.getHospitalDataForAdmin);
+router.get('/getcampaigndetail/:campaignId', campaignController.getCampaignDetailForDonor);
+
 module.exports = router;

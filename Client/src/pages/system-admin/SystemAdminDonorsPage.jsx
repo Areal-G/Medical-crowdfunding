@@ -6,8 +6,25 @@ import { CgBlock, CgUnblock, CgSpinner } from "react-icons/cg";
 import { FiEye } from "react-icons/fi";
 
 const SystemAdminDonorsPage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentLoadingId, setCurrentLoadingId] = useState(null);
   const [Data, setData] = useState(null);
+  const [individualDonor, setIndividualDonor] = useState(null);
+
+  const handleModalToggle = async (id) => {
+    if (!isModalOpen) {
+      try {
+        const response = await API.get(`/sysadmin/getdonordataforadmin/${id}`);
+        setIndividualDonor(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching individual donor data:", error);
+      }
+    }
+
+    setIsModalOpen(!isModalOpen);
+  };
+
   const fetchData = async () => {
     try {
       const response = await API.get(`/sysadmin/getdonorstable`);
@@ -40,6 +57,106 @@ const SystemAdminDonorsPage = () => {
   } else
     return (
       <div className="shadow-default sm:px-7.5 rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 dark:border-strokedark dark:bg-boxdark xl:pb-1">
+        {/* Modal */}
+        {isModalOpen && (
+          <div className="fixed inset-0 z-[80] flex items-center justify-center">
+            <div
+              className="fixed inset-0 bg-black opacity-50"
+              onClick={handleModalToggle}
+            ></div>
+            <div
+              className="relative m-3 sm:mx-auto sm:w-full sm:max-w-lg"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="pointer-events-auto flex flex-col rounded-xl border bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-800 dark:shadow-neutral-700/70">
+                <div className="flex items-center justify-between border-b px-4 py-3 dark:border-neutral-700">
+                  <h3 className="font-bold text-gray-800 dark:text-white">
+                    Donor
+                  </h3>
+                  <button
+                    onClick={handleModalToggle}
+                    type="button"
+                    className="flex size-7 items-center justify-center rounded-full border border-transparent text-sm font-semibold text-gray-800 hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50 dark:text-white dark:hover:bg-neutral-700"
+                  >
+                    <span className="sr-only">Close</span>
+                    <svg
+                      className="size-4 flex-shrink-0"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M18 6 6 18"></path>
+                      <path d="m6 6 12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div className="p-6">
+                  <div className="flex justify-center overflow-hidden">
+                    <img
+                      className="h-28 w-28 rounded-full object-cover"
+                      src={individualDonor?.donor.image}
+                    />
+                  </div>
+
+                  <div className="mt-5">
+                    <h1 className="text-center text-2xl font-semibold uppercase">
+                      {individualDonor?.donor.fullname}
+                    </h1>
+                    <p className=" mb-1 mt-1 text-center text-lg font-medium ">
+                      {individualDonor?.donor.email}
+                    </p>
+                    <div className=" h-[1px] w-full bg-slate-300"></div>
+                    <div className="">
+                      <p className="mt-4 ">
+                        <span className=" font-semibold">Phone : </span>{" "}
+                        {individualDonor?.donor.phoneNumber}
+                      </p>
+                      <p className="mt-3 ">
+                        <span className=" font-semibold">Address : </span>
+                        {individualDonor?.donor.city},{" "}
+                        {individualDonor?.donor.country}
+                      </p>
+
+                      <p className="mt-3  ">
+                        <span className=" font-semibold">Donated : </span>
+                        {individualDonor?.raisedMoney} Birr
+                      </p>
+                      <p className="mt-3">
+                        <span className=" font-semibold"> Joined : </span>
+                        {new Date(
+                          individualDonor?.donor.createdAt,
+                        ).toLocaleDateString()}
+                      </p>
+                      <p className="mt-3">
+                        <span className=" font-semibold text-black ">
+                          Status :{" "}
+                        </span>
+                        <span
+                          className={`inline-flex rounded-full bg-opacity-10  px-3 py-1 text-sm font-medium uppercase ${
+                            individualDonor?.donor.status === "active"
+                              ? " bg-[#219653] text-[#219653]"
+                              : individualDonor?.donor.status === "blocked"
+                                ? "bg-[#D34053] text-[#D34053]"
+                                : "bg-[#FFA70B] text-[#FFA70B]"
+                          }`}
+                        >
+                          {individualDonor?.donor.status}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="max-w-full overflow-x-hidden">
           <h4 className="mb-6 text-center text-xl font-semibold text-black dark:text-white">
             Donors
@@ -91,7 +208,11 @@ const SystemAdminDonorsPage = () => {
                   </td>
                   <td className="hidden border-b border-[#eee] px-4 py-5 dark:border-strokedark md:table-cell">
                     <div className="flex items-center space-x-3.5">
-                      <button title="View" className="hover:text-primary-400">
+                      <button
+                        onClick={() => handleModalToggle(item._id)}
+                        title="View"
+                        className="hover:text-primary-400"
+                      >
                         <FiEye className=" h-6 w-6" />
                       </button>
                       <button

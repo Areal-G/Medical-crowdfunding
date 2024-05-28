@@ -12,5 +12,6 @@ router.get('/getpatientstableinhospital', fetchController.getPatientsTableInHosp
 router.get('/getcampaignstableinhospital', fetchController.getCampaignsTableInHospital);
 router.put('/updatecampaignstatusinhospital/:id', putController.updateCampaignStatus);
 router.get('/gethospitalnavdata', fetchController.getHospitalNavData);
+router.get('/getcampaigndetail/:campaignId', campaignController.getCampaignDetailForDonor);
 
 module.exports = router;

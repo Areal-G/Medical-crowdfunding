@@ -113,3 +113,42 @@ exports.getHospitalNavData = async (req, res, next) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+exports.getDonorDataForAdmin = async (req, res, next) => {
+  try {
+    const donor = await Donor.findById(req.params.id);
+    const transactions = await Transaction.find({ donorId: req.params.id });
+    let raisedMoney = calculateRaisedMoney(transactions);
+    res.status(200).json({ donor, raisedMoney });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.getPatientDataForAdmin = async (req, res, next) => {
+  try {
+    const patient = await Patient.findById(req.params.id);
+    const isCampaign = patient.campaign ? true : false;
+    const transactions = await Transaction.find({ campaignId: patient.campaign });
+    let raisedMoney = calculateRaisedMoney(transactions);
+    res.status(200).json({ patient, raisedMoney, isCampaign });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.getHospitalDataForAdmin = async (req, res, next) => {
+  try {
+    const hospital = await Hospital.findById(req.params.id);
+    const patients = hospital.patients.length;
+    const transactions = await Transaction.find({ hospitalId: req.params.id });
+    let raisedMoney = calculateRaisedMoney(transactions);
+
+    res.status(200).json({ hospital, raisedMoney, patients });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};

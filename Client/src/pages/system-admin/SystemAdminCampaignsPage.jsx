@@ -5,8 +5,10 @@ import Loading from "../../components/Common/Loading";
 import { CgBlock, CgUnblock, CgSpinner } from "react-icons/cg";
 import { FiEye } from "react-icons/fi";
 import { CgCloseO } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
 
 const SystemAdminCampaignsPage = () => {
+  const navigate = useNavigate();
   const [currentLoadingId, setCurrentLoadingId] = useState(null);
   const [Data, setData] = useState(null);
   const fetchData = async () => {
@@ -90,6 +92,9 @@ const SystemAdminCampaignsPage = () => {
                       <button
                         title="View"
                         className="mr-3 hover:text-primary-400"
+                        onClick={() =>
+                          navigate(`/admin/campaigndetail/${item._id}`)
+                        }
                       >
                         <FiEye className=" h-6 w-6" />
                       </button>
@@ -97,7 +102,6 @@ const SystemAdminCampaignsPage = () => {
                         <CgSpinner className="h-7 w-7 animate-spin" />
                       ) : (
                         <>
-                          {/* active/hospital not closed */}
                           {item.status === "active" && (
                             <button
                               onClick={() =>
@@ -110,7 +114,6 @@ const SystemAdminCampaignsPage = () => {
                             </button>
                           )}
 
-                          {/* pending/hospital to be updated */}
                           {item.status === "pending" && (
                             <div className="flex">
                               <button
@@ -134,7 +137,6 @@ const SystemAdminCampaignsPage = () => {
                             </div>
                           )}
 
-                          {/* other statuses/hospital closed or not approved */}
                           {(item.status === "closed" ||
                             item.status === "rejected") && (
                             <button

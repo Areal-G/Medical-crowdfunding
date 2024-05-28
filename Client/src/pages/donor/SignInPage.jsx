@@ -89,10 +89,7 @@ const SignInPage = () => {
               </Link>
             </div>
             <form onSubmit={handleSubmit} className="mt-8">
-              <div
-                className="mb-5 flex justify-center rounded-md shadow-sm"
-                role="group"
-              >
+              <div className="mb-5 flex justify-center " role="group">
                 <button
                   type="button"
                   onClick={() => handleUserRoleChange("donor")}
@@ -107,7 +104,7 @@ const SignInPage = () => {
                 <button
                   onClick={() => handleUserRoleChange("patient")}
                   type="button"
-                  className={`rounded-s-lg border ${
+                  className={` border ${
                     userRole === "patient"
                       ? " bg-primary-500 text-white hover:bg-primary-600"
                       : "bg-white"
@@ -118,7 +115,7 @@ const SignInPage = () => {
                 <button
                   onClick={() => handleUserRoleChange("hospital")}
                   type="button"
-                  className={`rounded-s-lg border ${
+                  className={` border ${
                     userRole === "hospital"
                       ? " bg-primary-500 text-white hover:bg-primary-600"
                       : "bg-white"
@@ -129,7 +126,7 @@ const SignInPage = () => {
                 <button
                   onClick={() => handleUserRoleChange("systemAdmin")}
                   type="button"
-                  className={`rounded-s-lg border ${
+                  className={`rounded-e-lg border ${
                     userRole === "systemAdmin"
                       ? " bg-primary-500 text-white hover:bg-primary-600"
                       : "bg-white"
@@ -195,12 +192,12 @@ const SignInPage = () => {
             </form>
 
             <div className="mt-6 text-center ">
-              <a
-                href="#"
+              <Link
+                to={"/signup"}
                 className="text-sm text-blue-500 hover:underline dark:text-blue-400"
               >
                 Dont have an account?
-              </a>
+              </Link>
             </div>
           </div>
         </div>

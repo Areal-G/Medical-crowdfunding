@@ -37,7 +37,6 @@ const DonationProgress = (props) => {
 
   const handleDonate = async () => {
     if (paymentSystem === "international") {
-      // Included the donationMessage here
       try {
         const response = await API.post("/payment/stripepay", {
           donationAmount: donationAmount,
@@ -50,7 +49,6 @@ const DonationProgress = (props) => {
         console.error("Error creating checkout session", error);
       }
     } else if (paymentSystem === "local") {
-      // Included the donationMessage here
       try {
         const response = await API.post("/payment/chapapay", {
           amount: donationAmount,
