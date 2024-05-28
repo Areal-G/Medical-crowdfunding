@@ -22,6 +22,11 @@ passport.use(
         if (user.password !== password) {
           return done(null, false, { message: 'Invalid password' });
         }
+        if (user.status === 'blocked') {
+          return done(null, false, {
+            message: 'You are blocked. Please contact the administrator',
+          });
+        }
         return done(null, user);
       } catch (err) {
         return done(err);
@@ -47,6 +52,11 @@ passport.use(
         if (user.password !== password) {
           return done(null, false, { message: 'Invalid password' });
         }
+        if (user.status === 'blocked') {
+          return done(null, false, {
+            message: 'You are blocked. Please contact the administrator',
+          });
+        }
         return done(null, user);
       } catch (err) {
         return done(err);
@@ -70,6 +80,11 @@ passport.use(
         }
         if (user.password !== password) {
           return done(null, false, { message: 'Invalid password' });
+        }
+        if (user.status === 'blocked') {
+          return done(null, false, {
+            message: 'You are blocked. Please contact the administrator',
+          });
         }
         return done(null, user);
       } catch (err) {

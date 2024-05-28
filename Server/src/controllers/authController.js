@@ -20,15 +20,17 @@ exports.Login = (req, res, next) => {
   passport.authenticate(strategy, function (err, user, info) {
     if (err) {
       console.error('Error during authentication:', err);
-      return next(err); // Handle error appropriately
+      return res
+        .status(500)
+        .json({ success: false, message: 'An error occurred during authentication.' });
     }
     if (!user) {
       console.log('Authentication failed:', info.message);
-      return res.status(401).send('Authentication failed');
+      return res.status(401).json({ success: false, message: info.message });
     }
     req.logIn(user, function (err) {
       if (err) {
-        return next(err);
+        return res.status(500).json({ success: false, message: 'Failed to log in user.' });
       }
       // 2 days for 'patient' and 'donor' roles
       if (role === 'patient' || role === 'donor') {
@@ -39,7 +41,7 @@ exports.Login = (req, res, next) => {
         req.session.cookie.maxAge = 20 * 60 * 1000;
       }
       console.log('Authentication successful');
-      return res.json({ role });
+      return res.json({ success: true, message: 'Authentication successful', role });
     });
   })(req, res, next);
 };

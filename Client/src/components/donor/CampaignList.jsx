@@ -55,19 +55,21 @@ const Campaign = () => {
 
       <div className="mx-auto w-full max-w-screen-xl rounded-xl bg-slate-50 p-4">
         <div className="mx-2 grid grid-cols-1 gap-5 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
-          {currentItems.map((campaign, index) => (
-            <div key={index} className="p-2">
-              <CampaignCard
-                id={campaign._id}
-                title={campaign.campaignTitle}
-                description={campaign.campaignDescription}
-                date={campaign.campaignDate}
-                city={campaign.hospital.city}
-                goal={campaign.target}
-                image={campaign.images[0]}
-              />
-            </div>
-          ))}
+          {currentItems
+            .filter((campaign) => campaign.status === "active")
+            .map((campaign, index) => (
+              <div key={index} className="p-2">
+                <CampaignCard
+                  id={campaign._id}
+                  title={campaign.campaignTitle}
+                  description={campaign.campaignDescription}
+                  date={campaign.campaignDate}
+                  city={campaign.hospital.city}
+                  goal={campaign.target}
+                  image={campaign.images[0]}
+                />
+              </div>
+            ))}
         </div>
         <div className="mt-4 flex justify-evenly">
           <button

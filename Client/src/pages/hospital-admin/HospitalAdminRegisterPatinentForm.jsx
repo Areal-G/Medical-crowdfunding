@@ -2,7 +2,7 @@ import { useState } from "react";
 import API from "../../components/Common/api";
 import { Toaster, toast } from "sonner";
 
-const HospitalAdminRegisterPatinentForm = () => {
+const HospitalAdminRegisterPatientForm = () => {
   const [formData, setFormData] = useState({
     patientName: "",
     email: "",
@@ -30,23 +30,48 @@ const HospitalAdminRegisterPatinentForm = () => {
     });
   };
 
+  const validatePassword = (password) => {
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    return passwordRegex.test(password);
+  };
+
+  const validatePhoneNumber = (phoneNumber) => {
+    const phoneRegex = /^(09|07)\d{8}$/;
+    return phoneRegex.test(phoneNumber);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (formData.password !== formData.confirmPassword) {
       toast.error("Passwords do not match");
-
       return;
     }
+
+    if (!validatePassword(formData.password)) {
+      toast.error(
+        "Password must be at least 8 characters long and include uppercase letters, numbers, and symbols.",
+      );
+      return;
+    }
+
+    if (!validatePhoneNumber(formData.phoneNumber)) {
+      toast.error(
+        "Phone number must be 10 digits long and start with 09 or 07.",
+      );
+      return;
+    }
+
     try {
       const response = await API.post("/hospital/register", formData);
-      console.log(response.data);
       toast.success(response.data);
-
       resetForm();
     } catch (error) {
       toast.error("There was an error!", error);
     }
   };
+
   return (
     <section className="  dark:bg-gray-900">
       <Toaster richColors />
@@ -157,4 +182,4 @@ const HospitalAdminRegisterPatinentForm = () => {
     </section>
   );
 };
-export default HospitalAdminRegisterPatinentForm;
+export default HospitalAdminRegisterPatientForm;

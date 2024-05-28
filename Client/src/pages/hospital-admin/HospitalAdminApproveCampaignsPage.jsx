@@ -93,7 +93,7 @@ const HospitalAdminApproveCampaignsPage = () => {
                         title="View"
                         className="mr-3 hover:text-primary-400"
                         onClick={() =>
-                          navigate(`/admin/campaigndetail/${item._id}`)
+                          navigate(`/hospital/campaigndetail/${item._id}`)
                         }
                       >
                         <FiEye className=" h-6 w-6" />

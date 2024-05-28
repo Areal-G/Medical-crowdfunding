@@ -44,6 +44,17 @@ const SignUpPage = () => {
     });
   };
 
+  const validatePassword = (password) => {
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    return passwordRegex.test(password);
+  };
+
+  const validatePhoneNumber = (phoneNumber) => {
+    const phoneRegex = /^(09|07)\d{8}$/;
+    return phoneRegex.test(phoneNumber);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -53,6 +64,23 @@ const SignUpPage = () => {
       setIsLoading(false);
       return;
     }
+
+    if (!validatePassword(formData.password)) {
+      toast.error(
+        "Password must be at least 8 characters long and include uppercase letters, numbers, and symbols.",
+      );
+      setIsLoading(false);
+      return;
+    }
+
+    if (!validatePhoneNumber(formData.phoneNumber)) {
+      toast.error(
+        "Phone number must be 10 digits long and start with 09 or 07.",
+      );
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const imageUrl = await uploadFiles();
       const updatedFormData = {

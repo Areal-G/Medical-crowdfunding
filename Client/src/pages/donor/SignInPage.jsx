@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/img/donor/logo-black.svg";
-import { useNavigate } from "react-router-dom";
 import API from "../../components/Common/api";
+import { Toaster, toast } from "sonner";
+
 const SignInPage = () => {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [userRole, setUserRole] = useState("");
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [userRole, setUserRole] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   function getSuccessRedirect(role) {
@@ -38,13 +39,34 @@ const SignInPage = () => {
     setUserRole(role);
   };
 
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!email || !validateEmail(email)) {
+      toast.error("Invalid email address");
+      return;
+    }
+
+    if (!password || password.length < 8) {
+      toast.error("Password must be at least 8 characters long");
+      return;
+    }
+
+    if (!userRole) {
+      toast.error("Please select a user role");
+      return;
+    }
+
     setIsLoading(true);
 
     const data = {
-      email: email,
-      password: password,
+      email,
+      password,
       role: userRole,
     };
 
@@ -59,13 +81,23 @@ const SignInPage = () => {
       setUserRole("");
       setIsLoading(false);
     } catch (error) {
-      console.error(error);
       setIsLoading(false);
+
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("An error occurred during sign in. Please try again.");
+      }
     }
   };
 
   return (
     <section className="bg-white dark:bg-gray-900 md:mb-10">
+      <Toaster richColors />
       <div className="flex justify-center">
         <div className="mx-auto my-auto mt-7 flex w-full max-w-3xl items-center rounded-xl p-8 shadow-2xl lg:w-2/5 lg:px-12">
           <div className="w-full">
