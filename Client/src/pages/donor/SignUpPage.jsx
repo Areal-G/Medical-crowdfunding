@@ -1,9 +1,14 @@
+/* eslint-disable react-refresh/only-export-components */
 import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/img/donor/logo.svg";
 import useFileUploader from "../../components/Common/useFileUploader";
 import API from "../../components/Common/api";
 import { Toaster, toast } from "sonner";
+import {
+  validatePassword,
+  validatePhoneNumber,
+} from "../../components/Common/Validation";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -44,17 +49,6 @@ const SignUpPage = () => {
     });
   };
 
-  const validatePassword = (password) => {
-    const passwordRegex =
-      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
-    return passwordRegex.test(password);
-  };
-
-  const validatePhoneNumber = (phoneNumber) => {
-    const phoneRegex = /^(09|07)\d{8}$/;
-    return phoneRegex.test(phoneNumber);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -80,7 +74,6 @@ const SignUpPage = () => {
       setIsLoading(false);
       return;
     }
-
     try {
       const imageUrl = await uploadFiles();
       const updatedFormData = {
@@ -117,21 +110,22 @@ const SignUpPage = () => {
                 >
                   Sign In
                 </Link>
-                <a
-                  href="#"
-                  className="w-1/3 border-b-2 border-blue-500 pb-4 text-center font-medium capitalize text-gray-800 dark:border-blue-400 dark:text-white"
-                >
+                <a className="w-1/3 border-b-2 border-blue-500 pb-4 text-center font-medium capitalize text-gray-800 dark:border-blue-400 dark:text-white">
                   Sign Up
                 </a>
               </div>
               <form onSubmit={handleSubmit} className="mt-8 ">
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div>
-                    <label className="mb-2 block text-sm text-gray-600 dark:text-gray-200">
+                    <label
+                      htmlFor="fullname"
+                      className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
+                    >
                       Full Name
                     </label>
                     <input
                       type="text"
+                      id="fullname"
                       name="fullname"
                       value={formData.fullname}
                       onChange={handleChange}
@@ -140,12 +134,16 @@ const SignUpPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm text-gray-600 dark:text-gray-200">
+                    <label
+                      htmlFor="phoneNumber"
+                      className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
+                    >
                       Phone Number
                     </label>
                     <input
                       type="text"
                       name="phoneNumber"
+                      id="phoneNumber"
                       value={formData.phoneNumber}
                       onChange={handleChange}
                       placeholder="XXX-XX-XXXX-XXX"
@@ -153,12 +151,16 @@ const SignUpPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm text-gray-600 dark:text-gray-200">
+                    <label
+                      htmlFor="email"
+                      className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
+                    >
                       Email Address
                     </label>
                     <input
                       type="email"
                       name="email"
+                      id="email"
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="johnsnow@example.com"
@@ -166,12 +168,16 @@ const SignUpPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm text-gray-600 dark:text-gray-200">
+                    <label
+                      htmlFor="country"
+                      className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
+                    >
                       Country
                     </label>
                     <input
                       type="text"
                       name="country"
+                      id="country"
                       value={formData.country}
                       onChange={handleChange}
                       placeholder="Country"
@@ -179,12 +185,16 @@ const SignUpPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm text-gray-600 dark:text-gray-200">
+                    <label
+                      htmlFor="city"
+                      className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
+                    >
                       City
                     </label>
                     <input
                       type="text"
                       name="city"
+                      id="city"
                       value={formData.city}
                       onChange={handleChange}
                       placeholder="City"
@@ -192,11 +202,16 @@ const SignUpPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="mb-3 block text-sm text-gray-600 dark:text-gray-200">
+                    <label
+                      htmlFor="image"
+                      className="mb-3 block text-sm text-gray-600 dark:text-gray-200"
+                    >
                       Attach Profile Picture
                     </label>
                     <input
                       type="file"
+                      name="image"
+                      id="image"
                       accept="image/*"
                       ref={inputRef}
                       onChange={handleFilesChange}
@@ -204,12 +219,16 @@ const SignUpPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm text-gray-600 dark:text-gray-200">
+                    <label
+                      htmlFor="password"
+                      className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
+                    >
                       Password
                     </label>
                     <input
                       type="password"
                       name="password"
+                      id="password"
                       value={formData.password}
                       onChange={handleChange}
                       placeholder="Enter your password"
@@ -217,11 +236,15 @@ const SignUpPage = () => {
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-sm text-gray-600 dark:text-gray-200">
+                    <label
+                      htmlFor="confirmPassword"
+                      className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
+                    >
                       Confirm Password
                     </label>
                     <input
                       type="password"
+                      id="confirmPassword"
                       name="confirmPassword"
                       value={formData.confirmPassword}
                       onChange={handleChange}
@@ -233,6 +256,7 @@ const SignUpPage = () => {
 
                 <button
                   type="submit"
+                  value="Sign Up"
                   className="mt-6 w-full transform rounded-lg bg-primary-600 px-6 py-3 text-sm font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-blue-700"
                   disabled={isLoading}
                 >
