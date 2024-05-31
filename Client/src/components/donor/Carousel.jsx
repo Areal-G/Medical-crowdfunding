@@ -2,51 +2,48 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "react-feather";
 
-const Carousel = ({ children: slides }) => {
+const Carousel = ({ children }) => {
   const [curr, setCurr] = useState(0);
 
   const prev = () =>
-    setCurr((curr) => (curr === 0 ? slides.length - 1 : curr - 1));
+    setCurr((prevState) =>
+      prevState === 0 ? children.length - 1 : prevState - 1,
+    );
 
   const next = () =>
-    setCurr((curr) => (curr === slides.length - 1 ? 0 : curr + 1));
+    setCurr((prevState) =>
+      prevState === children.length - 1 ? 0 : prevState + 1,
+    );
 
   return (
-    <div className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-primary-400">
+    <div className="relative h-[400px]  w-full overflow-hidden rounded-lg shadow-lg">
       <div
-        className="flex h-[400px] items-center justify-center overflow-hidden transition-transform duration-500 ease-out"
+        className="absolute bottom-0 left-0 right-0 top-0 flex transition-transform duration-500 ease-linear"
         style={{ transform: `translateX(-${curr * 100}%)` }}
       >
-        {slides}
-      </div>
-      <div className="absolute inset-0 flex items-center justify-between p-4">
-        <button
-          onClick={prev}
-          className="rounded-full bg-white/80 p-1 text-gray-800 shadow hover:bg-primary-600"
-        >
-          <ChevronLeft />
-        </button>
-        <button
-          onClick={next}
-          className="rounded-full bg-white/80 p-1 text-gray-800 shadow hover:bg-primary-600"
-        >
-          <ChevronRight />
-        </button>
-      </div>
-      <div className="absolute bottom-4 left-0 right-0">
-        <div className="flex items-center justify-center gap-2">
-          {slides.map((s, i) => (
-            <div
-              key={i}
-              className={`h-1.5 w-1.5 rounded-full bg-white transition-all  ${
-                curr === i ? "p-0.5" : "bg-opacity-50"
-              }`}
+        {children.map((child, index) => (
+          <div className="relative min-h-full min-w-full" key={index}>
+            <img
+              className="center absolute inset-0 h-full w-full object-cover"
+              src={child.props.src}
+              alt=""
             />
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
+      <button
+        onClick={prev}
+        className="absolute bottom-0 left-0 top-0 z-10 m-auto w-10 bg-white bg-opacity-30 focus:outline-none"
+      >
+        <ChevronLeft />
+      </button>
+      <button
+        onClick={next}
+        className="absolute bottom-0 right-0 top-0 z-10 m-auto w-10 bg-white bg-opacity-30 focus:outline-none"
+      >
+        <ChevronRight />
+      </button>
     </div>
   );
 };
-
 export default Carousel;

@@ -1,15 +1,17 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const routes = require('./routes/index.js');
 const cors = require('cors');
-const { PORT, DB_URI, SESSION_SECRET } = require('./config.js');
+const { PORT, DB_URI, SESSION_SECRET, NETWORK_DOMAIN, LOCAL_DOMAIN } = require('./config.js');
 const session = require('express-session');
 const passport = require('passport');
 const MongoStore = require('connect-mongo');
+const SystemAdmin = require('./models/systemAdmin');
 
 const app = express();
 // cors and under that are for the api cookies working
-const allowedOrigins = ['http://192.168.0.199:5173', 'http://localhost:5173'];
+const allowedOrigins = [NETWORK_DOMAIN, LOCAL_DOMAIN];
 
 app.use(
   cors({
@@ -32,6 +34,7 @@ app.use(
 //   res.setHeader('Access-Control-Allow-Credentials', 'true');
 //   next();
 // });
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -59,9 +62,35 @@ app.use(passport.session());
 
 app.use('/api', routes);
 
+const registerAdmin = async () => {
+  try {
+    const sysAdmin = await SystemAdmin.findOne({ email: 'arealgizaw@gmail.com' });
+
+    if (!sysAdmin) {
+      const saltRounds = 10;
+      const hashedPassword = await bcrypt.hash('ENtadeg@2024', saltRounds);
+      const systemAdminData = {
+        fullname: 'areal gizaw',
+        email: 'arealgizaw@gmail.com',
+        password: hashedPassword,
+        image:
+          'https://res.cloudinary.com/daecqeccw/image/upload/v1716905044/hq5jpcynflnfaapyx63w.png',
+        role: 'systemAdmin',
+      };
+      const systemAdmin = new SystemAdmin(systemAdminData);
+      await systemAdmin.save();
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
 mongoose
   .connect(DB_URI)
-  .then(() => console.log('Connected to Database'))
+  .then(() => {
+    console.log('Connected to Database');
+    registerAdmin();
+  })
   .catch((err) => console.log(`Errormongoose: ${err}`));
 
 app.listen(PORT, () => {

@@ -78,10 +78,14 @@ const DonationProgress = (props) => {
         </div>
         <div className="flex justify-between">
           <p>
-            Raised: <span className="font-bold">{props.raised}</span> Birr
+            Raised:{" "}
+            <span className="font-bold">{props.raised.toLocaleString()}</span>{" "}
+            Birr
           </p>
           <p>
-            Goal: <span className="font-bold">{props.goal} </span> Birr
+            Goal:{" "}
+            <span className="font-bold">{props.goal.toLocaleString()} </span>{" "}
+            Birr
           </p>
         </div>
         <div className="mt-4 text-right">

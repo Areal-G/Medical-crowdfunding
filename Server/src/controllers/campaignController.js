@@ -34,10 +34,28 @@ exports.createCampaign = async (req, res, next) => {
   }
 };
 
-exports.getCampaigns = async (req, res, next) => {
+exports.getCampaigns = async (req, res) => {
   try {
-    const campaigns = await Campaign.find().populate('hospital'); // Query the database and populate the 'hospital' field if needed
-    res.status(200).json(campaigns);
+    const campaigns = await Campaign.find().populate('hospital');
+
+    let campaignsResult = [];
+
+    for (let campaign of campaigns) {
+      const transactions = await Transaction.find({ campaignId: campaign._id }).populate('donorId');
+      let raisedMoney = calculateRaisedMoney(transactions);
+      let donations = transactions.length;
+      let raisedPercent = Math.ceil(raisedMoney / campaign.target) * 100;
+
+      campaignsResult.push({
+        ...campaign._doc,
+        transactions,
+        raisedMoney,
+        donations,
+        raisedPercent,
+      });
+    }
+
+    res.status(200).json(campaignsResult);
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'An error occurred.' });

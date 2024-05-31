@@ -271,7 +271,7 @@ const HospitalAdminNav = () => {
                 <span className="ml-3">Approve Campaign</span>
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 to={"dddd"}
                 className={({ isActive }) =>
@@ -286,7 +286,7 @@ const HospitalAdminNav = () => {
 
                 <span className="ml-3">Reported</span>
               </NavLink>
-            </li>
+            </li> */}
           </ul>
         </div>
       </aside>

@@ -31,6 +31,7 @@ const Campaign = () => {
           `/donor/getcampaigndetail/${campaignId}`,
         );
         setCampaignData(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching campaign details:", error);
       }
@@ -146,9 +147,7 @@ const Campaign = () => {
 
               <div>
                 <HospitalProfile
-                  image={
-                    "https://images.gofundme.com/9l_J8RYXVHbf_nFGhfmysqUHL-U=/720x405/https://d2g8igdw686xgo.cloudfront.net/79670191_1713813007610813_r.jpeg"
-                  }
+                  image={campaignData?.campaign.hospital.image}
                   name={campaignData?.campaign.hospital.hospitalName}
                   address={campaignData?.campaign.hospital.address}
                   city={campaignData?.campaign.hospital.city}

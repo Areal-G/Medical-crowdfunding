@@ -21,7 +21,6 @@ const Campaign = () => {
           campaignDescription: campaign.campaignDescription[currentLanguage],
         }));
         setCampaigns(campaigns);
-        console.log(campaigns);
       } catch (error) {
         console.error("Error fetching campaigns:", error);
       }
@@ -67,6 +66,9 @@ const Campaign = () => {
                   city={campaign.hospital.city}
                   goal={campaign.target}
                   image={campaign.images[0]}
+                  donations={campaign.donations}
+                  raised={campaign.raisedMoney}
+                  progress={campaign.raisedPercent}
                 />
               </div>
             ))}

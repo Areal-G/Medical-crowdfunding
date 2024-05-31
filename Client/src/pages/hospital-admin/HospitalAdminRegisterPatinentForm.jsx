@@ -1,26 +1,36 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import API from "../../components/Common/api";
 import { Toaster, toast } from "sonner";
+import useFileUploader from "../../components/Common/useFileUploader";
 
 const HospitalAdminRegisterPatientForm = () => {
+  const { handleFilesChange, uploadFiles } = useFileUploader();
   const [formData, setFormData] = useState({
     patientName: "",
     email: "",
+    image: [],
     city: "",
     phoneNumber: "",
     password: "",
     confirmPassword: "",
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+  const inputRef = useRef();
+
   const resetForm = () => {
     setFormData({
       patientName: "",
       email: "",
+      image: [],
       city: "",
       phoneNumber: "",
       password: "",
       confirmPassword: "",
     });
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
   };
 
   const handleChange = (e) => {
@@ -64,7 +74,12 @@ const HospitalAdminRegisterPatientForm = () => {
     }
 
     try {
-      const response = await API.post("/hospital/register", formData);
+      const imageUrl = await uploadFiles();
+      const updatedFormData = {
+        ...formData,
+        image: imageUrl,
+      };
+      const response = await API.post("/hospital/register", updatedFormData);
       toast.success(response.data);
       resetForm();
     } catch (error) {
@@ -138,7 +153,24 @@ const HospitalAdminRegisterPatientForm = () => {
                     className="mt-2 block w-full rounded-lg border border-gray-200 bg-white px-5 py-3 text-gray-700 placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:border-blue-400"
                   />
                 </div>
-
+                <div>
+                  <label
+                    htmlFor="image"
+                    className="mb-3 block text-sm text-gray-600 dark:text-gray-200"
+                  >
+                    Attach Profile Picture
+                  </label>
+                  <input
+                    type="file"
+                    name="image"
+                    id="image"
+                    accept="image/*"
+                    ref={inputRef}
+                    onChange={handleFilesChange}
+                    className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-white outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-primary-400 file:px-5 file:py-3 file:text-white hover:file:bg-blue-700 focus:border-primary-200 active:border-primary-200 disabled:cursor-default disabled:bg-white dark:file:bg-white/30 dark:file:text-white"
+                  />
+                </div>
+                <div></div>
                 <div>
                   <label className="mb-2 block text-sm text-gray-600 dark:text-gray-200">
                     Password

@@ -125,7 +125,7 @@ const SystemAdminNav = () => {
             >
               <img
                 className="h-10 w-10 rounded-full object-cover"
-                src={avatar}
+                src={Data?.image}
                 alt="user photo"
               />
             </button>

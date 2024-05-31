@@ -8,13 +8,13 @@ const CampaignCard = (props) => {
       to={`/campaigndetail/${props.id}`}
     >
       <div className="max-w-sm rounded-lg border shadow-primary-700 hover:shadow-2xl dark:bg-gray-800">
-        <div className="relative mx-auto flex h-80 w-[95%] items-center justify-center overflow-hidden rounded-lg">
+        <div className="relative mx-auto mt-2 flex h-80 w-[95%] items-center justify-center overflow-hidden rounded-lg">
           <img
-            className="center absolute rounded-lg object-cover"
+            className="absolute inset-0 h-full w-full object-cover"
             src={props.image}
             alt=""
           />
-          <div className="absolute bottom-0 left-0 px-2 pb-1 text-sm text-white backdrop-blur-sm">
+          <div className="absolute bottom-0 left-0 rounded-tr-lg bg-primary-500 px-2 py-2 text-sm text-white">
             {props.date
               ? new Date(props.date).toLocaleDateString("en-US", {
                   year: "numeric",
@@ -23,21 +23,21 @@ const CampaignCard = (props) => {
                 })
               : "Invalid Date"}
           </div>
-          <div className="absolute bottom-0 right-0 px-2 pb-1 text-[15px] text-white backdrop-blur-sm">
+          <div className="absolute bottom-0 right-0 rounded-tl-lg bg-primary-500 px-2 py-2 text-sm text-white">
             {`${props.city.toUpperCase()}`}
           </div>
         </div>
 
         <div className="rounded-xl p-4">
-          <h5 className="mb-2 text-2xl font-semibold tracking-tight text-primary-600 dark:text-white">
-            {props.title.length > 20
-              ? `${props.title.slice(0, 20)}...`
+          <h5 className="mb-2 text-xl font-semibold uppercase tracking-tight text-primary-600 dark:text-white">
+            {props.title.length > 100
+              ? `${props.title.slice(0, 100)}...`
               : props.title}
           </h5>
           <div className="mb-1 h-[1px] w-full bg-slate-400"></div>
           <p className="mb-3 text-base text-gray-700 dark:text-gray-400">
-            {props.description.length > 20
-              ? `${props.description.slice(0, 20)}...`
+            {props.description.length > 142
+              ? `${props.description.slice(0, 142)}...`
               : props.description}
           </p>
           <div className="mb-1 h-[0.8px] w-full bg-slate-400"></div>
@@ -48,21 +48,26 @@ const CampaignCard = (props) => {
                 <span className="font-semibold">{`${props.donations}`}</span>{" "}
                 Donations
               </p>
-              <p className="font-semibold">{`${props.progress}`}</p>
+              <p className="font-semibold">{`${props.progress}%`}</p>
             </div>
             <div className="my-2 h-1 rounded-full bg-gray-200 dark:bg-gray-700">
               <div
-                className={`h-1 w-[${props.progress}] rounded-full bg-primary-600`}
+                className={`h-1 w-[${props.progress}%] rounded-full bg-primary-600`}
               ></div>
             </div>
           </div>
           <div className="flex justify-between">
             <p>
               Raised:
-              <span className="font-semibold">${`${props.raised}`}</span>
+              <span className="font-semibold">
+                {`${props.raised.toLocaleString()} Birr`}
+              </span>
             </p>
             <p>
-              Goal: <span className="font-semibold">${`${props.goal}`}</span>
+              Goal:{" "}
+              <span className="font-semibold">
+                {props.goal.toLocaleString()} Birr
+              </span>
             </p>
           </div>
         </div>

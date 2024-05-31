@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const hospital = require('../models/hospital');
@@ -19,7 +20,8 @@ passport.use(
         if (!user) {
           return done(null, false, { message: 'Invalid email' });
         }
-        if (user.password !== password) {
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
           return done(null, false, { message: 'Invalid password' });
         }
         if (user.status === 'blocked') {
@@ -49,7 +51,8 @@ passport.use(
         if (!user) {
           return done(null, false, { message: 'Invalid email' });
         }
-        if (user.password !== password) {
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
           return done(null, false, { message: 'Invalid password' });
         }
         if (user.status === 'blocked') {
@@ -78,7 +81,8 @@ passport.use(
         if (!user) {
           return done(null, false, { message: 'Invalid email' });
         }
-        if (user.password !== password) {
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
           return done(null, false, { message: 'Invalid password' });
         }
         if (user.status === 'blocked') {
@@ -108,7 +112,8 @@ passport.use(
         if (!user) {
           return done(null, false, { message: 'Invalid email' });
         }
-        if (user.password !== password) {
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
           return done(null, false, { message: 'Invalid password' });
         }
         return done(null, user);
