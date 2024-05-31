@@ -125,7 +125,7 @@ const SystemAdminDonorsPage = () => {
 
                       <p className="mt-3  ">
                         <span className=" font-semibold">Donated : </span>
-                        {individualDonor?.raisedMoney} Birr
+                        {individualDonor?.raisedMoney.toLocaleString()} Birr
                       </p>
                       <p className="mt-3">
                         <span className=" font-semibold"> Joined : </span>

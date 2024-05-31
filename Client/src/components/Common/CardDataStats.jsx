@@ -7,17 +7,18 @@ const CardDataStats = ({
   levelUp,
   levelDown,
   children,
+  birr,
 }) => {
   return (
-    <div className="border-stroke roboto dark:border-strokedark dark:bg-boxdark rounded-lg border bg-white px-7 py-6 shadow-xl">
-      <div className=" bg-meta-2 dark:bg-meta-4 flex h-11 w-11 items-center justify-center rounded-full">
+    <div className="roboto rounded-lg border border-stroke bg-white px-7 py-6 shadow-xl dark:border-strokedark dark:bg-boxdark">
+      <div className=" flex h-11 w-11 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
         {children}
       </div>
 
       <div className="mt-4 flex items-end justify-between">
         <div>
-          <h4 className=" text-blackk text-2xl font-bold dark:text-white">
-            {total}
+          <h4 className=" text-2xl font-bold text-blackk dark:text-white">
+            {total} {birr && "Birr"}
           </h4>
           <span className=" text-sm font-medium">{title}</span>
         </div>

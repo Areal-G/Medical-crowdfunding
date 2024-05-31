@@ -39,6 +39,7 @@ import HospitalAdminRegisterPatinentForm from "./pages/hospital-admin/HospitalAd
 import HospitalAdminPatientsPage from "./pages/hospital-admin/HospitalAdminPatientsPage";
 import HospitalAdminApproveCampaignsPage from "./pages/hospital-admin/HospitalAdminApproveCampaignsPage";
 import CampaignDetailsAdminPage from "./components/Common/CampaignDetailsAdminPage";
+import HospitalAdminCampaignsPage from "./pages/hospital-admin/HospitalAdminCampaignsPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -83,6 +84,7 @@ const router = createBrowserRouter(
         />
         <Route path="patients" element={<HospitalAdminPatientsPage />} />
         <Route path="approve" element={<HospitalAdminApproveCampaignsPage />} />
+        <Route path="campaigns" element={<HospitalAdminCampaignsPage />} />
         <Route
           path="campaigndetail/:id"
           element={<CampaignDetailsAdminPage />}

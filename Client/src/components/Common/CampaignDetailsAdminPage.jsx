@@ -79,25 +79,26 @@ const CampaignDetailsAdminPage = () => {
                     <span className="font-bold">{campaignData?.donations}</span>{" "}
                     Donations
                   </p>
-                  <p className="font-bold">{campaignData?.raisedPercent}%</p>
+                  <p className="font-bold">{campaignData?.raisedPercent} %</p>
                 </div>
                 <div className="my-2 h-1 rounded-full bg-gray-200 dark:bg-gray-700">
                   <div
-                    className={`h-1 w-[${campaignData?.raisedPercent}%] rounded-full bg-primary-600`}
+                    className="h-1 rounded-full bg-primary-600"
+                    style={{ width: `${campaignData?.raisedPercent}%` }}
                   ></div>
                 </div>
                 <div className="flex justify-between">
                   <p>
                     Raised:{" "}
                     <span className="font-bold">
-                      {campaignData?.totalRaisedMoney}
+                      {campaignData?.totalRaisedMoney.toLocaleString()}
                     </span>{" "}
                     Birr
                   </p>
                   <p>
                     Goal:{" "}
                     <span className="font-bold">
-                      {campaignData?.campaign.target}{" "}
+                      {campaignData?.campaign.target.toLocaleString()}{" "}
                     </span>{" "}
                     Birr
                   </p>

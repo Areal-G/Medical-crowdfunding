@@ -44,7 +44,7 @@ exports.getCampaigns = async (req, res) => {
       const transactions = await Transaction.find({ campaignId: campaign._id }).populate('donorId');
       let raisedMoney = calculateRaisedMoney(transactions);
       let donations = transactions.length;
-      let raisedPercent = Math.ceil(raisedMoney / campaign.target) * 100;
+      let raisedPercent = ((raisedMoney / campaign.target) * 100).toFixed(1);
 
       campaignsResult.push({
         ...campaign._doc,
@@ -74,8 +74,7 @@ exports.getCampaignDetailForDonor = async (req, res, next) => {
     let raisedMoney = calculateRaisedMoney(transactions);
     let donations = 0;
     donations = transactions.length;
-    let raisedPercent = 0;
-    raisedPercent = Math.ceil(raisedMoney / campaign.target) * 100;
+    let raisedPercent = ((raisedMoney / campaign.target) * 100).toFixed(1);
 
     res.status(200).json({
       campaign,

@@ -28,12 +28,17 @@ const SystemAdminHomePage = () => {
     return (
       <main>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-6">
-          <CardDataStats title="Total Collected" total={Data?.totalMoney}>
+          <CardDataStats
+            title="Total Collected"
+            total={Data?.totalMoney.toLocaleString()}
+            birr
+          >
             <GiTakeMyMoney className=" fill-primary-500" />
           </CardDataStats>
           <CardDataStats
             title="Total Collected Today"
-            total={Data?.raisedMoneyToday}
+            total={Data?.raisedMoneyToday.toLocaleString()}
+            birr
           >
             <GiTakeMyMoney className=" fill-primary-500" />
           </CardDataStats>

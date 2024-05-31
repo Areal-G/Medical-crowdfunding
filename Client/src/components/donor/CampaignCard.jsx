@@ -52,7 +52,8 @@ const CampaignCard = (props) => {
             </div>
             <div className="my-2 h-1 rounded-full bg-gray-200 dark:bg-gray-700">
               <div
-                className={`h-1 w-[${props.progress}%] rounded-full bg-primary-600`}
+                className="h-1 rounded-full bg-primary-600"
+                style={{ width: `${props.progress}%` }}
               ></div>
             </div>
           </div>

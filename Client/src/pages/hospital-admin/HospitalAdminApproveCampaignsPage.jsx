@@ -13,7 +13,7 @@ const HospitalAdminApproveCampaignsPage = () => {
   const [Data, setData] = useState(null);
   const fetchData = async () => {
     try {
-      const response = await API.get(`/hospital/getcampaignstable`);
+      const response = await API.get(`/hospital/getcampaignstableinhospital`);
       setData(response.data);
       console.log(response.data);
     } catch (error) {
@@ -62,99 +62,109 @@ const HospitalAdminApproveCampaignsPage = () => {
               </tr>
             </thead>
             <tbody>
-              {Data.map((item, key) => (
-                <tr key={key}>
-                  <td className="flex items-center border-b border-[#eee] px-4 py-5 pl-2 dark:border-strokedark ">
-                    <h5 className=" font-medium text-black dark:text-white">
-                      {item.campaignTitle.en}
-                    </h5>
-                  </td>
-
-                  <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                    <p
-                      className={`inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium uppercase ${
-                        item.status === "active"
-                          ? "bg-green-500 text-green-500"
-                          : item.status === "closed"
-                            ? "bg-red-500 text-red-500"
-                            : item.status === "pending"
-                              ? "bg-yellow-500 text-yellow-500"
-                              : item.status === "rejected"
-                                ? "bg-gray-500 text-gray-500"
-                                : "bg-blue-500 text-blue-500"
-                      }`}
-                    >
-                      {item.status}
-                    </p>
-                  </td>
-                  <td className="hidden border-b border-[#eee] px-4 py-5 dark:border-strokedark md:table-cell">
-                    <div className="flex items-center ">
-                      <button
-                        title="View"
-                        className="mr-3 hover:text-primary-400"
-                        onClick={() =>
-                          navigate(`/hospital/campaigndetail/${item._id}`)
-                        }
-                      >
-                        <FiEye className=" h-6 w-6" />
-                      </button>
-                      {currentLoadingId === item._id ? (
-                        <CgSpinner className="h-7 w-7 animate-spin" />
-                      ) : (
-                        <>
-                          {item.status === "active" && (
-                            <button
-                              onClick={() =>
-                                handleToggleBlock(item._id, "closed")
-                              }
-                              className="mr-3 hover:text-red-400"
-                              title="Close"
-                            >
-                              <CgBlock className="h-7 w-7" />
-                            </button>
-                          )}
-
-                          {item.status === "pending" && (
-                            <div className="flex">
-                              <button
-                                onClick={() =>
-                                  handleToggleBlock(item._id, "active")
-                                }
-                                className="mr-3 hover:text-green-400"
-                                title="Active"
-                              >
-                                <CgUnblock className="h-7 w-7" />
-                              </button>
-                              <button
-                                onClick={() =>
-                                  handleToggleBlock(item._id, "rejected")
-                                }
-                                className="mr-3 hover:text-orange-400"
-                                title="Reject"
-                              >
-                                <CgCloseO className="h-6 w-6" />
-                              </button>
-                            </div>
-                          )}
-
-                          {(item.status === "closed" ||
-                            item.status === "rejected") && (
-                            <button
-                              onClick={() =>
-                                handleToggleBlock(item._id, "active")
-                              }
-                              className="mr-3 hover:text-green-400"
-                              title="Active"
-                            >
-                              <CgUnblock className="h-7 w-7" />
-                            </button>
-                          )}
-                        </>
-                      )}
-                    </div>
+              {Data.filter((item) => item.status === "pending").length === 0 ? (
+                <tr>
+                  <td colSpan="3" className="py-5 text-center">
+                    There is no new campaign
                   </td>
                 </tr>
-              ))}
+              ) : (
+                Data.filter((item) => item.status === "pending").map(
+                  (item, key) => (
+                    <tr key={key}>
+                      <td className="flex items-center border-b border-[#eee] px-4 py-5 pl-2 dark:border-strokedark ">
+                        <h5 className=" font-medium text-black dark:text-white">
+                          {item.campaignTitle.en}
+                        </h5>
+                      </td>
+
+                      <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                        <p
+                          className={`inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium uppercase ${
+                            item.status === "active"
+                              ? "bg-green-500 text-green-500"
+                              : item.status === "closed"
+                                ? "bg-red-500 text-red-500"
+                                : item.status === "pending"
+                                  ? "bg-yellow-500 text-yellow-500"
+                                  : item.status === "rejected"
+                                    ? "bg-gray-500 text-gray-500"
+                                    : "bg-blue-500 text-blue-500"
+                          }`}
+                        >
+                          {item.status}
+                        </p>
+                      </td>
+                      <td className="hidden border-b border-[#eee] px-4 py-5 dark:border-strokedark md:table-cell">
+                        <div className="flex items-center ">
+                          <button
+                            title="View"
+                            className="mr-3 hover:text-primary-400"
+                            onClick={() =>
+                              navigate(`/hospital/campaigndetail/${item._id}`)
+                            }
+                          >
+                            <FiEye className=" h-6 w-6" />
+                          </button>
+                          {currentLoadingId === item._id ? (
+                            <CgSpinner className="h-7 w-7 animate-spin" />
+                          ) : (
+                            <>
+                              {item.status === "active" && (
+                                <button
+                                  onClick={() =>
+                                    handleToggleBlock(item._id, "closed")
+                                  }
+                                  className="mr-3 hover:text-red-400"
+                                  title="Close"
+                                >
+                                  <CgBlock className="h-7 w-7" />
+                                </button>
+                              )}
+
+                              {item.status === "pending" && (
+                                <div className="flex">
+                                  <button
+                                    onClick={() =>
+                                      handleToggleBlock(item._id, "active")
+                                    }
+                                    className="mr-3 hover:text-green-400"
+                                    title="Active"
+                                  >
+                                    <CgUnblock className="h-7 w-7" />
+                                  </button>
+                                  <button
+                                    onClick={() =>
+                                      handleToggleBlock(item._id, "rejected")
+                                    }
+                                    className="mr-3 hover:text-orange-400"
+                                    title="Reject"
+                                  >
+                                    <CgCloseO className="h-6 w-6" />
+                                  </button>
+                                </div>
+                              )}
+
+                              {(item.status === "closed" ||
+                                item.status === "rejected") && (
+                                <button
+                                  onClick={() =>
+                                    handleToggleBlock(item._id, "active")
+                                  }
+                                  className="mr-3 hover:text-green-400"
+                                  title="Active"
+                                >
+                                  <CgUnblock className="h-7 w-7" />
+                                </button>
+                              )}
+                            </>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  ),
+                )
+              )}
             </tbody>
           </table>
         </div>

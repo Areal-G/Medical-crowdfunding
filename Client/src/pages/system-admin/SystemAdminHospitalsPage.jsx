@@ -130,7 +130,7 @@ const SystemAdminHospitalsPage = () => {
 
                       <p className="mt-3  ">
                         <span className=" font-semibold">Raised : </span>
-                        {individualHospital?.raisedMoney} Birr
+                        {individualHospital?.raisedMoney.toLocaleString()} Birr
                       </p>
                       <div className="mt-3">
                         <span className="font-semibold">Bank Account : </span>

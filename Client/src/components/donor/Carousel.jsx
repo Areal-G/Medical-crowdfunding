@@ -33,17 +33,18 @@ const Carousel = ({ children }) => {
       </div>
       <button
         onClick={prev}
-        className="absolute bottom-0 left-0 top-0 z-10 m-auto w-10 bg-white bg-opacity-30 focus:outline-none"
+        className="absolute left-0 top-1/2 flex -translate-y-1/2 transform items-center justify-center rounded-full text-white shadow backdrop-blur-sm   backdrop-brightness-50 hover:text-primary-300  "
       >
-        <ChevronLeft />
+        <ChevronLeft className="h-12 w-12 " />
       </button>
       <button
         onClick={next}
-        className="absolute bottom-0 right-0 top-0 z-10 m-auto w-10 bg-white bg-opacity-30 focus:outline-none"
+        className="absolute right-0 top-1/2 flex -translate-y-1/2 transform items-center justify-center rounded-full text-white shadow backdrop-blur-sm   backdrop-brightness-50 hover:text-primary-300  "
       >
-        <ChevronRight />
+        <ChevronRight className="h-12 w-12 " />
       </button>
     </div>
   );
 };
+
 export default Carousel;

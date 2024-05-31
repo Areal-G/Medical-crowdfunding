@@ -126,7 +126,7 @@ const HospitalAdminPatientsPage = () => {
 
                       <p className="mt-3  ">
                         <span className=" font-semibold">Raised : </span>
-                        {individualPatient?.raisedMoney} Birr
+                        {individualPatient?.raisedMoney.toLocaleString()} Birr
                       </p>
                       <p className="mt-3  ">
                         <span className=" font-semibold">

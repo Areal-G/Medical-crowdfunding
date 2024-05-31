@@ -4,6 +4,10 @@ const stripe = require('stripe')(STRIPE_SECRET_KEY);
 
 const chapa = require('../../src/config/chapa');
 const Transaction = require('../models/transaction');
+const Patient = require('../models/patient');
+const Hospital = require('../models/hospital');
+const Campaign = require('../models/campaign');
+const Donor = require('../models/donor');
 
 exports.stripePay = async (req, res, next) => {
   const { donationAmount, donationMessage, isAnonymous, campaignId } = req.body;
@@ -48,7 +52,7 @@ exports.stripeSessionDetails = async (req, res, next) => {
 
 exports.saveStripeTransaction = async (req, res, next) => {
   const { amount, currency, transactionId, donationMessage, isAnonymous, campaignId } = req.body;
-  console.log(req.body);
+  console.log('@save stripe', req.body);
   const donorId = req.user._id;
 
   const paymentProvider = 'stripe';

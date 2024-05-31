@@ -258,6 +258,21 @@ const HospitalAdminNav = () => {
             </li>
             <li>
               <NavLink
+                to={"campaigns"}
+                className={({ isActive }) =>
+                  `flex items-center rounded-lg p-2 pb-4 ${
+                    isActive
+                      ? " text-primary-500"
+                      : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                  }`
+                }
+              >
+                <FaListUl className=" h-[20px] w-[20px]" />
+                <span className="ml-3">Campaigns</span>
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
                 to={"approve"}
                 className={({ isActive }) =>
                   `flex items-center rounded-lg p-2 pb-4 ${
