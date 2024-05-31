@@ -38,16 +38,6 @@ const PatientSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  accountStatus: {
-    type: String,
-    // enum: {
-    //   values: ["Active", "Inactive"],
-    //   message:
-    //     "Invalid status value. Must be one of: Pending, Active, Inactive, Suspended, Archived.",
-    // },
-    // default: status.ACTIVE,
-    // required: [true, "Status is required"],
-  },
 });
 
 const Patient = mongoose.model('Patient', PatientSchema);
