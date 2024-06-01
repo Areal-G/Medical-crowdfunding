@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const CampaignCard = (props) => {
+  const { t } = useTranslation();
   return (
     <Link
       className="mx-auto max-w-96 rounded-lg bg-white "
@@ -46,7 +48,7 @@ const CampaignCard = (props) => {
             <div className="flex justify-between">
               <p>
                 <span className="font-semibold">{`${props.donations}`}</span>{" "}
-                Donations
+                {t("donations")}
               </p>
               <p className="font-semibold">{`${props.progress}%`}</p>
             </div>
@@ -59,16 +61,18 @@ const CampaignCard = (props) => {
           </div>
           <div className="flex justify-between">
             <p>
-              Raised:
+              {t("raised")}
               <span className="font-semibold">
-                {`${props.raised.toLocaleString()} Birr`}
+                {`${props.raised.toLocaleString()}`}
+                {t("birr")}
               </span>
             </p>
             <p>
-              Goal:{" "}
+              {t("goal")}
               <span className="font-semibold">
-                {props.goal.toLocaleString()} Birr
+                {props.goal.toLocaleString()}
               </span>
+              {t("birr")}
             </p>
           </div>
         </div>

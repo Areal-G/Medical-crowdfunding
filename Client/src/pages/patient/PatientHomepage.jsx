@@ -12,6 +12,7 @@ const PatientHomePage = () => {
       try {
         const response = await API.get(`/patient/getpatientdashboard`);
         setData(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -19,9 +20,12 @@ const PatientHomePage = () => {
 
     fetchCampaignData();
   }, []);
+
   if (Data === null) {
     return <Loading />;
-  } else
+  } else if (!Data.isCampaign) {
+    return <div>You didnt create a campaign.</div>;
+  } else if (Data.status !== "active") {
     return (
       <main>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-6">
@@ -119,5 +123,6 @@ const PatientHomePage = () => {
         </div>
       </main>
     );
+  }
 };
 export default PatientHomePage;

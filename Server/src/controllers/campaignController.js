@@ -93,10 +93,10 @@ exports.getCampaignDetailForDonor = async (req, res, next) => {
 exports.getPatientDashboard = async (req, res, next) => {
   try {
     const campaign = await Campaign.findOne({ _id: req.user.campaign });
+    const isCampaign = campaign !== null;
     const transactions = await Transaction.find({ campaignId: req.user.campaign }).populate(
       'donorId'
     );
-
     let raisedMoney = calculateRaisedMoney(transactions);
     const { flooredWeekData, daysOfWeek } = tableWeeklyTransactions(transactions);
     let donations = transactions.length;
@@ -111,6 +111,7 @@ exports.getPatientDashboard = async (req, res, next) => {
       daysOfWeek,
       donations,
       raisedMoneyToday,
+      isCampaign,
     });
   } catch (error) {
     console.error('Error:', error);

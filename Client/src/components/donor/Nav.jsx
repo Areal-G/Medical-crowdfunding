@@ -147,7 +147,7 @@ const Nav = () => {
               to="/signin"
               className="rounded-full bg-primary-600 px-4 py-2 text-base font-light text-white hover:bg-blue-700"
             >
-              Sign In
+              {t("signin")}
             </Link>
           )}
           {/* // Dropdown menu */}

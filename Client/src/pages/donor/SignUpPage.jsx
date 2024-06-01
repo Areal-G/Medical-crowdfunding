@@ -9,9 +9,11 @@ import {
   validatePassword,
   validatePhoneNumber,
 } from "../../components/Common/Validation";
+import { useTranslation } from "react-i18next";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { handleFilesChange, uploadFiles } = useFileUploader();
   const [formData, setFormData] = useState({
     fullname: "",
@@ -108,10 +110,10 @@ const SignUpPage = () => {
                   to="/signin"
                   className="w-1/3 border-b pb-4 text-center font-medium capitalize text-gray-500 dark:border-gray-400 dark:text-gray-300"
                 >
-                  Sign In
+                  {t("signin")}
                 </Link>
                 <a className="w-1/3 border-b-2 border-blue-500 pb-4 text-center font-medium capitalize text-gray-800 dark:border-blue-400 dark:text-white">
-                  Sign Up
+                  {t("signup")}
                 </a>
               </div>
               <form onSubmit={handleSubmit} className="mt-8 ">
@@ -121,7 +123,7 @@ const SignUpPage = () => {
                       htmlFor="fullname"
                       className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
                     >
-                      Full Name
+                      {t("fullname")}
                     </label>
                     <input
                       type="text"
@@ -138,7 +140,7 @@ const SignUpPage = () => {
                       htmlFor="phoneNumber"
                       className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
                     >
-                      Phone Number
+                      {t("phonenum")}
                     </label>
                     <input
                       type="text"
@@ -155,7 +157,7 @@ const SignUpPage = () => {
                       htmlFor="email"
                       className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
                     >
-                      Email Address
+                      {t("emailaddress")}
                     </label>
                     <input
                       type="email"
@@ -172,7 +174,7 @@ const SignUpPage = () => {
                       htmlFor="country"
                       className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
                     >
-                      Country
+                      {t("country")}
                     </label>
                     <input
                       type="text"
@@ -189,7 +191,7 @@ const SignUpPage = () => {
                       htmlFor="city"
                       className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
                     >
-                      City
+                      {t("city")}
                     </label>
                     <input
                       type="text"
@@ -206,7 +208,7 @@ const SignUpPage = () => {
                       htmlFor="image"
                       className="mb-3 block text-sm text-gray-600 dark:text-gray-200"
                     >
-                      Attach Profile Picture
+                      {t("attachprofile")}
                     </label>
                     <input
                       type="file"
@@ -223,7 +225,7 @@ const SignUpPage = () => {
                       htmlFor="password"
                       className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
                     >
-                      Password
+                      {t("password")}
                     </label>
                     <input
                       type="password"
@@ -240,7 +242,7 @@ const SignUpPage = () => {
                       htmlFor="confirmPassword"
                       className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
                     >
-                      Confirm Password
+                      {t("confirmpassword")}
                     </label>
                     <input
                       type="password"
@@ -280,7 +282,7 @@ const SignUpPage = () => {
                       </svg>
                     </div>
                   ) : (
-                    "Sign Up"
+                    t("signup")
                   )}
                 </button>
               </form>
@@ -290,7 +292,7 @@ const SignUpPage = () => {
                     href="#"
                     className="text-sm text-blue-500 hover:underline dark:text-blue-400"
                   >
-                    Already have an account?
+                    {t("alreadyhaveanaccount")}
                   </a>
                 </div>
               </div>

@@ -123,7 +123,7 @@ const PatientNav = () => {
             >
               <img
                 className="h-10 w-10 rounded-full object-cover"
-                src={Data?.image}
+                src={Data?.patient.image}
                 alt="user photo"
               />
             </button>
@@ -135,10 +135,10 @@ const PatientNav = () => {
             >
               <div className="px-4 py-3 ">
                 <span className="block text-sm text-gray-900 dark:text-white">
-                  {Data?.patientName}
+                  {Data?.patient.patientName}
                 </span>
                 <span className="block truncate  text-sm text-gray-500 dark:text-gray-400">
-                  {Data?.email}
+                  {Data?.patient.email}
                 </span>
               </div>
               <ul className="py-2">

@@ -3,10 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/img/donor/logo-black.svg";
 import API from "../../components/Common/api";
 import { Toaster, toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 const SignInPage = () => {
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [userRole, setUserRole] = useState(null);
@@ -110,14 +111,14 @@ const SignInPage = () => {
                 href="/signin"
                 className="w-1/3 border-b-2 border-blue-500 pb-4 text-center font-medium capitalize text-gray-800 dark:border-blue-400 dark:text-white"
               >
-                sign in
+                {t("signin")}
               </a>
 
               <Link
                 to={"/signup"}
                 className="w-1/3 border-b pb-4 text-center font-medium capitalize text-gray-500 dark:border-gray-400 dark:text-gray-300"
               >
-                sign up
+                {t("signup")}
               </Link>
             </div>
             <form onSubmit={handleSubmit} className="mt-8">
@@ -131,7 +132,7 @@ const SignInPage = () => {
                       : "bg-white"
                   } border-gray-200 px-4 py-2 text-sm font-medium text-gray-900    dark:border-gray-700  dark:text-white`}
                 >
-                  Donor
+                  {t("donor")}
                 </button>
                 <button
                   onClick={() => handleUserRoleChange("patient")}
@@ -142,7 +143,7 @@ const SignInPage = () => {
                       : "bg-white"
                   } border-gray-200 px-4 py-2 text-sm font-medium text-gray-900    dark:border-gray-700  dark:text-white`}
                 >
-                  Patient
+                  {t("patient")}
                 </button>
                 <button
                   onClick={() => handleUserRoleChange("hospital")}
@@ -153,7 +154,7 @@ const SignInPage = () => {
                       : "bg-white"
                   } border-gray-200 px-4 py-2 text-sm font-medium text-gray-900    dark:border-gray-700  dark:text-white`}
                 >
-                  Hospital
+                  {t("hospital")}
                 </button>
                 <button
                   onClick={() => handleUserRoleChange("systemAdmin")}
@@ -164,7 +165,7 @@ const SignInPage = () => {
                       : "bg-white"
                   } border-gray-200 px-4 py-2 text-sm font-medium text-gray-900    dark:border-gray-700  dark:text-white`}
                 >
-                  Sys Admin
+                  {t("admin")}
                 </button>
               </div>
 
@@ -173,7 +174,7 @@ const SignInPage = () => {
                   htmlFor="email"
                   className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
                 >
-                  Email Address
+                  {t("emailaddress")}
                 </label>
                 <input
                   type="email"
@@ -188,7 +189,7 @@ const SignInPage = () => {
 
               <div>
                 <label className="mb-2 mt-8 block text-sm text-gray-600 dark:text-gray-200">
-                  Password
+                  {t("password")}
                 </label>
                 <input
                   type="password"
@@ -223,7 +224,7 @@ const SignInPage = () => {
                     </svg>
                   </div>
                 ) : (
-                  "Sign In"
+                  t("signin")
                 )}
               </button>
             </form>
@@ -233,7 +234,7 @@ const SignInPage = () => {
                 to={"/signup"}
                 className="text-sm text-blue-500 hover:underline dark:text-blue-400"
               >
-                Dont have an account?
+                {t("donthaveanaccount")}
               </Link>
             </div>
           </div>

@@ -3,8 +3,10 @@ import { useState, useEffect } from "react";
 import API from "../Common/api";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const DonationProgress = (props) => {
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -67,7 +69,8 @@ const DonationProgress = (props) => {
       <div className="mx-auto w-[90%]">
         <div className="flex justify-between">
           <p>
-            <span className="font-bold">{props.donations}</span> Donations
+            <span className="font-bold">{props.donations}</span>{" "}
+            {t("donations")}
           </p>
           <p className="font-bold">{props.donationpercent}%</p>
         </div>
@@ -79,19 +82,24 @@ const DonationProgress = (props) => {
         </div>
         <div className="flex justify-between">
           <p>
-            Raised:{" "}
-            <span className="font-bold">{props.raised.toLocaleString()}</span>{" "}
-            Birr
+            {t("raised")}
+            <span className="font-bold">
+              {props.raised.toLocaleString()}
+            </span>{" "}
+            {t("birr")}
           </p>
           <p>
-            Goal:{" "}
-            <span className="font-bold">{props.goal.toLocaleString()} </span>{" "}
-            Birr
+            {t("goal")}
+            <span className="font-bold">
+              {props.goal.toLocaleString()}{" "}
+            </span>{" "}
+            {t("birr")}
           </p>
         </div>
         <div className="mt-4 text-right">
           <p>
-            <span className="font-bold">{props.deadlinedate}</span> Days left
+            <span className="font-bold">{props.deadlinedate}</span>{" "}
+            {t("daysleft")}
           </p>
         </div>
         {/* Donate button */}
@@ -101,7 +109,7 @@ const DonationProgress = (props) => {
             className="inline-flex items-center justify-center rounded-lg bg-primary-600 px-12 py-3 text-center text-base font-medium text-white hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
             onClick={handleModalToggle}
           >
-            Donate
+            {t("donate")}
             <svg
               className="-mr-1 ml-2 h-5 w-5"
               fill="currentColor"
@@ -129,7 +137,7 @@ const DonationProgress = (props) => {
             <div className="pointer-events-auto flex flex-col rounded-xl border bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-800 dark:shadow-neutral-700/70">
               <div className="flex items-center justify-between border-b px-4 py-3 dark:border-neutral-700">
                 <h3 className="font-bold text-gray-800 dark:text-white">
-                  Donate
+                  {t("donate")}
                 </h3>
                 <button
                   type="button"
@@ -156,7 +164,7 @@ const DonationProgress = (props) => {
               </div>
               <div className="mt-4">
                 <label className="flex items-center justify-evenly text-gray-700 dark:text-white">
-                  Payment System
+                  {t("paymentsystem")}
                 </label>
                 <div className="mt-3 flex justify-center gap-x-2">
                   <button
@@ -168,7 +176,7 @@ const DonationProgress = (props) => {
                     } shadow-sm  dark:border-neutral-700 dark:bg-neutral-900 dark:text-white `}
                     onClick={() => setPaymentSystem("local")}
                   >
-                    Local
+                    {t("local")}
                   </button>
                   <button
                     type="button"
@@ -179,14 +187,14 @@ const DonationProgress = (props) => {
                     } shadow-sm  dark:border-neutral-700 dark:bg-neutral-900 dark:text-white `}
                     onClick={() => setPaymentSystem("international")}
                   >
-                    International
+                    {t("international")}
                   </button>
                 </div>
               </div>
               <div className="overflow-y-auto p-4">
                 <div className="mt-4">
                   <label className="block text-gray-700 dark:text-white">
-                    Donation Amount
+                    {t("donationamount")}
                   </label>
                   <input
                     type="number"
@@ -198,7 +206,7 @@ const DonationProgress = (props) => {
                 </div>
                 <div className="mt-4">
                   <label className="block text-gray-700 dark:text-white">
-                    Donation Message
+                    {t("donationmessage")}
                   </label>
                   <input
                     type="text"
@@ -216,7 +224,7 @@ const DonationProgress = (props) => {
                       checked={isAnonymous}
                       onChange={(e) => setIsAnonymous(e.target.checked)}
                     />
-                    Donate Anonymously
+                    {t("donateanonymously")}
                   </label>
                 </div>
               </div>
@@ -226,7 +234,7 @@ const DonationProgress = (props) => {
                   onClick={handleDonate}
                   className="inline-flex items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:pointer-events-none disabled:opacity-50"
                 >
-                  Donate
+                  {t("donate")}
                 </button>
               </div>
             </div>

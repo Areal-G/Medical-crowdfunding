@@ -97,7 +97,9 @@ exports.getAdminNavData = async (req, res, next) => {
 exports.getPatientNavData = async (req, res, next) => {
   try {
     const patient = await Patient.findOne({ _id: req.user._id });
-    res.status(200).json(patient);
+    const isCampaign = patient ? patient.campaign !== undefined : false;
+
+    res.status(200).json({ patient, isCampaign });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Internal server error' });

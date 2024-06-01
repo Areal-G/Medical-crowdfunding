@@ -12,12 +12,11 @@ const Secondmain = () => {
       {/* Main Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 p-4 text-white">
         <h1 className="mb-4 text-center text-4xl font-bold md:text-7xl">
-          <span className=" text-primary-400">Happiness </span> comes from{" "}
-          <br /> <span className=" text-primary-400">your action.</span>
+          <span className=" text-primary-400">{t("headerblue1")}</span>
+          {t("headerblue2")}
+          <br /> <span className=" text-primary-400">{t("headerblack")}</span>
         </h1>
-        <p className=" mb-8 text-center md:text-lg">
-          Be a part of the breakthrough and make someone's dream come true.
-        </p>
+        <p className=" mb-8 text-center md:text-lg">{t("headertext")}</p>
         <div className="space-x-4">
           <Link
             to="/#campaigns"
