@@ -10,7 +10,7 @@ exports.donorRegister = async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const donor = new Donor({ password: hashedPassword, ...donorData });
     await donor.save();
-    res.status(201).json('Saved successfully');
+    res.status(201).json('account created successfully');
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'An error occurred during registration.' });

@@ -1,22 +1,23 @@
+import { useEffect } from "react";
 import {
+  BrowserRouter as Router,
   Route,
-  RouterProvider,
-  createBrowserRouter,
-  createRoutesFromElements,
+  Routes,
+  useLocation,
 } from "react-router-dom";
+import "preline/preline";
 
 import PrivateRoute from "./components/Common/PrivateRoute";
 
 // donor import
 import DonorRootLayout from "./pages/donor/DonorRootLayout";
 import HomePage from "./pages/donor/HomePage";
-import CampaignList from "./components/donor/CampaignList";
 import SignInPage from "./pages/donor/SignInPage";
 import SignUpPage from "./pages/donor/SignUpPage";
 import CampaignDetailPage from "./pages/donor/CampaignDetailPage";
 import ChapaRedirectPage from "./pages/donor/ChapaRedirectPage";
 
-//patient import
+// patient import
 import PatientRootLayout from "./pages/patient/PatientRootLayout";
 import PatientHomePage from "./pages/patient/PatientHomePage";
 import PatientMyCampaignPage from "./pages/patient/PatientMyCampaignPage";
@@ -41,13 +42,20 @@ import HospitalAdminApproveCampaignsPage from "./pages/hospital-admin/HospitalAd
 import CampaignDetailsAdminPage from "./components/Common/CampaignDetailsAdminPage";
 import HospitalAdminCampaignsPage from "./pages/hospital-admin/HospitalAdminCampaignsPage";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route>
+function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (window.HSStaticMethods) {
+      window.HSStaticMethods.autoInit();
+    }
+  }, [location.pathname]);
+
+  return (
+    <Routes>
       {/* home/donor route */}
       <Route path="/" element={<DonorRootLayout />}>
         <Route index element={<HomePage />} />
-        {/* <Route path="campaign" element={<CampaignList />} /> */}
         <Route path="signin" element={<SignInPage />} />
         <Route path="signup" element={<SignUpPage />} />
         <Route path="campaigndetail/:id" element={<CampaignDetailPage />} />
@@ -67,7 +75,7 @@ const router = createBrowserRouter(
         <Route path="postupdate" element={<PatientPostUpdatePage />} />
       </Route>
 
-      {/* hospita admin route */}
+      {/* hospital admin route */}
       <Route
         path="/hospital"
         element={
@@ -112,12 +120,14 @@ const router = createBrowserRouter(
           element={<CampaignDetailsAdminPage />}
         />
       </Route>
-    </Route>,
-  ),
-);
-
-function App() {
-  return <RouterProvider router={router} />;
+    </Routes>
+  );
 }
 
-export default App;
+export default function Root() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}

@@ -118,7 +118,7 @@ const resources = {
       confirmpassword: "የይለፍ ቃል አረጋግጥ",
       alreadyhaveanaccount: "በእኛ ውስጥ መለያ አለህ?",
       donthaveanaccount: "ከእኛ ጋር መለያ የለህም?",
-      donations: "ልገሳዎች ፡ ",
+      donations: "ልገሳዎች ",
       raised: "የተሰበሰበው : ",
       goal: "ግብ : ",
       birr: "ብር",
