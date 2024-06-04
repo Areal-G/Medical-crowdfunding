@@ -121,7 +121,7 @@ const SystemAdminHospitalsPage = () => {
                       <p className="mt-3 ">
                         <span className=" font-semibold">Address : </span>
                         {individualHospital?.hospital.city},{" "}
-                        {individualHospital?.hospital.country}
+                        {individualHospital?.hospital.address}
                       </p>
                       <p className="mt-3  ">
                         <span className=" font-semibold">Patients : </span>

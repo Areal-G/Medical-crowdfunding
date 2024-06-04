@@ -224,51 +224,56 @@ const PatientNav = () => {
                 <span className="ml-3">Dasboard</span>
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to={"mycampaign"}
-                className={({ isActive }) =>
-                  `flex items-center rounded-lg p-2 pb-4 ${
-                    isActive
-                      ? " text-primary-500"
-                      : "hover:bg-gray-100 dark:hover:bg-gray-700"
-                  }`
-                }
-              >
-                <CiMedicalCross className=" h-[20px] w-[20px]" />
-                <span className="ml-3">My Campaign</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to={"createcampaign"}
-                className={({ isActive }) =>
-                  `flex items-center rounded-lg p-2 pb-4 ${
-                    isActive
-                      ? " text-primary-500"
-                      : "hover:bg-gray-100 dark:hover:bg-gray-700"
-                  }`
-                }
-              >
-                <MdOutlineCreateNewFolder className=" h-[20px] w-[20px]" />
-                <span className="ml-3">Create Campaign</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to={"postupdate"}
-                className={({ isActive }) =>
-                  `flex items-center rounded-lg p-2 pb-4 ${
-                    isActive
-                      ? " text-primary-500"
-                      : "hover:bg-gray-100 dark:hover:bg-gray-700"
-                  }`
-                }
-              >
-                <MdPostAdd className=" h-[20px] w-[20px]" />
-                <span className="ml-3">Post Update</span>
-              </NavLink>
-            </li>
+            {Data.isCampaign ? (
+              <li>
+                <NavLink
+                  to={"mycampaign"}
+                  className={({ isActive }) =>
+                    `flex items-center rounded-lg p-2 pb-4 ${
+                      isActive
+                        ? " text-primary-500"
+                        : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                    }`
+                  }
+                >
+                  <CiMedicalCross className=" h-[20px] w-[20px]" />
+                  <span className="ml-3">My Campaign</span>
+                </NavLink>
+              </li>
+            ) : (
+              <li>
+                <NavLink
+                  to={"createcampaign"}
+                  className={({ isActive }) =>
+                    `flex items-center rounded-lg p-2 pb-4 ${
+                      isActive
+                        ? " text-primary-500"
+                        : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                    }`
+                  }
+                >
+                  <MdOutlineCreateNewFolder className=" h-[20px] w-[20px]" />
+                  <span className="ml-3">Create Campaign</span>
+                </NavLink>
+              </li>
+            )}
+            {!Data.isUpdate && (
+              <li>
+                <NavLink
+                  to={"postupdate"}
+                  className={({ isActive }) =>
+                    `flex items-center rounded-lg p-2 pb-4 ${
+                      isActive
+                        ? " text-primary-500"
+                        : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                    }`
+                  }
+                >
+                  <MdPostAdd className=" h-[20px] w-[20px]" />
+                  <span className="ml-3">Post Update</span>
+                </NavLink>
+              </li>
+            )}
           </ul>
         </div>
       </aside>

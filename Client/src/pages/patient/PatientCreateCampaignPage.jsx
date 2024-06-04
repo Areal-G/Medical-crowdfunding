@@ -113,8 +113,21 @@ const PatientCreateCampaignPage = () => {
                 placeholder="Enter the title for your campaign in english"
                 value={formData.campaignTitleEng}
                 onChange={handleChange}
-                className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-white file:px-5 file:py-3 file:hover:bg-primary-200 file:hover:bg-opacity-10 focus:border-primary-200 active:border-primary-200 disabled:cursor-default disabled:bg-white dark:file:bg-white/30 dark:file:text-white"
+                className="block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
               />
+            </div>
+            <div className="mb-14">
+              <label className="mb-2 block text-black dark:text-white">
+                Description In English
+              </label>
+              <textarea
+                rows={6}
+                name="campaignDescriptionEng"
+                placeholder="Type your description in english"
+                value={formData.campaignDescriptionEng}
+                onChange={handleChange}
+                className="block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+              ></textarea>
             </div>
             <div className="mb-4">
               <label className="mb-2 block text-black dark:text-white">
@@ -126,22 +139,10 @@ const PatientCreateCampaignPage = () => {
                 placeholder="Enter the title for your campaign in amharic"
                 value={formData.campaignTitleAmh}
                 onChange={handleChange}
-                className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-white file:px-5 file:py-3 file:hover:bg-primary-200 file:hover:bg-opacity-10 focus:border-primary-200 active:border-primary-200 disabled:cursor-default disabled:bg-white dark:file:bg-white/30 dark:file:text-white"
+                className="block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
               />
             </div>
-            <div className="mb-6">
-              <label className="mb-2 block text-black dark:text-white">
-                Description In English
-              </label>
-              <textarea
-                rows={6}
-                name="campaignDescriptionEng"
-                placeholder="Type your description in english"
-                value={formData.campaignDescriptionEng}
-                onChange={handleChange}
-                className="active:border-primary w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary-500 disabled:cursor-default dark:text-white"
-              ></textarea>
-            </div>
+
             <div className="mb-6">
               <label className="mb-2 block text-black dark:text-white">
                 Description In Amharic
@@ -152,7 +153,7 @@ const PatientCreateCampaignPage = () => {
                 placeholder="Type your description in amharic"
                 value={formData.campaignDescriptionAmh}
                 onChange={handleChange}
-                className="active:border-primary w-full rounded border-[1.5px] border-stroke bg-transparent px-5 py-3 text-black outline-none transition focus:border-primary-500 disabled:cursor-default dark:text-white"
+                className="block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
               ></textarea>
             </div>
             <div className="mb-4">
@@ -165,7 +166,7 @@ const PatientCreateCampaignPage = () => {
                 placeholder="Enter Your Donation Campaign Target"
                 value={formData.target}
                 onChange={handleChange}
-                className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-white file:px-5 file:py-3 file:hover:bg-primary-200 file:hover:bg-opacity-10 focus:border-primary-200 active:border-primary-200 disabled:cursor-default disabled:bg-white dark:file:bg-white/30 dark:file:text-white"
+                className="block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
               />
             </div>
             <div className="mb-6">
@@ -177,7 +178,7 @@ const PatientCreateCampaignPage = () => {
                 type="text"
                 name="campaignDate"
                 placeholder="Select date"
-                className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-white outline-none transition focus:border-primary-200 active:border-primary-200 disabled:cursor-default dark:text-white"
+                className="block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
               />
             </div>
             <div className="mb-6">
@@ -190,7 +191,7 @@ const PatientCreateCampaignPage = () => {
                 multiple
                 ref={inputRef}
                 onChange={handleFilesChange}
-                className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-white outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-white file:px-5 file:py-3 file:hover:bg-primary-200 file:hover:bg-opacity-10 focus:border-primary-200 active:border-primary-200 disabled:cursor-default dark:file:bg-white/30 dark:file:text-white"
+                className="w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-white outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-primary-400 file:px-5 file:py-3 file:text-white hover:file:bg-blue-700 focus:border-primary-200 active:border-primary-200 disabled:cursor-default disabled:bg-white dark:file:bg-white/30 dark:file:text-white"
               />
             </div>
             <div className="flex justify-end gap-4">

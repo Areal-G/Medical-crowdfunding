@@ -21,6 +21,21 @@ const CampaignSchema = new mongoose.Schema({
       required: true,
     },
   },
+  update: {
+    en: {
+      type: String,
+    },
+    am: {
+      type: String,
+    },
+  },
+  updateImages: {
+    type: [String],
+  },
+  isUpdate: {
+    type: Boolean,
+    default: false,
+  },
   target: {
     type: Number,
     required: true,
@@ -48,5 +63,5 @@ const CampaignSchema = new mongoose.Schema({
   },
 });
 
-const Campaign = mongoose.model('campaign', CampaignSchema);
+const Campaign = mongoose.model('Campaign', CampaignSchema);
 module.exports = Campaign;

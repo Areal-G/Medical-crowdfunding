@@ -16,6 +16,7 @@ import SignInPage from "./pages/donor/SignInPage";
 import SignUpPage from "./pages/donor/SignUpPage";
 import CampaignDetailPage from "./pages/donor/CampaignDetailPage";
 import ChapaRedirectPage from "./pages/donor/ChapaRedirectPage";
+import Donations from "./pages/donor/Donations";
 
 // patient import
 import PatientRootLayout from "./pages/patient/PatientRootLayout";
@@ -41,6 +42,7 @@ import HospitalAdminPatientsPage from "./pages/hospital-admin/HospitalAdminPatie
 import HospitalAdminApproveCampaignsPage from "./pages/hospital-admin/HospitalAdminApproveCampaignsPage";
 import CampaignDetailsAdminPage from "./components/Common/CampaignDetailsAdminPage";
 import HospitalAdminCampaignsPage from "./pages/hospital-admin/HospitalAdminCampaignsPage";
+import MyDonatedCampaignDetailPage from "./pages/donor/MyDonatedCampaignDetailPage";
 
 function App() {
   const location = useLocation();
@@ -60,6 +62,11 @@ function App() {
         <Route path="signup" element={<SignUpPage />} />
         <Route path="campaigndetail/:id" element={<CampaignDetailPage />} />
         <Route path="chaparedirect/:id" element={<ChapaRedirectPage />} />
+        <Route path="donations" element={<Donations />} />
+        <Route
+          path="mydonatedcampaign/:id"
+          element={<MyDonatedCampaignDetailPage />}
+        />
       </Route>
 
       {/* patient route */}

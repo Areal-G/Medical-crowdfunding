@@ -151,7 +151,7 @@ const CampaignDetailsAdminPage = () => {
                               onClick={() => handleToggleBlock("active")}
                               className="mr-3 flex items-center hover:text-green-400"
                             >
-                              <CgUnblock className="h-10 w-10" />\
+                              <CgUnblock className="h-10 w-10" />
                               <p className="ml-2 font-semibold">Approve</p>
                             </button>
                             <button

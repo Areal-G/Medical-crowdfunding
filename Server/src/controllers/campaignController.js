@@ -34,6 +34,24 @@ exports.createCampaign = async (req, res, next) => {
   }
 };
 
+exports.createUpdate = async (req, res, next) => {
+  try {
+    const patient = await Patient.findOne({ _id: req.user._id });
+    const campaign = await Campaign.findOne({ _id: patient.campaign._id });
+
+    campaign.update = req.body.update;
+    campaign.updateImages = req.body.updateImages;
+    campaign.isUpdate = 'true';
+
+    await campaign.save();
+
+    res.status(201).json('Saved Successfully');
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'An error occurred.' });
+  }
+};
+
 exports.getCampaigns = async (req, res) => {
   try {
     const campaigns = await Campaign.find().populate('hospital');

@@ -62,7 +62,7 @@ const Campaign = () => {
                   id={campaign._id}
                   title={campaign.campaignTitle}
                   description={campaign.campaignDescription}
-                  date={campaign.campaignDate}
+                  date={campaign.createdAt}
                   city={campaign.hospital.city}
                   goal={campaign.target}
                   image={campaign.images[0]}

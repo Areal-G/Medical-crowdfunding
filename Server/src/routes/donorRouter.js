@@ -10,4 +10,5 @@ router.post('/register', registerController.donorRegister);
 router.get('/getcampaigns', CampaignController.getCampaigns);
 router.get('/getcampaigndetail/:campaignId', CampaignController.getCampaignDetailForDonor);
 router.get('/getdonornavdata', fetchController.getDonorNavData);
+router.get('/mydonations', fetchController.myDonations);
 module.exports = router;

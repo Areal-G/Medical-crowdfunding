@@ -109,7 +109,7 @@ const Campaign = () => {
     return (
       <div className="mx-auto mt-10  max-w-screen-xl">
         <Toaster richColors />
-        <h2 className=" mx-auto mb-8 w-[90%] text-center text-3xl font-semibold  dark:text-white ">
+        <h2 className=" mx-auto mb-8 w-[90%] text-center text-3xl font-semibold uppercase  dark:text-white ">
           {campaignData?.campaign.campaignTitle[currentLanguage]}
         </h2>
         <div className="  justify-between lg:flex">

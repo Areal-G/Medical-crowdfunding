@@ -98,8 +98,10 @@ exports.getPatientNavData = async (req, res, next) => {
   try {
     const patient = await Patient.findOne({ _id: req.user._id });
     const isCampaign = patient ? patient.campaign !== undefined : false;
+    const campaign = await Campaign.findById(patient.campaign);
+    isUpdate = campaign ? campaign.isUpdate : false;
 
-    res.status(200).json({ patient, isCampaign });
+    res.status(200).json({ patient, isCampaign, isUpdate });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Internal server error' });
@@ -149,6 +151,17 @@ exports.getHospitalDataForAdmin = async (req, res, next) => {
     let raisedMoney = calculateRaisedMoney(transactions);
 
     res.status(200).json({ hospital, raisedMoney, patients });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.myDonations = async (req, res, next) => {
+  try {
+    const transactions = await Transaction.find({ donorId: req.user._id }).populate('campaignId');
+
+    res.status(200).json({ transactions });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Internal server error' });
