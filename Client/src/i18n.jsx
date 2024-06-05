@@ -69,6 +69,9 @@ const resources = {
       update: "UPDATE",
       amount: "Amount",
       dollar: "USD",
+      unauthorized: "You are not authorized",
+      unauthorizedmessage:
+        "You tried to access a page you did not have authorization for.",
     },
   },
   am: {
@@ -137,6 +140,8 @@ const resources = {
       update: "ከልገሳ በኋላ",
       amount: "መጠን",
       dollar: "ዶላር",
+      unauthorized: "መግባት አልተፈቀደልህም።",
+      unauthorizedmessage: "ፍቃድ የሌለህበትን ገጽ ለማግኘት ሞክረሃል።",
     },
   },
 };

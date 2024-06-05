@@ -17,6 +17,7 @@ import SignUpPage from "./pages/donor/SignUpPage";
 import CampaignDetailPage from "./pages/donor/CampaignDetailPage";
 import ChapaRedirectPage from "./pages/donor/ChapaRedirectPage";
 import Donations from "./pages/donor/Donations";
+import UnAuthorizedPage from "./components/Common/UnAuthorizedPage";
 
 // patient import
 import PatientRootLayout from "./pages/patient/PatientRootLayout";
@@ -43,6 +44,8 @@ import HospitalAdminApproveCampaignsPage from "./pages/hospital-admin/HospitalAd
 import CampaignDetailsAdminPage from "./components/Common/CampaignDetailsAdminPage";
 import HospitalAdminCampaignsPage from "./pages/hospital-admin/HospitalAdminCampaignsPage";
 import MyDonatedCampaignDetailPage from "./pages/donor/MyDonatedCampaignDetailPage";
+import SettingPage from "./components/Common/SettingPage";
+import DonorSettingPage from "./pages/donor/DonorSettingPage";
 
 function App() {
   const location = useLocation();
@@ -67,6 +70,8 @@ function App() {
           path="mydonatedcampaign/:id"
           element={<MyDonatedCampaignDetailPage />}
         />
+        <Route path="/unauthorized" element={<UnAuthorizedPage />} />
+        <Route path="setting" element={<DonorSettingPage />} />
       </Route>
 
       {/* patient route */}
