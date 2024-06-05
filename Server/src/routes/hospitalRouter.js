@@ -15,4 +15,8 @@ router.get('/gethospitalnavdata', fetchController.getHospitalNavData);
 router.get('/getcampaigndetail/:campaignId', campaignController.getCampaignDetailForDonor);
 router.get('/getpatientdataforhospital/:id', fetchController.getPatientDataForAdmin);
 
+router.put('/updatepassword', putController.updateHospitalPassword);
+router.put('/updatepersonaldetails', putController.updateHospitalPersonalDetails);
+router.put('/updateimage', putController.updateHospitalImage);
+
 module.exports = router;

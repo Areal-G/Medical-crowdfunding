@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
 import { useState, useRef, useEffect } from "react";
 import useFileUploader from "../../components/Common/useFileUploader";
@@ -8,13 +9,11 @@ import {
   validatePassword,
   validatePhoneNumber,
 } from "../../components/Common/Validation";
+
 import Loading from "../../components/Common/Loading";
-
-import { useTranslation } from "react-i18next";
-
-const DonorSettingPage = () => {
+const PatientSettingPage = () => {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -28,28 +27,25 @@ const DonorSettingPage = () => {
   const inputRef = useRef();
 
   const [detailsData, setDetailsData] = useState({
-    fullname: "",
-    phoneNumber: "",
+    patientName: "",
     email: "",
-    country: "",
     city: "",
+    phoneNumber: "",
   });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await API.get("/donor/getdonornavdata");
-        setData(response.data.donor);
+        const response = await API.get("/patient/getpatientnavdata");
+        setData(response.data.patient);
 
-        const { fullname, phoneNumber, email, country, city } =
-          response.data.donor;
+        const { patientName, email, city, phoneNumber } = response.data.patient;
 
         setDetailsData({
-          fullname,
-          phoneNumber,
+          patientName,
           email,
-          country,
           city,
+          phoneNumber,
         });
       } catch (error) {
         console.error("Error fetching data", error);
@@ -85,11 +81,11 @@ const DonorSettingPage = () => {
         image: uploadedImages,
       };
 
-      const response = await API.put("/donor/updateimage", updatedImageData);
+      const response = await API.put("/patient/updateimage", updatedImageData);
       console.log(response.data);
       toast.success("Image uploaded successfully!");
       navigate("/");
-      navigate("/setting", { replace: true });
+      navigate("/patient/setting", { replace: true });
     } catch (error) {
       console.error("Error uploading image:", error);
     } finally {
@@ -142,7 +138,7 @@ const DonorSettingPage = () => {
 
     try {
       // eslint-disable-next-line no-unused-vars
-      const response = await API.put("/donor/updatepassword", passwordData);
+      const response = await API.put("/patient/updatepassword", passwordData);
       toast.success("Password updated successfully");
       console.log(response.data);
     } catch (error) {
@@ -179,7 +175,7 @@ const DonorSettingPage = () => {
     try {
       // eslint-disable-next-line no-unused-vars
       const response = await API.put(
-        "/donor/updatepersonaldetails",
+        "/patient/updatepersonaldetails",
         detailsData,
       );
       toast.success("Details updated successfully!");
@@ -199,129 +195,97 @@ const DonorSettingPage = () => {
         <div className="justify-evenly bg-white  dark:bg-gray-900 lg:flex">
           <div className="left">
             <div className="mx-auto my-auto mt-7 flex w-full items-center rounded-xl border p-8 shadow-md  lg:px-12">
-              <form
-                onSubmit={handleDetailsSubmit}
-                className="mt-8 flex w-full flex-col justify-center "
-              >
-                <h2 className="mb-8 block text-center text-lg font-semibold text-black">
-                  {t("personaldetails")}
+              <form onSubmit={handleDetailsSubmit}>
+                <h2 className="mb-8 text-center text-lg font-semibold text-black">
+                  Personal Details
                 </h2>
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div>
-                    <label
-                      htmlFor="fullname"
-                      className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
-                    >
-                      {t("fullname")}
+                    <label className="mb-2 block text-sm text-gray-600 dark:text-gray-200">
+                      Patient Name
                     </label>
                     <input
                       type="text"
-                      id="fullname"
-                      name="fullname"
-                      value={detailsData.fullname}
+                      name="patientName"
+                      placeholder="John snow"
+                      value={detailsData.patientName}
                       onChange={handleDetailsChange}
-                      placeholder="John Snow"
                       className="block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                     />
                   </div>
+
                   <div>
-                    <label
-                      htmlFor="phoneNumber"
-                      className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
-                    >
-                      {t("phonenum")}
-                    </label>
-                    <input
-                      type="text"
-                      name="phoneNumber"
-                      id="phoneNumber"
-                      value={detailsData.phoneNumber}
-                      onChange={handleDetailsChange}
-                      placeholder="XXX-XX-XXXX-XXX"
-                      className="block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
-                    >
-                      {t("emailaddress")}
+                    <label className="mb-2 block text-sm text-gray-600 dark:text-gray-200">
+                      Email address
                     </label>
                     <input
                       type="email"
                       name="email"
-                      id="email"
+                      placeholder="johnsnow@example.com"
                       value={detailsData.email}
                       onChange={handleDetailsChange}
-                      placeholder="johnsnow@example.com"
                       className="block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                     />
                   </div>
+
                   <div>
-                    <label
-                      htmlFor="country"
-                      className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
-                    >
-                      {t("country")}
-                    </label>
-                    <input
-                      type="text"
-                      name="country"
-                      id="country"
-                      value={detailsData.country}
-                      onChange={handleDetailsChange}
-                      placeholder="Country"
-                      className="block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="city"
-                      className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
-                    >
-                      {t("city")}
+                    <label className="mb-2 block text-sm text-gray-600 dark:text-gray-200">
+                      City
                     </label>
                     <input
                       type="text"
                       name="city"
-                      id="city"
+                      placeholder="Hawassa"
                       value={detailsData.city}
                       onChange={handleDetailsChange}
-                      placeholder="City"
+                      className="block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="mb-2 block text-sm text-gray-600 dark:text-gray-200">
+                      Phone Number
+                    </label>
+                    <input
+                      type="text"
+                      name="phoneNumber"
+                      placeholder="+251911234567"
+                      value={detailsData.phoneNumber}
+                      onChange={handleDetailsChange}
                       className="block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
                     />
                   </div>
                 </div>
-
-                <button
-                  type="submit"
-                  className="mx-auto mt-6 w-[50%] transform rounded-lg bg-primary-600 px-6 py-3 text-sm font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-blue-700"
-                  disabled={isLoadingDetails}
-                >
-                  {isLoadingDetails ? (
-                    <div className="flex items-center justify-center ">
-                      <svg
-                        aria-hidden="true"
-                        className="h-8 w-8 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
-                        viewBox="0 0 100 101"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                          fill="currentFill"
-                        />
-                      </svg>
-                    </div>
-                  ) : (
-                    t("updatebtn")
-                  )}
-                </button>
+                <div className="mt-6">
+                  <button
+                    type="submit"
+                    className="mx-auto mt-6 w-[50%] transform rounded-lg bg-primary-600 px-6 py-3 text-sm font-medium capitalize tracking-wide text-white transition-colors duration-300 hover:bg-blue-700"
+                    disabled={isLoadingDetails}
+                  >
+                    {isLoadingDetails ? (
+                      <div className="flex items-center justify-center ">
+                        <svg
+                          aria-hidden="true"
+                          className="h-8 w-8 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
+                          viewBox="0 0 100 101"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                            fill="currentColor"
+                          />
+                          <path
+                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                            fill="currentFill"
+                          />
+                        </svg>
+                      </div>
+                    ) : (
+                      "Update"
+                    )}
+                  </button>
+                </div>
               </form>
             </div>
           </div>
@@ -342,7 +306,7 @@ const DonorSettingPage = () => {
                 className="mb-2 block text-center text-lg font-semibold text-black"
                 htmlFor="photo"
               >
-                {t("profilephoto")}
+                Profile Photo
               </label>
 
               <div className="text-center">
@@ -372,7 +336,7 @@ const DonorSettingPage = () => {
                   className="focus:shadow-outline-blue mt-5 inline-flex items-center rounded-md border border-gray-300 bg-white px-2 py-2 text-xs font-semibold uppercase tracking-widest text-gray-700 shadow-sm transition duration-150 ease-in-out hover:text-gray-500 focus:border-blue-400 focus:outline-none active:bg-gray-50 active:text-gray-800"
                   onClick={handleButtonClick}
                 >
-                  {t("selectnewphoto")}
+                  Select New Photo
                 </button>
 
                 <button
@@ -401,14 +365,14 @@ const DonorSettingPage = () => {
                       </svg>
                     </div>
                   ) : (
-                    t("updatebtn")
+                    "Upload"
                   )}
                 </button>
               </div>
             </div>
             <div className="mt-7 rounded-xl border p-8 shadow-md">
               <h2 className="mb-2 block text-center text-lg font-semibold text-black">
-                {t("changepassword")}
+                Change password
               </h2>
               <form onSubmit={handlePasswordSubmit}>
                 <div className="mt-2 flex">
@@ -417,7 +381,7 @@ const DonorSettingPage = () => {
                       htmlFor="oldPassword"
                       className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
                     >
-                      {t("oldpassword")}
+                      Old Password
                     </label>
                     <input
                       name="oldPassword"
@@ -484,7 +448,7 @@ const DonorSettingPage = () => {
                       htmlFor="password"
                       className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
                     >
-                      {t("newpassword")}
+                      New Password
                     </label>
                     <input
                       name="password"
@@ -551,7 +515,7 @@ const DonorSettingPage = () => {
                       htmlFor="confirmPassword"
                       className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
                     >
-                      {t("confirmpasswod")}
+                      Confirm Password
                     </label>
                     <input
                       name="confirmPassword"
@@ -639,7 +603,7 @@ const DonorSettingPage = () => {
                       ></path>
                     </svg>
                   ) : (
-                    t("changepassword")
+                    "Change Password"
                   )}
                 </button>
               </form>
@@ -650,4 +614,4 @@ const DonorSettingPage = () => {
     );
 };
 
-export default DonorSettingPage;
+export default PatientSettingPage;

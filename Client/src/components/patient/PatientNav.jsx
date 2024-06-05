@@ -1,6 +1,6 @@
 import logo from "../../assets/img/donor/logo.svg";
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { CiMedicalCross } from "react-icons/ci";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import { MdPostAdd } from "react-icons/md";
@@ -150,14 +150,14 @@ const PatientNav = () => {
                     Campaigns
                   </a>
                 </li> */}
-                {/* <li>
-                  <a
-                    href="#"
+                <li>
+                  <Link
+                    to={"/patient/setting"}
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                   >
                     profile
-                  </a>
-                </li> */}
+                  </Link>
+                </li>
 
                 <li>
                   <button
@@ -224,7 +224,7 @@ const PatientNav = () => {
                 <span className="ml-3">Dasboard</span>
               </NavLink>
             </li>
-            {Data.isCampaign ? (
+            {Data?.isCampaign ? (
               <li>
                 <NavLink
                   to={"mycampaign"}
@@ -257,7 +257,7 @@ const PatientNav = () => {
                 </NavLink>
               </li>
             )}
-            {!Data.isUpdate && (
+            {!Data?.isUpdate && (
               <li>
                 <NavLink
                   to={"postupdate"}

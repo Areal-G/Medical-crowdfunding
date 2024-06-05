@@ -123,3 +123,144 @@ exports.updateDonorPersonalDetails = async (req, res, next) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 };
+
+exports.updateHospitalPassword = async (req, res, next) => {
+  const { oldPassword, password } = req.body;
+
+  if (!oldPassword || !password) {
+    return res.status(400).json({ message: 'Please provide all required fields' });
+  }
+
+  try {
+    const hospital = await Hospital.findById(req.user.id);
+    if (!hospital) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, hospital.password);
+
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Incorrect old password' });
+    }
+    console.log('ddd');
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    hospital.password = hashedPassword;
+    await hospital.save();
+    console.log('eee');
+    res.json({ message: 'Password updated successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+exports.updateHospitalImage = async (req, res, next) => {
+  try {
+    const hospital = await Hospital.findById(req.user.id);
+    if (!hospital) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    hospital.image = req.body.image;
+    await hospital.save();
+
+    res.json({ message: 'image updated successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+exports.updateHospitalPersonalDetails = async (req, res, next) => {
+  const { hospitalName, phoneNumber, email, state, address, city, bankAccount } = req.body;
+  try {
+    const hospital = await Hospital.findById(req.user.id);
+    if (!hospital) {
+      return res.status(404).json({ message: 'Hospital not found' });
+    }
+
+    hospital.hospitalName = hospitalName;
+    hospital.phoneNumber = phoneNumber;
+    hospital.email = email;
+    hospital.state = state;
+    hospital.address = address;
+    hospital.city = city;
+    hospital.bankAccount.accountHolderName = bankAccount.accountHolderName;
+    hospital.bankAccount.accountNumber = bankAccount.accountNumber;
+    hospital.bankAccount.bankName = bankAccount.bankName;
+
+    await hospital.save();
+
+    res.json({ message: ' updated successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+exports.updatePatientPassword = async (req, res, next) => {
+  const { oldPassword, password } = req.body;
+
+  if (!oldPassword || !password) {
+    return res.status(400).json({ message: 'Please provide all required fields' });
+  }
+
+  try {
+    const patient = await Patient.findById(req.user.id);
+    if (!patient) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, patient.password);
+
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Incorrect old password' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    patient.password = hashedPassword;
+    await patient.save();
+
+    res.json({ message: 'Password updated successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+exports.updatePatientImage = async (req, res, next) => {
+  try {
+    const patient = await Patient.findById(req.user.id);
+    if (!patient) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    patient.image = req.body.image;
+    await patient.save();
+
+    res.json({ message: 'image updated successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+exports.updatePatientPersonalDetails = async (req, res, next) => {
+  const { patientName, email, city, phoneNumber } = req.body;
+  try {
+    const patient = await Patient.findById(req.user.id);
+    if (!patient) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    console.log(req.body);
+    patient.patientName = patientName;
+    patient.email = email;
+    patient.city = city;
+    patient.phoneNumber = phoneNumber;
+
+    await patient.save();
+
+    res.json({ message: ' updated successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};

@@ -74,8 +74,8 @@ exports.getCampaignsTableInHospital = async (req, res, next) => {
 
 exports.getDonorNavData = async (req, res, next) => {
   try {
-    const donor = await Donor.findOne({ _id: req.user._id });
-    const transactions = await Transaction.find({ campaignId: req.user._id });
+    const donor = await Donor.findOne({ _id: req.user.id });
+    const transactions = await Transaction.find({ donorId: req.user.id });
     let raisedMoney = calculateRaisedMoney(transactions);
     res.status(200).json({ donor, raisedMoney });
   } catch (error) {

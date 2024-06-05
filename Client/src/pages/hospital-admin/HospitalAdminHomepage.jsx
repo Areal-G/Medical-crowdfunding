@@ -26,18 +26,24 @@ const HospitalAdminHomePage = () => {
     return (
       <main>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-3">
-          <CardDataStats title="Total Collected" total={Data?.totalMoney}>
+          <CardDataStats
+            title="Total Collected"
+            total={Data?.totalMoney.toLocaleString()}
+            birr
+          >
             <GiTakeMyMoney className=" fill-primary-500" />
           </CardDataStats>
           <CardDataStats
             title="Total Collected Today"
-            total={Data?.todayTotalMoney}
+            total={Data?.todayTotalMoney.toLocaleString()}
+            birr
           >
             <GiTakeMyMoney className=" fill-primary-500" />
           </CardDataStats>
           <CardDataStats
             title="Donors Donated today"
-            total={Data?.donationsToday}
+            total={Data?.donationsToday.toLocaleString()}
+            birr
           >
             <IoPeople className=" fill-primary-500" />
           </CardDataStats>
