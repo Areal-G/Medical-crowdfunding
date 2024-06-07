@@ -7,6 +7,8 @@ const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY;
 const CHAPA_SECRET_KEY = process.env.CHAPA_SECRET_KEY;
 const LOCAL_DOMAIN = process.env.LOCAL_DOMAIN;
 const NETWORK_DOMAIN = process.env.NETWORK_DOMAIN;
+const EMAIL_USER = process.env.EMAIL_USER;
+const EMAIL_PASS = process.env.EMAIL_PASS;
 
 module.exports = {
   PORT,
@@ -16,4 +18,6 @@ module.exports = {
   LOCAL_DOMAIN,
   NETWORK_DOMAIN,
   STRIPE_SECRET_KEY,
+  EMAIL_USER,
+  EMAIL_PASS,
 };

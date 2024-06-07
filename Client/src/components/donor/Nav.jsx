@@ -159,10 +159,10 @@ const Nav = () => {
             <DonationStars raisedMoney={Data?.raisedMoney} />
             <div className="px-4 py-3 ">
               <span className="block text-sm text-gray-900 dark:text-white">
-                {Data?.donor.fullname}
+                {Data?.donor?.fullname}
               </span>
               <span className="block truncate  text-sm text-gray-500 dark:text-gray-400">
-                {Data?.donor.email}
+                {Data?.donor?.email}
               </span>
             </div>
             <ul className="py-2">

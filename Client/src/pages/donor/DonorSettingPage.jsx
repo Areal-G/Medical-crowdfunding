@@ -491,9 +491,9 @@ const DonorSettingPage = () => {
                       type={showPassword ? "text" : "password"}
                       value={passwordData.password}
                       onChange={handlePasswordChange}
-                      id="password"
+                      id="hs-strong-password-with-indicator-and-hint-in-popover"
                       className="block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                      placeholder="Enter new password"
+                      placeholder="Enter password"
                     />
                     <button
                       type="button"
@@ -542,6 +542,223 @@ const DonorSettingPage = () => {
                         ></circle>
                       </svg>
                     </button>
+                    <div
+                      id="hs-strong-password-popover"
+                      className="absolute z-10 hidden w-full rounded-lg bg-white p-4 shadow-md dark:divide-neutral-700 dark:border dark:border-neutral-700 dark:bg-neutral-800"
+                    >
+                      <div
+                        id="hs-strong-password-in-popover"
+                        data-hs-strong-password='{
+                "target": "#hs-strong-password-with-indicator-and-hint-in-popover",
+                "hints": "#hs-strong-password-popover",
+                "stripClasses": "hs-strong-password:opacity-100 hs-strong-password-accepted:bg-blue-500 h-2 flex-auto rounded-full bg-blue-500 opacity-50 mx-1",
+                "mode": "popover"
+              }'
+                        className="-mx-1 mt-2 flex"
+                      ></div>
+
+                      <h4 className="mt-3 text-sm font-semibold text-gray-800 dark:text-white">
+                        Your password must contain:
+                      </h4>
+
+                      <ul className="space-y-1 text-sm text-gray-500 dark:text-neutral-500">
+                        <li
+                          data-hs-strong-password-hints-rule-text="min-length"
+                          className="flex items-center gap-x-2 hs-strong-password-active:text-blue-500"
+                        >
+                          <span className="hidden" data-check="">
+                            <svg
+                              className="size-4 flex-shrink-0"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                          </span>
+                          <span data-uncheck="">
+                            <svg
+                              className="size-4 flex-shrink-0"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="M18 6 6 18"></path>
+                              <path d="m6 6 12 12"></path>
+                            </svg>
+                          </span>
+                          Minimum number of characters is 6.
+                        </li>
+                        <li
+                          data-hs-strong-password-hints-rule-text="lowercase"
+                          className="flex items-center gap-x-2 hs-strong-password-active:text-blue-500"
+                        >
+                          <span className="hidden" data-check="">
+                            <svg
+                              className="size-4 flex-shrink-0"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                          </span>
+                          <span data-uncheck="">
+                            <svg
+                              className="size-4 flex-shrink-0"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="M18 6 6 18"></path>
+                              <path d="m6 6 12 12"></path>
+                            </svg>
+                          </span>
+                          Should contain lowercase.
+                        </li>
+                        <li
+                          data-hs-strong-password-hints-rule-text="uppercase"
+                          className="flex items-center gap-x-2 hs-strong-password-active:text-blue-500"
+                        >
+                          <span className="hidden" data-check="">
+                            <svg
+                              className="size-4 flex-shrink-0"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                          </span>
+                          <span data-uncheck="">
+                            <svg
+                              className="size-4 flex-shrink-0"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="M18 6 6 18"></path>
+                              <path d="m6 6 12 12"></path>
+                            </svg>
+                          </span>
+                          Should contain uppercase.
+                        </li>
+                        <li
+                          data-hs-strong-password-hints-rule-text="numbers"
+                          className="flex items-center gap-x-2 hs-strong-password-active:text-blue-500"
+                        >
+                          <span className="hidden" data-check="">
+                            <svg
+                              className="size-4 flex-shrink-0"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                          </span>
+                          <span data-uncheck="">
+                            <svg
+                              className="size-4 flex-shrink-0"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="M18 6 6 18"></path>
+                              <path d="m6 6 12 12"></path>
+                            </svg>
+                          </span>
+                          Should contain numbers.
+                        </li>
+                        <li
+                          data-hs-strong-password-hints-rule-text="special-characters"
+                          className="flex items-center gap-x-2 hs-strong-password-active:text-blue-500"
+                        >
+                          <span className="hidden" data-check="">
+                            <svg
+                              className="size-4 flex-shrink-0"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                          </span>
+                          <span data-uncheck="">
+                            <svg
+                              className="size-4 flex-shrink-0"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <path d="M18 6 6 18"></path>
+                              <path d="m6 6 12 12"></path>
+                            </svg>
+                          </span>
+                          Should contain special characters.
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
 
@@ -551,7 +768,7 @@ const DonorSettingPage = () => {
                       htmlFor="confirmPassword"
                       className="mb-2 block text-sm text-gray-600 dark:text-gray-200"
                     >
-                      {t("confirmpasswod")}
+                      {t("confirmpassword")}
                     </label>
                     <input
                       name="confirmPassword"
