@@ -6,7 +6,7 @@ const CampaignCard = (props) => {
   const { t } = useTranslation();
   return (
     <Link
-      className="mx-auto h-[600px] max-w-96 rounded-lg bg-white "
+      className="mx-auto max-w-96 rounded-lg bg-white md:h-[600px] "
       to={`/campaigndetail/${props.id}`}
     >
       <div className="max-w-sm rounded-lg border shadow-primary-700 hover:shadow-2xl dark:bg-gray-800">
@@ -30,7 +30,7 @@ const CampaignCard = (props) => {
           </div>
         </div>
 
-        <div className="h-[250px] rounded-xl p-4">
+        <div className="rounded-xl p-4 md:h-[250px]">
           <h5 className="mb-2 text-xl font-semibold uppercase tracking-tight text-primary-600 dark:text-white">
             {props.title.length > 100
               ? `${props.title.slice(0, 100)}...`

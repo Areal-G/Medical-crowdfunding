@@ -60,6 +60,7 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/unauthorized" element={<UnAuthorizedPage />} />
       {/* home/donor route */}
       <Route path="/" element={<DonorRootLayout />}>
         <Route index element={<HomePage />} />
@@ -72,7 +73,7 @@ function App() {
           path="mydonatedcampaign/:id"
           element={<MyDonatedCampaignDetailPage />}
         />
-        <Route path="/unauthorized" element={<UnAuthorizedPage />} />
+
         <Route path="setting" element={<DonorSettingPage />} />
       </Route>
 

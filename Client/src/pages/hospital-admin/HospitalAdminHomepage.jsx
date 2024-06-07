@@ -42,8 +42,8 @@ const HospitalAdminHomePage = () => {
           </CardDataStats>
           <CardDataStats
             title="Donors Donated today"
-            total={Data?.donationsToday.toLocaleString()}
-            birr
+            total={Data?.donationsToday}
+            
           >
             <IoPeople className=" fill-primary-500" />
           </CardDataStats>

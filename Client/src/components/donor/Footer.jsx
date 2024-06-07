@@ -1,9 +1,10 @@
 import logo from "../../assets/img/donor/logo-black.svg";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 const Footer = () => {
   const { t } = useTranslation();
   return (
-    <footer className=" m-4 rounded-lg bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)]  dark:bg-gray-900">
+    <footer className=" rounded-lg bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)]  dark:bg-gray-900">
       <div className="mx-auto w-full max-w-screen-xl p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <a
@@ -14,19 +15,19 @@ const Footer = () => {
           </a>
           <ul className="mb-6 flex flex-wrap items-center text-sm font-medium text-gray-500 dark:text-gray-400 sm:mb-0">
             <li>
-              <a href="#" className="me-4 hover:underline md:me-6">
+              <Link to="/#about" className="me-4 hover:underline md:me-6">
                 {t("about")}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="me-4 hover:underline md:me-6">
+              <Link to="/#campaigns" className="me-4 hover:underline md:me-6">
                 {t("campaigns")}
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <Link to="/#contact" className="hover:underline">
                 {t("contactus")}
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
