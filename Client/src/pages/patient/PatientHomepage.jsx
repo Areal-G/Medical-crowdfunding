@@ -4,14 +4,18 @@ import { useEffect, useState } from "react";
 import API from "../../components/Common/api";
 import Loading from "../../components/Common/Loading";
 import LineChart from "../../components/Common/LineChart";
-
+import { useNavigate } from "react-router-dom";
 const PatientHomePage = () => {
+  const navigate = useNavigate();
   const [Data, setData] = useState(null);
   useEffect(() => {
     const fetchCampaignData = async () => {
       try {
         const response = await API.get(`/patient/getpatientdashboard`);
         setData(response.data);
+        if (response.data.isAccountNew) {
+          navigate("/patient/signup");
+        }
         console.log(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -19,7 +23,7 @@ const PatientHomePage = () => {
     };
 
     fetchCampaignData();
-  }, []);
+  }, [navigate]);
 
   if (Data === null) {
     return <Loading />;

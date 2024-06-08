@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const PatientSchema = new mongoose.Schema({
+  patientId: {
+    type: String,
+  },
   patientName: {
     type: String,
   },
@@ -12,15 +15,12 @@ const PatientSchema = new mongoose.Schema({
   },
   city: {
     type: String,
-    required: true,
   },
   phoneNumber: {
     type: String,
-    required: true,
   },
   image: {
     type: [String],
-    required: true,
   },
   password: {
     type: String,
@@ -36,6 +36,10 @@ const PatientSchema = new mongoose.Schema({
     type: String,
     default: 'active',
     enum: ['active', 'blocked'],
+  },
+  isAccountNew: {
+    type: Boolean,
+    default: true,
   },
 
   createdAt: {

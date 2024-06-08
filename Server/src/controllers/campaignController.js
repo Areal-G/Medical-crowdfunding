@@ -121,6 +121,9 @@ exports.getPatientDashboard = async (req, res, next) => {
     const donationsToday = await getTodayTransactionsCount(req.user.campaign);
     let raisedMoneyToday = calculateRaisedMoney(donationsToday);
 
+    const patient = await Patient.findOne({ _id: req.user._id });
+    const isAccountNew = patient.isAccountNew;
+
     res.status(200).json({
       campaign,
       transactions,
@@ -130,6 +133,7 @@ exports.getPatientDashboard = async (req, res, next) => {
       donations,
       raisedMoneyToday,
       isCampaign,
+      isAccountNew,
     });
   } catch (error) {
     console.error('Error:', error);
@@ -188,6 +192,7 @@ exports.getHospitalDashboard = async (req, res, next) => {
   try {
     const transactions = await Transaction.find({ hospitalId: req.user._id });
     const hospital = await Hospital.findOne({ _id: req.user._id }).populate('patients');
+    const isAccountNew = hospital.isAccountNew;
     const patients = hospital.patients;
     const numberOfPatients = patients.length;
     const patientData = getWeeklyData(patients);
@@ -215,6 +220,7 @@ exports.getHospitalDashboard = async (req, res, next) => {
       numberOfPatients,
       patientData,
       donorData,
+      isAccountNew,
     });
   } catch (error) {
     console.error('Error:', error);

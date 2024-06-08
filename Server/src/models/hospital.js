@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const HospitalSchema = new mongoose.Schema({
   hospitalName: {
     type: String,
-    required: true,
   },
   email: {
     type: String,
@@ -13,23 +12,18 @@ const HospitalSchema = new mongoose.Schema({
   },
   image: {
     type: [String],
-    required: true,
   },
   state: {
     type: String,
-    required: true,
   },
   address: {
     type: String,
-    required: true,
   },
   city: {
     type: String,
-    required: true,
   },
   phoneNumber: {
     type: String,
-    required: true,
   },
   password: {
     type: String,
@@ -54,18 +48,18 @@ const HospitalSchema = new mongoose.Schema({
   bankAccount: {
     accountHolderName: {
       type: String,
-      required: [true, 'Account holder name is required'],
     },
     accountNumber: {
       type: String,
-      required: [true, 'Account number is required'],
     },
     bankName: {
       type: String,
-      required: [true, 'Bank name is required'],
     },
   },
-
+  isAccountNew: {
+    type: Boolean,
+    default: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

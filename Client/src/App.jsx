@@ -44,10 +44,12 @@ import HospitalAdminApproveCampaignsPage from "./pages/hospital-admin/HospitalAd
 import CampaignDetailsAdminPage from "./components/Common/CampaignDetailsAdminPage";
 import HospitalAdminCampaignsPage from "./pages/hospital-admin/HospitalAdminCampaignsPage";
 import MyDonatedCampaignDetailPage from "./pages/donor/MyDonatedCampaignDetailPage";
-import SettingPage from "./components/Common/SettingPage";
+
 import DonorSettingPage from "./pages/donor/DonorSettingPage";
 import HospitalAdminSettingPage from "./pages/hospital-admin/HospitalAdminSettingPage";
 import PatientSettingPage from "./pages/patient/PatientSettingPage";
+import HospitalAdminCreateAccountPage from "./pages/hospital-admin/HospitalAdminCreateAccountPage";
+import PatientCreateAccountPage from "./pages/patient/PatientCreateAccountPage";
 
 function App() {
   const location = useLocation();
@@ -89,6 +91,7 @@ function App() {
         <Route path="createcampaign" element={<PatientCreateCampaignPage />} />
         <Route path="postupdate" element={<PatientPostUpdatePage />} />
         <Route path="setting" element={<PatientSettingPage />} />
+        <Route path="signup" element={<PatientCreateAccountPage />} />
       </Route>
 
       {/* hospital admin route */}
@@ -114,6 +117,7 @@ function App() {
           element={<CampaignDetailsAdminPage />}
         />
         <Route path="setting" element={<HospitalAdminSettingPage />} />
+        <Route path="signup" element={<HospitalAdminCreateAccountPage />} />
       </Route>
 
       {/* system admin route */}

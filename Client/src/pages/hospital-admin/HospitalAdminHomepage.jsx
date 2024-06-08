@@ -5,13 +5,19 @@ import { useEffect, useState } from "react";
 import API from "../../components/Common/api";
 import Loading from "../../components/Common/Loading";
 import LineChart from "../../components/Common/LineChart";
+import { useNavigate } from "react-router-dom";
 const HospitalAdminHomePage = () => {
+  const navigate = useNavigate();
   const [Data, setData] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await API.get(`/hospital/gethospitaldashboard`);
         setData(response.data);
+
+        if (response.data.isAccountNew) {
+          navigate("/hospital/signup");
+        }
         console.log(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -19,7 +25,8 @@ const HospitalAdminHomePage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [navigate]);
+
   if (Data === null) {
     return <Loading />;
   } else
@@ -43,7 +50,6 @@ const HospitalAdminHomePage = () => {
           <CardDataStats
             title="Donors Donated today"
             total={Data?.donationsToday}
-            
           >
             <IoPeople className=" fill-primary-500" />
           </CardDataStats>

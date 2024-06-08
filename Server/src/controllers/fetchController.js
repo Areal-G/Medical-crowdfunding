@@ -167,3 +167,25 @@ exports.myDonations = async (req, res, next) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+exports.getIsHospitalAccountNew = async (req, res, next) => {
+  try {
+    const hospital = await Hospital.findOne({ _id: req.user._id });
+    const isAccountNew = hospital.isAccountNew;
+    res.status(200).json(isAccountNew);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.getIsPatientAccountNew = async (req, res, next) => {
+  try {
+    const patient = await Patient.findOne({ _id: req.user._id });
+    const isAccountNew = patient.isAccountNew;
+    res.status(200).json(isAccountNew);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
