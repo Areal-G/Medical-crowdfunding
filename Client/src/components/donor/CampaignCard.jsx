@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 const CampaignCard = (props) => {
   const { t } = useTranslation();
+  const cappedProgress = Math.min(props.progress, 100);
   return (
     <Link
       className="mx-auto max-w-96 rounded-lg bg-white md:h-[600px] "
@@ -55,7 +56,7 @@ const CampaignCard = (props) => {
             <div className="my-2 h-1 rounded-full bg-gray-200 dark:bg-gray-700">
               <div
                 className="h-1 rounded-full bg-primary-600"
-                style={{ width: `${props.progress}%` }}
+                style={{ width: `${cappedProgress}%` }}
               ></div>
             </div>
           </div>

@@ -15,6 +15,7 @@ const DonationProgress = (props) => {
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [paymentSystem, setPaymentSystem] = useState("local");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const cappedProgress = Math.min(props.donationpercent, 100);
 
   useEffect(() => {
     const checkLoginStatus = async () => {
@@ -77,7 +78,7 @@ const DonationProgress = (props) => {
         <div className="my-2 h-1 rounded-full bg-gray-200 dark:bg-gray-700">
           <div
             className="h-1 rounded-full bg-primary-600"
-            style={{ width: `${props.donationpercent}%` }}
+            style={{ width: `${cappedProgress}%` }}
           ></div>
         </div>
         <div className="flex justify-between">
