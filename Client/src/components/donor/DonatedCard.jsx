@@ -3,7 +3,7 @@
 import avatar from "../../assets/img/donor/avatar.jpg";
 const DonatedCard = (props) => {
   const avatarImage = props.image || avatar;
-  const name = props.name || "John Doe";
+  const name = props.name || "Anonymous";
   return (
     <div className="mb-2 rounded-lg border text-sm leading-6 shadow-lg hover:shadow-primary-400">
       <figure className="dark:highlight-white/5 relative flex flex-col-reverse rounded-lg bg-white p-4 dark:bg-slate-800">
@@ -23,7 +23,7 @@ const DonatedCard = (props) => {
               {name}
             </div>
             <div className="mt-0.5 text-base font-semibold uppercase dark:text-slate-300">
-              {props.amount} {props.currency}
+              {props.amount.toLocaleString()} {props.currency}
             </div>
           </div>
         </figcaption>

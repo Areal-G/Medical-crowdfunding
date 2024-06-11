@@ -43,7 +43,7 @@ const SystemAdminHomePage = () => {
             <GiTakeMyMoney className=" fill-primary-500" />
           </CardDataStats>
           <CardDataStats
-            title="Donors Donated today"
+            title="Donations today"
             total={Data?.numberOfDonationsToday}
           >
             <IoPeople className=" fill-primary-500" />

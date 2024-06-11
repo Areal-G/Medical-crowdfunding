@@ -14,7 +14,7 @@ const HospitalProfile = (props) => {
           {props.name}
         </div>
         <p className="text-gray-600">
-          {props.address} <br /> {props.city},{props.state}
+          {props.address} <br /> {props.city} , {props.state}
         </p>
       </div>
     </div>

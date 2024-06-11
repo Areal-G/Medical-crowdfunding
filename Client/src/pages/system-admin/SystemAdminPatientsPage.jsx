@@ -73,7 +73,7 @@ const SystemAdminPatientsPage = () => {
               <div className="pointer-events-auto flex flex-col rounded-xl border bg-white shadow-sm dark:border-neutral-700 dark:bg-neutral-800 dark:shadow-neutral-700/70">
                 <div className="flex items-center justify-between border-b px-4 py-3 dark:border-neutral-700">
                   <h3 className="font-bold text-gray-800 dark:text-white">
-                    Donor
+                    Patient
                   </h3>
                   <button
                     onClick={handleModalToggle}
@@ -115,6 +115,10 @@ const SystemAdminPatientsPage = () => {
                     </p>
                     <div className=" h-[1px] w-full bg-slate-300"></div>
                     <div className="">
+                      <p className="mt-4 ">
+                        <span className=" font-semibold">Id : </span>{" "}
+                        {individualPatient?.patient.patientId}
+                      </p>
                       <p className="mt-4 ">
                         <span className=" font-semibold">Phone : </span>{" "}
                         {individualPatient?.patient.phoneNumber}

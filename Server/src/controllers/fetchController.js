@@ -99,7 +99,7 @@ exports.getPatientNavData = async (req, res, next) => {
     const patient = await Patient.findOne({ _id: req.user._id });
     const isCampaign = patient ? patient.campaign !== undefined : false;
     const campaign = await Campaign.findById(patient.campaign);
-    isUpdate = campaign ? campaign.isUpdate : false;
+    isUpdate = campaign.status === 'closed' ? true : false;
 
     res.status(200).json({ patient, isCampaign, isUpdate });
   } catch (error) {

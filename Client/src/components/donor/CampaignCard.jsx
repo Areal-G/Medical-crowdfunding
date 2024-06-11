@@ -7,7 +7,7 @@ const CampaignCard = (props) => {
   const cappedProgress = Math.min(props.progress, 100);
   return (
     <Link
-      className="mx-auto max-w-96 rounded-lg bg-white md:h-[600px] "
+      className="mx-auto max-w-96 rounded-lg bg-white md:h-[630px] "
       to={`/campaigndetail/${props.id}`}
     >
       <div className="max-w-sm rounded-lg border shadow-primary-700 hover:shadow-2xl dark:bg-gray-800">
@@ -31,7 +31,7 @@ const CampaignCard = (props) => {
           </div>
         </div>
 
-        <div className="rounded-xl p-4 md:h-[250px]">
+        <div className="rounded-xl p-4 md:h-[270px]">
           <h5 className="mb-2 text-xl font-semibold uppercase tracking-tight text-primary-600 dark:text-white">
             {props.title.length > 100
               ? `${props.title.slice(0, 100)}...`

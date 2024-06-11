@@ -32,6 +32,7 @@ const sendEmail = async (email, password) => {
 
 exports.donorRegister = async (req, res, next) => {
   try {
+    const { password, ...donorData } = req.body;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const donor = new Donor({ password: hashedPassword, ...donorData });
     await donor.save();

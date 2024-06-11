@@ -53,7 +53,7 @@ const Donations = () => {
                     <p className="mt-5  dark:text-neutral-400">
                       {t("amount")} :
                       <span className="font-semibold uppercase">
-                        {transaction.amount}{" "}
+                        {transaction.amount.toLocaleString()}{" "}
                         {transaction.currency === "usd"
                           ? t("dollar")
                           : t("birr")}{" "}

@@ -47,10 +47,7 @@ const HospitalAdminHomePage = () => {
           >
             <GiTakeMyMoney className=" fill-primary-500" />
           </CardDataStats>
-          <CardDataStats
-            title="Donors Donated today"
-            total={Data?.donationsToday}
-          >
+          <CardDataStats title="Donations today" total={Data?.donationsToday}>
             <IoPeople className=" fill-primary-500" />
           </CardDataStats>
 
